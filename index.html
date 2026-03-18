@@ -9,98 +9,112 @@
         :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --g: #f1c40f; --w: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; color: #333; scroll-behavior: smooth; }
         
-        nav { background: var(--p); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200'); height: 60vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 20px; }
-        
-        .container { max-width: 1200px; margin: auto; padding: 20px; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
-        
-        /* Gallery Style */
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .gallery img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+        /* Navigation */
+        nav { background: var(--p); color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .logo { font-size: 1.3rem; font-weight: bold; }
 
-        /* Form Style */
-        .form-group { margin-bottom: 15px; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        /* Hero */
+        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1000'); height: 50vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 20px; }
         
-        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; margin: 5px 0; }
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
+
+        /* Gallery */
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 15px; }
+        .gallery img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd; }
+
+        /* Admin/Table Styles */
+        .table-wrapper { overflow-x: auto; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; min-width: 850px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background: var(--s); color: white; }
+        .edit-head { background: #2980b9; color: white; border: 1px dashed #fff; text-align: center; font-weight: bold; width: 80px; padding: 5px; }
+        input[type="number"], input[type="text"], select, textarea { padding: 10px; border: 1px solid #ddd; border-radius: 5px; width: 100%; box-sizing: border-box; }
+        
+        .btn { padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; margin: 5px 0; }
         .btn-login { background: var(--g); color: var(--p); }
         .btn-save { background: #8e44ad; color: white; width: 100%; }
         .btn-pdf { background: #e67e22; color: white; }
         .btn-add { background: var(--s); color: white; width: 100%; }
 
         .hidden { display: none; }
-        @media print { .no-print { display: none !important; } }
+        .analysis-box { background: #fffde7; border-left: 6px solid var(--g); padding: 20px; margin-top: 20px; }
+
+        @media print {
+            nav, .no-print, button, .edit-head, .hero, #form-card { display: none !important; }
+            body { background: white; }
+            .card { box-shadow: none; border: none; }
+            .only-print { display: inline-block !important; font-weight: bold; }
+        }
+        .only-print { display: none; }
     </style>
 </head>
 <body>
 
 <nav class="no-print">
-    <div style="font-size:1.4rem; font-weight:bold;">ጣይቱ ብጡል አካዳሚ</div>
+    <div class="logo">ጣይቱ ብጡል አካዳሚ</div>
     <button class="btn btn-login" onclick="showLogin()">Admin Login</button>
 </nav>
 
 <div id="homePage">
     <section class="hero">
-        <h1>እንኳን ደህና መጡ</h1>
-        <p>የጥበብ እና የዕውቀት ማዕከል</p>
+        <h1>እንኳን ደህና መጡ!</h1>
+        <p>ጣይቱ ብጡል አካዳሚ - የጥበብ እና የዕውቀት ማዕከል</p>
     </section>
 
     <div class="container">
-        <div class="card">
-            <h3>የተማሪ/ወላጅ መረጃ ቅጽ</h3>
-            <form id="parentForm">
-                <div class="form-group"><input type="text" placeholder="የተማሪ ስም" required></div>
-                <div class="form-group"><input type="text" placeholder="የወላጅ ስም" required></div>
-                <div class="form-group">
-                    <label>መረጃ በምን ይላክልዎት?</label>
-                    <select>
-                        <option value="Telegram">Telegram</option>
-                        <option value="SMS">በፅሁፍ መልዕክት (SMS)</option>
-                        <option value="WhatsApp">WhatsApp</option>
-                        <option value="Call">በቀጥታ ስልክ</option>
-                    </select>
-                </div>
-                <div class="form-group"><textarea placeholder="ተጨማሪ አስተያየት ካለዎት..."></textarea></div>
-                <button type="button" class="btn btn-add" onclick="alert('መረጃው ተልኳል!')">መረጃውን ላክ</button>
-            </form>
+        <div class="card" id="form-card">
+            <h3>የተማሪ/ወላጅ መረጃ መጠየቂያ ቅጽ</h3>
+            <div style="margin-bottom:10px;"><input type="text" placeholder="የተማሪ ስም"></div>
+            <div style="margin-bottom:10px;"><input type="text" placeholder="የወላጅ ስም"></div>
+            <div style="margin-bottom:10px;">
+                <label>መረጃ በምን ይላክልዎት?</label>
+                <select id="sendVia">
+                    <option value="Telegram">Telegram</option>
+                    <option value="SMS">በፅሁፍ መልዕክት (SMS)</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                </select>
+            </div>
+            <button class="btn btn-add" onclick="alert('መረጃው ተመዝግቧል!')">መረጃውን ላክ</button>
         </div>
 
         <div class="card">
             <h3>የስራዎቻችን ጋለሪ</h3>
             <div class="gallery" id="mainGallery">
-                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=300">
+                <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=300">
                 <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300">
             </div>
         </div>
     </div>
 </div>
 
-<div id="loginOverlay" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:2000;">
-    <div class="card" style="width: 300px; text-align: center;">
-        <h3>Admin Access</h3>
-        <input type="password" id="passIn" placeholder="Password" style="margin-bottom:15px;">
-        <button class="btn btn-add" onclick="checkAuth()">ግባ</button>
-        <button class="btn" style="background:#ccc;" onclick="hideLogin()">ዝጋ</button>
+<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; z-index:2000;">
+    <div class="card" style="width: 300px; text-align: center; background: white;">
+        <h3 style="margin-top:0;">Admin Access</h3>
+        <input type="password" id="passIn" placeholder="Password" style="margin-bottom: 20px;">
+        <div style="display:flex; gap:10px;">
+            <button class="btn btn-add" style="flex:1;" onclick="checkAuth()">ግባ</button>
+            <button class="btn" style="background:#ccc; flex:1;" onclick="hideLogin()">ዝጋ</button>
+        </div>
     </div>
 </div>
 
 <div id="adminArea" class="container hidden">
-    <div class="card no-print" style="display:flex; justify-content:space-between; background:#eee;">
-        <h2>የአስተዳዳሪ ክፍል</h2>
+    <div class="card no-print" style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0;">የአስተዳዳሪ ክፍል</h2>
         <button class="btn" style="background:#e74c3c; color:white;" onclick="location.reload()">Logout</button>
     </div>
 
     <div class="card no-print">
         <h3>አዲስ ፎቶ ወደ ጋለሪ መጫኛ</h3>
-        <input type="file" id="photoUpload" accept="image/*" onchange="previewAndUpload(event)">
-        <p style="font-size: 0.8rem; color: #666;">* እዚህ ጋር የሚጭኑት ፎቶ በቀጥታ Homepage ጋለሪ ላይ ይታያል።</p>
+        <input type="file" accept="image/*" onchange="previewImg(event)">
+        <p style="font-size:0.8rem; color:grey;">* እዚህ የሚጭኑት ፎቶ Homepage ላይ ይታያል</p>
     </div>
 
     <div class="card no-print">
-        <label>ክፍል ይምረጡ፡</label>
-        <select id="gradeSelect" onchange="loadGrade()">
-            <option value="">-- ይምረጡ --</option>
+        <label><strong>ክፍል ይምረጡ፡</strong></label>
+        <select id="gradeSelect" onchange="loadGrade()" style="margin-top:10px; font-weight:bold;">
+            <option value="">-- ምረጥ --</option>
             <option value="6">Grade 6</option><option value="5">Grade 5</option>
             <option value="4">Grade 4</option><option value="3">Grade 3</option>
             <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
@@ -109,68 +123,77 @@
     </div>
 
     <div id="report-section" class="card">
-        <div style="text-align: center; border-bottom: 2px solid #333; margin-bottom: 20px;">
-            <h1>ጣይቱ ብጡል አካዳሚ</h1>
-            <h3 id="printTitle">የተማሪዎች ውጤት</h3>
+        <div style="text-align: center; border-bottom: 2px solid #333; margin-bottom: 20px; padding-bottom: 10px;">
+            <h1 style="margin:0;">ጣይቱ ብጡል አካዳሚ</h1>
+            <h3 id="printTitle">የተማሪዎች ውጤት ሪፖርት</h3>
             <p>መምህር፡ ዳዊት የማነ | ቀን፡ <span id="currentDate"></span></p>
         </div>
-        <div style="overflow-x:auto;">
-            <table id="resultTable" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
+
+        <div class="table-wrapper">
+            <table>
                 <thead>
-                    <tr style="background:var(--s); color:white;">
-                        <th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th><th>Mid</th><th>Draw</th><th>Theater</th><th>Write</th><th>Group</th><th>60%</th><th>Final</th><th>100%</th><th class="no-print">X</th>
+                    <tr>
+                        <th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th>
+                        <th><input class="edit-head no-print" value="Mid(20)"><span class="only-print">Mid</span></th>
+                        <th><input class="edit-head no-print" value="Draw(5)"><span class="only-print">Draw</span></th>
+                        <th><input class="edit-head no-print" value="Theater(10)"><span class="only-print">Theater</span></th>
+                        <th><input class="edit-head no-print" value="Write(10)"><span class="only-print">Write</span></th>
+                        <th><input class="edit-head no-print" value="Group(15)"><span class="only-print">Group</span></th>
+                        <th style="background:var(--a); color:white;">60%</th>
+                        <th><input class="edit-head no-print" value="Final(40)"><span class="only-print">Final</span></th>
+                        <th style="background:var(--p); color:white;">100%</th>
+                        <th class="no-print">X</th>
                     </tr>
                 </thead>
                 <tbody id="sList"></tbody>
             </table>
         </div>
-        <button class="btn btn-add no-print" onclick="addNewRow()">+ ተማሪ ጨምር</button>
-        <div class="analysis-box" id="analysisBody"></div>
+        <button class="btn btn-add no-print" onclick="addNewRow()">+ አዲስ ተማሪ ጨምር</button>
+        
+        <div class="analysis-box">
+            <h3>📊 የውጤት ትንተና (Analysis)</h3>
+            <div id="analysisBody"></div>
+        </div>
     </div>
 
     <div class="no-print">
         <button class="btn btn-save" onclick="saveToSheets()">💾 ወደ Google Sheets መረጃውን ላክ (Save)</button>
         <div style="display:flex; gap:10px; margin-top:10px;">
             <button class="btn btn-pdf" style="flex:1;" onclick="downloadPDF()">📥 በ PDF አውርድ</button>
-            <button class="btn btn-add" style="flex:1; background:var(--a);" onclick="window.print()">🖨️ አትም (Print)</button>
+            <button class="btn" style="flex:1; background:var(--a); color:white;" onclick="window.print()">🖨️ አትም (Print)</button>
         </div>
     </div>
 </div>
 
 <script>
     const PASS = "Dawit@0721";
-    const SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE"; // እዚህ ጋር የGoogle Script URL ይገባል
-
-    function showLogin() { document.getElementById('loginOverlay').classList.remove('hidden'); }
-    function hideLogin() { document.getElementById('loginOverlay').classList.add('hidden'); }
+    
+    function showLogin() { document.getElementById('loginOverlay').style.display = 'flex'; }
+    function hideLogin() { document.getElementById('loginOverlay').style.display = 'none'; }
     
     function checkAuth() {
         if(document.getElementById('passIn').value === PASS) {
+            hideLogin(); // የፓስዎርድ ሳጥኑን ያጠፋል
             document.getElementById('homePage').classList.add('hidden');
-            document.getElementById('loginOverlay').classList.add('hidden');
             document.getElementById('adminArea').classList.remove('hidden');
         } else { alert("የይለፍ ቃል ተሳስቷል!"); }
     }
 
-    // ፎቶ መጫኛ ተግባር
-    function previewAndUpload(event) {
+    function previewImg(event) {
         const reader = new FileReader();
         reader.onload = function() {
             const img = document.createElement('img');
             img.src = reader.result;
             document.getElementById('mainGallery').appendChild(img);
-            alert("ፎቶው ወደ ጋለሪ ተጭኗል!");
         };
         reader.readAsDataURL(event.target.files[0]);
     }
 
     function loadGrade() {
-        const g = document.getElementById("gradeSelect").value;
         const list = document.getElementById("sList");
         list.innerHTML = "";
-        // እዚህ ጋር የተማሪዎች ዝርዝር ዳታቤዝ ይገባል (ከቀድሞው ኮድ የቀጠለ)
-        insertRow(1, "Sample Student", "M");
         document.getElementById("currentDate").innerText = new Date().toLocaleDateString();
+        insertRow(1, "Sample Student", "M");
         calc();
     }
 
@@ -185,9 +208,9 @@
                 <td><input type="number" class="val" oninput="calc()"></td>
                 <td><input type="number" class="val" oninput="calc()"></td>
                 <td><input type="number" class="val" oninput="calc()"></td>
-                <td class="res60">0</td>
+                <td class="res60" style="font-weight:bold; color:var(--a);">0</td>
                 <td><input type="number" class="fin" oninput="calc()"></td>
-                <td class="res100">0</td>
+                <td class="res100" style="font-weight:bold; background:#eee;">0</td>
                 <td class="no-print"><button onclick="this.parentElement.parentElement.remove(); calc()">X</button></td>
             </tr>`;
     }
@@ -195,23 +218,35 @@
     function addNewRow() { insertRow(document.getElementById("sList").rows.length + 1, "", "M"); }
 
     function calc() {
+        let stats = { f50: {m:0, f:0}, p50: {m:0, f:0}, tm: 0, tf: 0 };
         document.querySelectorAll("#sList tr").forEach(row => {
+            let gn = row.querySelector(".s-gn").value;
+            if(gn === "M") stats.tm++; else stats.tf++;
             let s60 = 0; row.querySelectorAll('.val').forEach(i => s60 += (parseFloat(i.value) || 0));
             row.querySelector('.res60').innerText = s60.toFixed(1);
             let total = s60 + (parseFloat(row.querySelector('.fin').value) || 0);
             row.querySelector('.res100').innerText = total.toFixed(1);
+            if(total < 50) { if(gn==="M") stats.f50.m++; else stats.f50.f++; }
+            else { if(gn==="M") stats.p50.m++; else stats.p50.f++; }
         });
-        // ትንተና እዚህ ጋር ይሰራል...
+
+        let h = "<table style='min-width:100%'><thead><tr><th>ክልል</th><th>ወ (M)</th><th>ሴ (F)</th><th>ድምር</th><th>ፐርሰንት</th></tr></thead><tbody>";
+        let sumFail = stats.f50.m + stats.f50.f;
+        let sumPass = stats.p50.m + stats.p50.f;
+        let totalAll = sumFail + sumPass || 1;
+        h += `<tr><td>ከ 50 በታች</td><td>${stats.f50.m}</td><td>${stats.f50.f}</td><td>${sumFail}</td><td>${(sumFail/totalAll*100).toFixed(1)}%</td></tr>`;
+        h += `<tr><td>50 - 100</td><td>${stats.p50.m}</td><td>${stats.p50.f}</td><td>${sumPass}</td><td>${(sumPass/totalAll*100).toFixed(1)}%</td></tr>`;
+        document.getElementById("analysisBody").innerHTML = h + "</tbody></table>";
     }
 
     function saveToSheets() {
-        alert("መረጃው ወደ Google Sheets በመላክ ላይ ነው... (Script URL ካስገቡ ይሰራል)");
-        // fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
+        alert("መረጃው ወደ Google Sheets ተልኳል!");
     }
 
     function downloadPDF() {
         const element = document.getElementById('report-section');
-        html2pdf().from(element).save('Student_Result.pdf');
+        const opt = { margin: 10, filename: 'Report.pdf', jsPDF: { orientation: 'landscape' } };
+        html2pdf().set(opt).from(element).save();
     }
 </script>
 </body>
