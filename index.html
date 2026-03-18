@@ -7,32 +7,28 @@
     <style>
         :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --g: #f1c40f; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
-        nav { background: var(--p); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
+        nav { background: var(--p); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 180px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 0 0 20px 20px; text-align: center; }
-        .container { max-width: 1100px; margin: auto; padding: 15px; }
+        .container { max-width: 1000px; margin: auto; padding: 15px; }
         .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 15px; }
-        .gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; background: #ddd; }
+        .gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
         table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
         th, td { border: 1px solid #ddd; padding: 6px; text-align: center; }
         th { background: var(--s); color: white; }
-        .btn { background: var(--a); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn { background: var(--a); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .hidden { display: none; }
-        input, select, textarea { width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        .sc-in { width: 35px; text-align: center; border: 1px solid #eee; }
+        input, select, textarea { width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div onclick="showTab('home')" style="cursor:pointer; font-weight:bold;">ጣይቱ ብጡል አካዳሚ</div>
-    <div>
-        <button onclick="showTab('home')" style="background:none; border:none; color:white; cursor:pointer; margin-right:10px;">Home</button>
-        <button onclick="openLogin()" style="background:var(--g); border:none; padding:5px 12px; border-radius:4px; font-weight:bold; cursor:pointer;">Admin Login</button>
-    </div>
+    <div onclick="location.reload()" style="cursor:pointer; font-weight:bold;">ጣይቱ ብጡል አካዳሚ</div>
+    <button onclick="openLogin()" style="background:var(--g); border:none; padding:8px 15px; border-radius:5px; font-weight:bold; cursor:pointer;">Admin Login</button>
 </nav>
 
-<div id="home" class="tab-content container">
+<div id="homePage" class="container">
     <div class="hero">
         <h1>ጣይቱ ብጡል አካዳሚ</h1>
         <p>መምህር ዳዊት የማነ - የስነ-ጥበባት ትምህርት ክፍል</p>
@@ -54,7 +50,7 @@
     </div>
 </div>
 
-<div id="adminArea" class="tab-content hidden container">
+<div id="adminArea" class="container hidden">
     <div class="card" style="background: #f0f4f8;">
         <h3>📥 Inbox (የመጡ መልዕክቶች)</h3>
         <div id="inboxList"><i>መልዕክት የለም...</i></div>
@@ -62,8 +58,7 @@
 
     <div class="card">
         <h3>📤 ፎቶ ወደ ጋለሪ መጫኛ</h3>
-        <input type="file" id="imgInput" accept="image/*" onchange="uploadPhoto()">
-        <p style="font-size:12px; color:#666;">* የመረጡት ፎቶ ወዲያውኑ በHome Page ጋለሪ ላይ ይታያል</p>
+        <input type="file" accept="image/*" onchange="uploadPhoto(event)">
     </div>
 
     <div class="card">
@@ -79,45 +74,47 @@
         </select>
         
         <div style="overflow-x:auto">
-            <table id="scoreTable">
+            <table>
                 <thead>
                     <tr><th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th><th>20%</th><th>5%</th><th>10%</th><th>10%</th><th>15%</th><th>60%</th><th>40%</th><th>100%</th><th>-</th></tr>
                 </thead>
                 <tbody id="sList"></tbody>
             </table>
         </div>
-        <button onclick="addRow()" style="width:100%; margin-top:10px; padding:10px; background:var(--g); border:none; font-weight:bold; cursor:pointer;">+ አዲስ ተማሪ ጨምር</button>
+        <button onclick="addRow()" style="width:100%; margin-top:10px; padding:12px; background:var(--g); border:none; font-weight:bold; cursor:pointer;">+ አዲስ ተማሪ ጨምር</button>
         
-        <div class="card" style="background:#fffde7; margin-top: 25px; border: 1px solid var(--g);">
-            <h3>📊 የውጤት ትንተና (Analysis)</h3>
-            <table id="aTab">
-                <thead><tr><th>ክልል</th><th>M</th><th>%</th><th>F</th><th>%</th><th>Total</th></tr></thead>
-                <tbody id="aBody"></tbody>
-            </table>
+        <div class="card" style="background:#fffde7; margin-top: 25px;">
+            <h3>📊 የውጤት ትንተና</h3>
+            <div id="analysisResult">መረጃ አልተሞላም</div>
         </div>
     </div>
 </div>
 
 <div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:2000">
-    <div class="card" style="width:280px; text-align:center">
+    <div class="card" style="width:300px; text-align:center">
         <h4>Admin Password</h4>
         <input type="password" id="passIn" placeholder="Password">
         <button class="btn" onclick="checkAuth()" style="width:100%">ግባ</button>
+        <p onclick="closeLogin()" style="color:red; cursor:pointer; margin-top:15px">ተመለስ</p>
     </div>
 </div>
 
 <script>
-    const AUTH = "Dawit@0721";
-    // ተማሪዎቹን እዚህ መልሼ አስገብቻቸዋለሁ
-    const STUDENTS = {
-        "6": [["DAGIM SHEWAFERA","M"],["KALKIDAN FANTU","F"],["HERAN DIBEKULU","F"],["NATANEM ABAYNEH","M"],["DAWIT WORKE","M"]],
-        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON","F"],["AFOMIYA MESFIN","F"],["AMANUEL GIZACHEW","M"],["YARED WORKE","M"]],
-        "1A": [["ABENEZER SEIFE","M"],["ABRHAM KETEMA","M"],["EDEN ABERA","F"],["HASET ABAYNEH","F"]]
-    };
+    const AUTH_KEY = "Dawit@0721";
 
-    function showTab(id) { document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
-    function openLogin() { document.getElementById('loginOverlay').style.display='flex'; }
-    function checkAuth() { if(document.getElementById('passIn').value === AUTH) { showTab('adminArea'); document.getElementById('loginOverlay').style.display='none'; } else { alert("ስህተት!"); } }
+    function openLogin() { document.getElementById('loginOverlay').style.display = 'flex'; }
+    function closeLogin() { document.getElementById('loginOverlay').style.display = 'none'; }
+
+    function checkAuth() {
+        const input = document.getElementById('passIn').value;
+        if(input === AUTH_KEY) {
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('adminArea').classList.remove('hidden');
+            closeLogin();
+        } else {
+            alert("የይለፍ ቃል ተሳስቷል!");
+        }
+    }
 
     function sendToInbox() {
         const name = document.getElementById("pName").value;
@@ -130,30 +127,22 @@
         document.getElementById("pName").value = ""; document.getElementById("pInfo").value = "";
     }
 
-    function uploadPhoto() {
-        const file = document.getElementById("imgInput").files[0];
+    function uploadPhoto(event) {
+        const file = event.target.files[0];
         const reader = new FileReader();
         reader.onload = function(e) {
             const display = document.getElementById("galleryDisplay");
             if(display.innerText.includes("ፎቶ አልተጫነም")) display.innerHTML = "";
             display.innerHTML += `<img src="${e.target.result}">`;
-            alert("ፎቶው ተጭኗል!");
         };
         reader.readAsDataURL(file);
     }
 
-    function loadStudents() {
-        const g = document.getElementById("gradeSel").value;
+    function addRow() {
         const list = document.getElementById("sList");
-        list.innerHTML = "";
-        if(STUDENTS[g]) STUDENTS[g].forEach((s, i) => insertRow(i+1, s[0], s[1]));
-        clc();
-    }
-
-    function addRow() { insertRow(document.getElementById("sList").rows.length + 1, "", "M"); }
-
-    function insertRow(n, s, g) {
-        document.getElementById("sList").innerHTML += `<tr><td>${n}</td><td><input type="text" value="${s}"></td><td><select class="gn"><option value="M" ${g=='M'?'selected':''}>M</option><option value="F" ${g=='F'?'selected':''}>F</option></select></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td class="s60">0</td><td><input type="number" class="fn" oninput="clc()"></td><td class="st">0</td><td><button onclick="this.parentElement.parentElement.remove(); clc()">x</button></td></tr>`;
+        const n = list.rows.length + 1;
+        const row = list.insertRow();
+        row.innerHTML = `<td>${n}</td><td><input type="text"></td><td><select class="gn"><option>M</option><option>F</option></select></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td class="s60">0</td><td><input type="number" class="fn" oninput="clc()"></td><td class="st">0</td><td><button onclick="this.parentElement.parentElement.remove(); clc()">x</button></td>`;
     }
 
     function clc() {
@@ -161,3 +150,13 @@
         document.querySelectorAll("#sList tr").forEach(row => {
             let gen = row.querySelector(".gn").value;
             let s60 = 0; row.querySelectorAll('.sc').forEach(i => s60 += (parseFloat(i.value) || 0));
+            row.querySelector('.s60').innerText = s60.toFixed(1);
+            let st = s60 + (parseFloat(row.querySelector('.fn').value) || 0);
+            row.querySelector('.st').innerText = st.toFixed(1);
+            if(gen === "M") { m++; if(st>=50) mp++; } else { f++; if(st>=50) fp++; }
+        });
+        document.getElementById("analysisResult").innerHTML = `ወንድ ያለፈ፡ ${mp}/${m} | ሴት ያለፈ፡ ${fp}/${f}`;
+    }
+</script>
+</body>
+</html>
