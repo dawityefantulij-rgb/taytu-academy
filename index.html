@@ -7,18 +7,19 @@
     <style>
         :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --g: #f1c40f; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
-        nav { background: var(--p); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 200px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 0 0 20px 20px; }
-        .container { max-width: 1000px; margin: auto; padding: 15px; }
+        nav { background: var(--p); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 180px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 0 0 20px 20px; text-align: center; }
+        .container { max-width: 1100px; margin: auto; padding: 15px; }
         .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 15px; }
-        .gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; }
-        th, td { border: 1px solid #ddd; padding: 5px; text-align: center; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 15px; }
+        .gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; background: #ddd; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 6px; text-align: center; }
         th { background: var(--s); color: white; }
         .btn { background: var(--a); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .hidden { display: none; }
         input, select, textarea { width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .sc-in { width: 35px; text-align: center; border: 1px solid #eee; }
     </style>
 </head>
 <body>
@@ -26,8 +27,8 @@
 <nav>
     <div onclick="showTab('home')" style="cursor:pointer; font-weight:bold;">ጣይቱ ብጡል አካዳሚ</div>
     <div>
-        <a onclick="showTab('home')" style="color:white; text-decoration:none; margin-right:15px; cursor:pointer;">Home</a>
-        <button onclick="openLogin()" style="background:var(--g); border:none; padding:5px 10px; border-radius:4px; font-weight:bold; cursor:pointer;">Admin Login</button>
+        <button onclick="showTab('home')" style="background:none; border:none; color:white; cursor:pointer; margin-right:10px;">Home</button>
+        <button onclick="openLogin()" style="background:var(--g); border:none; padding:5px 12px; border-radius:4px; font-weight:bold; cursor:pointer;">Admin Login</button>
     </div>
 </nav>
 
@@ -39,22 +40,16 @@
 
     <div class="card">
         <h3>🎨 የኪነ-ጥበብ ስራዎች ጋለሪ</h3>
-        <div class="gallery">
-            <img src="https://images.unsplash.com/photo-1545670723-196ed0954986?w=300">
-            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=300">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=300">
+        <div id="galleryDisplay" class="gallery-grid">
+            <div style="height:150px; background:#eee; display:flex; align-items:center; justify-content:center; border-radius:8px; color:#999;">ፎቶ አልተጫነም</div>
         </div>
     </div>
 
     <div class="card">
         <h3>📩 የአስተያየትና መረጃ መቀበያ</h3>
-        <label>ስምዎ፡</label><input type="text" id="pName">
-        <label>የሚፈልጉት መረጃ፡</label><textarea id="pInfo" placeholder="ለምሳሌ፡ የተማሪ ውጤት፣ የክለብ መረጃ..."></textarea>
-        <label>መረጃው በምን ይላክልዎት?</label>
-        <select id="pMethod">
-            <option value="Telegram">በቴሌግራም</option>
-            <option value="Email">በኢሜይል</option>
-        </select>
+        <input type="text" id="pName" placeholder="ስምዎ">
+        <textarea id="pInfo" placeholder="ምን መረጃ ይፈልጋሉ?"></textarea>
+        <select id="pMethod"><option>በቴሌግራም መልሱልኝ</option><option>በኢሜይል መልሱልኝ</option></select>
         <button class="btn" onclick="sendToInbox()">መልዕክት ላክ</button>
     </div>
 </div>
@@ -66,14 +61,23 @@
     </div>
 
     <div class="card">
+        <h3>📤 ፎቶ ወደ ጋለሪ መጫኛ</h3>
+        <input type="file" id="imgInput" accept="image/*" onchange="uploadPhoto()">
+        <p style="font-size:12px; color:#666;">* የመረጡት ፎቶ ወዲያውኑ በHome Page ጋለሪ ላይ ይታያል</p>
+    </div>
+
+    <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center">
             <h3>የተማሪዎች ውጤት መመዝገቢያ</h3>
-            <div>
-                <button onclick="saveToFile()" style="background:var(--s); color:white; border:none; padding:8px 15px; border-radius:5px; margin-right:5px; cursor:pointer;">💾 Save Records</button>
-                <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Logout</button>
-            </div>
+            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px;">Logout</button>
         </div>
-        <br>
+        <select id="gradeSel" onchange="loadStudents()" style="margin-top:10px; font-weight:bold;">
+            <option value="">-- ክፍል ይምረጡ --</option>
+            <option value="6">Grade 6</option><option value="5">Grade 5</option><option value="4">Grade 4</option>
+            <option value="3">Grade 3</option><option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
+            <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
+        </select>
+        
         <div style="overflow-x:auto">
             <table id="scoreTable">
                 <thead>
@@ -83,6 +87,14 @@
             </table>
         </div>
         <button onclick="addRow()" style="width:100%; margin-top:10px; padding:10px; background:var(--g); border:none; font-weight:bold; cursor:pointer;">+ አዲስ ተማሪ ጨምር</button>
+        
+        <div class="card" style="background:#fffde7; margin-top: 25px; border: 1px solid var(--g);">
+            <h3>📊 የውጤት ትንተና (Analysis)</h3>
+            <table id="aTab">
+                <thead><tr><th>ክልል</th><th>M</th><th>%</th><th>F</th><th>%</th><th>Total</th></tr></thead>
+                <tbody id="aBody"></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -91,12 +103,18 @@
         <h4>Admin Password</h4>
         <input type="password" id="passIn" placeholder="Password">
         <button class="btn" onclick="checkAuth()" style="width:100%">ግባ</button>
-        <p onclick="document.getElementById('loginOverlay').style.display='none'" style="color:red; cursor:pointer;">ዝጋ</p>
     </div>
 </div>
 
 <script>
     const AUTH = "Dawit@0721";
+    // ተማሪዎቹን እዚህ መልሼ አስገብቻቸዋለሁ
+    const STUDENTS = {
+        "6": [["DAGIM SHEWAFERA","M"],["KALKIDAN FANTU","F"],["HERAN DIBEKULU","F"],["NATANEM ABAYNEH","M"],["DAWIT WORKE","M"]],
+        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON","F"],["AFOMIYA MESFIN","F"],["AMANUEL GIZACHEW","M"],["YARED WORKE","M"]],
+        "1A": [["ABENEZER SEIFE","M"],["ABRHAM KETEMA","M"],["EDEN ABERA","F"],["HASET ABAYNEH","F"]]
+    };
+
     function showTab(id) { document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
     function openLogin() { document.getElementById('loginOverlay').style.display='flex'; }
     function checkAuth() { if(document.getElementById('passIn').value === AUTH) { showTab('adminArea'); document.getElementById('loginOverlay').style.display='none'; } else { alert("ስህተት!"); } }
@@ -104,44 +122,42 @@
     function sendToInbox() {
         const name = document.getElementById("pName").value;
         const info = document.getElementById("pInfo").value;
-        const method = document.getElementById("pMethod").value;
-        if(!name || !info) return alert("እባክዎ መረጃዎቹን ይሙሉ!");
+        if(!name || !info) return alert("እባክዎ መረጃ ይሙሉ!");
         const list = document.getElementById("inboxList");
         if(list.innerText.includes("መልዕክት የለም")) list.innerHTML = "";
-        list.innerHTML += `<div style="background:white; padding:10px; margin-bottom:5px; border-radius:5px; border-left:4px solid var(--s)"><b>ከ ${name}:</b> ${info} <br> <small>መላኪያ፡ ${method}</small></div>`;
-        alert("መልዕክትዎ ተልኳል!");
+        list.innerHTML += `<div style="background:white; padding:10px; margin-bottom:5px; border-radius:5px; border-left:4px solid var(--s)"><b>ከ ${name}:</b> ${info}</div>`;
+        alert("መልዕክት ተልኳል!");
         document.getElementById("pName").value = ""; document.getElementById("pInfo").value = "";
     }
 
-    function addRow() {
+    function uploadPhoto() {
+        const file = document.getElementById("imgInput").files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const display = document.getElementById("galleryDisplay");
+            if(display.innerText.includes("ፎቶ አልተጫነም")) display.innerHTML = "";
+            display.innerHTML += `<img src="${e.target.result}">`;
+            alert("ፎቶው ተጭኗል!");
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function loadStudents() {
+        const g = document.getElementById("gradeSel").value;
         const list = document.getElementById("sList");
-        const n = list.rows.length + 1;
-        const row = list.insertRow();
-        row.innerHTML = `<td>${n}</td><td><input type="text" placeholder="ስም"></td><td><select><option>M</option><option>F</option></select></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td class="s60">0</td><td><input type="number" class="fn" oninput="clc()"></td><td class="st">0</td><td><button onclick="this.parentElement.parentElement.remove(); clc()">x</button></td>`;
+        list.innerHTML = "";
+        if(STUDENTS[g]) STUDENTS[g].forEach((s, i) => insertRow(i+1, s[0], s[1]));
+        clc();
+    }
+
+    function addRow() { insertRow(document.getElementById("sList").rows.length + 1, "", "M"); }
+
+    function insertRow(n, s, g) {
+        document.getElementById("sList").innerHTML += `<tr><td>${n}</td><td><input type="text" value="${s}"></td><td><select class="gn"><option value="M" ${g=='M'?'selected':''}>M</option><option value="F" ${g=='F'?'selected':''}>F</option></select></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td class="s60">0</td><td><input type="number" class="fn" oninput="clc()"></td><td class="st">0</td><td><button onclick="this.parentElement.parentElement.remove(); clc()">x</button></td></tr>`;
     }
 
     function clc() {
+        let m=0, mp=0, f=0, fp=0;
         document.querySelectorAll("#sList tr").forEach(row => {
+            let gen = row.querySelector(".gn").value;
             let s60 = 0; row.querySelectorAll('.sc').forEach(i => s60 += (parseFloat(i.value) || 0));
-            row.querySelector('.s60').innerText = s60.toFixed(1);
-            let st = s60 + (parseFloat(row.querySelector('.fn').value) || 0);
-            row.querySelector('.st').innerText = st.toFixed(1);
-        });
-    }
-
-    function saveToFile() {
-        let data = "Student Records - Taytu Academy\n\n";
-        document.querySelectorAll("#sList tr").forEach(row => {
-            const name = row.cells[1].querySelector('input').value;
-            const total = row.cells[10].innerText;
-            data += `${name}: Total ${total}\n`;
-        });
-        const blob = new Blob([data], { type: 'text/plain' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'students_results.txt';
-        a.click();
-    }
-</script>
-</body>
-</html>
