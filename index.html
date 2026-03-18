@@ -3,71 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taytu Academy Student Management</title>
+    <title>Taytu Academy - Home & Management</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 10px; }
-        .container { max-width: 1200px; margin: auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h2 { color: #2c3e50; text-align: center; font-size: 1.2em; }
-        select, input { padding: 8px; margin: 5px; border: 1px solid #ddd; border-radius: 4px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #3498db; color: white; position: sticky; top: 0; }
-        .btn { background-color: #27ae60; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; }
-        #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-        .login-box { background: white; padding: 20px; border-radius: 10px; text-align: center; width: 80%; max-width: 300px; }
+        :root { --primary: #2c3e50; --secondary: #3498db; --accent: #27ae60; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f0f2f5; }
+        
+        /* Navigation */
+        nav { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; cursor: pointer; }
+
+        /* Hero Section */
+        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); 
+                height: 400px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
+        
+        /* Home Sections */
+        .section { padding: 40px 20px; max-width: 1200px; margin: auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .card img { width: 100%; border-radius: 8px; height: 200px; object-fit: cover; }
+
+        /* Login Overlay */
+        #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .login-box { background: white; padding: 30px; border-radius: 15px; text-align: center; width: 90%; max-width: 350px; }
+        input[type="password"] { width: 80%; padding: 12px; margin: 15px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+
+        /* Management System Area */
+        #managementArea { display: none; padding: 20px; }
+        .mgmt-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: var(--secondary); color: white; }
+        .btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-logout { background: #e74c3c; }
+        input[type="number"] { width: 50px; padding: 5px; }
+
+        @media (max-width: 600px) { table { font-size: 11px; } th, td { padding: 5px; } }
     </style>
 </head>
 <body>
 
-<div id="loginOverlay">
-    <div class="login-box">
-        <h3>መምህር ዳዊት - ይግቡ</h3>
-        <input type="password" id="passInput" placeholder="Password (Dawit@0721)">
-        <button class="btn" onclick="checkPass()">ግባ</button>
+<nav>
+    <div class="logo">Taytu Academy</div>
+    <div class="nav-links">
+        <a onclick="showHome()">Home</a>
+        <a onclick="openLogin()">Portal</a>
+    </div>
+</nav>
+
+<div id="homePage">
+    <div class="hero">
+        <h1>እንኳን ወደ ጣይቱ ብጡል አካዳሚ በሰላም መጡ</h1>
+        <p>የነገ ብሩህ ተስፋዎችን ዛሬ እናዘጋጃለን</p>
+    </div>
+
+    <div class="section">
+        <h2 style="text-align:center;">የትምህርት ቤቱ ጋለሪ (Gallery)</h2>
+        <div class="grid">
+            <div class="card"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c" alt="Arts"><h3>ስነ-ጥበብ</h3></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d" alt="Music"><h3>ሙዚቃ</h3></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6" alt="Library"><h3>ቤተ-መጽሐፍት</h3></div>
+        </div>
     </div>
 </div>
 
-<div class="container" id="mainContent" style="display:none;">
-    <h2>የጣይቱ ብጡል አካዳሚ ውጤት መመዝገቢያ</h2>
-    
-    <select id="gradeSelect" onchange="loadStudents()">
-        <option value="">-- ክፍል ይምረጡ --</option>
-        <option value="1A">Grade 1A</option>
-        <option value="1B">Grade 1B</option>
-        <option value="2A">Grade 2A</option>
-        <option value="2B">Grade 2B</option>
-        <option value="3">Grade 3</option>
-        <option value="4">Grade 4</option>
-        <option value="5">Grade 5</option>
-        <option value="6">Grade 6</option>
-    </select>
-    
-    <div style="overflow-x:auto;">
-        <table>
-            <thead>
-                <tr>
-                    <th>ተ.ቁ</th>
-                    <th>ስም</th>
-                    <th>ጾታ</th>
-                    <th>ውጤት (100%)</th>
-                </tr>
-            </thead>
-            <tbody id="studentBody"></tbody>
-        </table>
+<div id="loginOverlay">
+    <div class="login-box">
+        <h3>የአስተዳዳሪ መግቢያ</h3>
+        <p>እባክዎ ፓስወርድዎን ያስገቡ</p>
+        <input type="password" id="passInput" placeholder="••••••••">
+        <br>
+        <button class="btn" onclick="verifyAccess()">ግባ</button>
+        <button class="btn" style="background:#95a5a6;" onclick="closeLogin()">ተመለስ</button>
     </div>
-    <button class="btn" style="background-color: #e67e22;" onclick="downloadExcel()">ወደ Excel አውርድ</button>
+</div>
+
+<div id="managementArea" class="section">
+    <div class="mgmt-container">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2>የተማሪዎች ውጤት መመዝገቢያ</h2>
+            <button class="btn btn-logout" onclick="logout()">ውጣ</button>
+        </div>
+        
+        <select id="gradeSelect" onchange="loadStudents()" style="padding:10px; width:200px; border-radius:5px;">
+            <option value="">-- ክፍል ይምረጡ --</option>
+            <option value="6">Grade 6</option><option value="5">Grade 5</option>
+            <option value="4">Grade 4</option><option value="3">Grade 3</option>
+            <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
+            <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
+        </select>
+
+        <div style="overflow-x:auto;">
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>ተ.ቁ</th>
+                        <th>ስም</th>
+                        <th>ጾታ</th>
+                        <th>ሚድ (20)</th>
+                        <th>ስዕል (5)</th>
+                        <th>ቲያትር (10)</th>
+                        <th>ድርሰት (10)</th>
+                        <th>ቡድን (15)</th>
+                        <th>ማጠቃለያ (40)</th>
+                        <th>ጠቅላላ (100)</th>
+                    </tr>
+                </thead>
+                <tbody id="studentList"></tbody>
+            </table>
+        </div>
+        <br>
+        <button class="btn" onclick="exportToExcel()">ወደ Excel አውርድ (Save)</button>
+    </div>
 </div>
 
 <script>
-    function checkPass() {
-        if(document.getElementById("passInput").value === "Dawit@0721") {
-            document.getElementById("loginOverlay").style.display = "none";
-            document.getElementById("mainContent").style.display = "block";
-        } else { alert("የተሳሳተ ፓስወርድ!"); }
-    }
-
-    const sData = {
+    const authPass = "Dawit@0721";
+    const students = {
         "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAGIM DEMISSIE AREYA","M"],["ELDANA SOLOMON LEUL","F"],["SURAFEL MANDEFRO AWOKE","M"],["MAEDOT YILMA BEKELE","F"],["REDIET KEBEDE KABTIMER","F"],["MARKAN ZEGEYE ABAYNEH","M"],["ESKEATSINAF BIRHANU ZEWDIE","M"],["MIKIYAS GEBREYOHANNES ESTIFANOS","M"],["DAWIT WORKE TAYE","M"],["BINIYAM ABEJE SHEWAFERA","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
         "5": [["SAMUEL TARIKU MOLA","M"],["KALKIDAN ZENEBE ABEBE","F"],["NATANIUM WONDAFEREW BELEYNEH","M"],["ADONAIT ERMIAS BEKELE","F"],["BEMNET AKLILU MINDA","F"],["HENOK BIRUK GIRMA","M"],["REDIET DEMISEW ZELELEW","F"],["ZELEKE MELESE WORKALEMAHU","M"],["MENA TESFAYE GIRMA","F"],["MEKLIT MEBRAT SEMAHEGN","F"],["NATNAEL TILAHUN ALELIGN","M"],["REDIET ASCHENAKI TEFERI","F"],["YISHAK ASCHENAKI TEFERI","M"],["AMEN DIBABE ARAGE","M"],["ADONIAS MUSE MENGESHA","M"],["NATANIUM HAILU MULUGETA","M"],["YEABSIRA SIYUM ASEFA","M"],["TEMESGEN LEGESE ASFAW","M"],["TAMRU TEKLETSADIK HAILYE","M"],["ELSHADAY TEFEREDEGN DEGEFU","F"],["YORDANOS BEHAILU TESHOME","F"],["ELDANA GIRMA GEBREMICHAEL","F"]],
         "4": [["YOHANNES MEKASHA ZENA","M"],["BEFIKAD FIRDAWOK TEKLEYOHANNES","M"],["BEMNET ABEBE TADESSE","F"],["BEREKET ERMIAS BEKELE","M"],["KALKIDAN WOLDU KEBEDE","F"],["MAHLET MESFIN ALI","F"],["YALEMWORK BELAY TAMRIE","F"],["NATAN DAMITEW TSEGAW","M"],["YOHANNES BAYELIGN AYITENFISU","M"],["NAHOM ABRHAM BEKELE","M"],["KIDUS ALEMU MULATU","M"],["AMEN HAILEMESKEL GEBREMARIAM","M"],["YEABSIRA YOSEF HAILEMICHAEL","M"],["HENOK GIRMA MAMO","M"],["BIRUK MULUGETA BEZABH","M"],["BITANIA TEWABE HAILU","F"],["RODAS NEGASH FANTAYE","M"],["HALELUYA EWAWOY MULATU","F"],["MEKUANINT GETABALEW ZEWDE","M"],["BETSELOT TENKIR ALEMU","F"],["TINSAE GEBEYEHU HAILU","M"],["MEHAMED ABDU YASIN","M"],["DAWIT ABAY GIZAW","M"]],
@@ -78,21 +130,52 @@
         "1B": [["AMANUEL AKALU BIRHANU","M"],["AMEN ABRHAM BOGALE","M"],["ANANIA TEFEREDEGN DEGEFU","M"],["ASHENAFI MULATU WORKE","M"],["BARKOT MULUGETA TADESSE","F"],["BEKALU ABRHAM BEKELE","M"],["BEREKET BEKELE WOSNE","M"],["BETELHEM DEMEKE DAGNACHEW","F"],["BETSEHA BEZA MUSE","F"],["BIRUKTAWIT MESFIN TSEGAYE","F"],["BITANIA ABEJE SHEWAFERA","F"],["BIZUWORK WOLDEYOHANES DEMISSIE","F"],["EDLAWIT GOSAYE MAMO","F"],["ESUBALEW TADESSE BESHAHWURED","M"],["GETABALEW DEMEKE LEMA","M"],["GETESEMANI METADEL HAILU","F"],["HEMEN ENDALKACHEW HAILEMARIAM","F"],["HERMELA DIBEKULU SILESHI","F"],["HIBIST LEMA MINDA","F"],["KALEAB WORKU ZIKAREGE","M"],["KIDUS CHERYE ESHETE","M"],["LIELT ENDALKACHEW GIRMA","F"],["MARIAMAWIT ANDUALEM AYALEW","F"],["MIKIAS GETAWE ARKEW","M"],["NEBIYAT DAWIT FIKRIE","F"],["RIBKA ZERIHUN NEGESSE","F"],["SAMRAWIT DEBAS DEMISSIE","F"],["SAMUEL GETNET SHEWATATEK","M"],["SEMEON ANTENEH TEKIL","M"],["YEABSIRA AYELE TESFAYE","F"]]
     };
 
+    function showHome() { document.getElementById('homePage').style.display = 'block'; document.getElementById('managementArea').style.display = 'none'; }
+    function openLogin() { document.getElementById('loginOverlay').style.display = 'flex'; }
+    function closeLogin() { document.getElementById('loginOverlay').style.display = 'none'; }
+
+    function verifyAccess() {
+        if (document.getElementById('passInput').value === authPass) {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('managementArea').style.display = 'block';
+            closeLogin();
+        } else { alert("ያልተፈቀደ ሙከራ! ትክክለኛውን ፓስወርድ ያስገቡ።"); }
+    }
+
     function loadStudents() {
         const grade = document.getElementById("gradeSelect").value;
-        const body = document.getElementById("studentBody");
-        body.innerHTML = "";
-        if (sData[grade]) {
-            sData[grade].forEach((s, i) => {
-                body.innerHTML += `<tr><td>${i+1}</td><td>${s[0]}</td><td>${s[1]}</td><td><input type="number" step="0.1"></td></tr>`;
+        const tbody = document.getElementById("studentList");
+        tbody.innerHTML = "";
+        if (students[grade]) {
+            students[grade].forEach((s, i) => {
+                tbody.innerHTML += `<tr>
+                    <td>${i+1}</td><td>${s[0]}</td><td>${s[1]}</td>
+                    <td><input type="number" class="m" oninput="sum(this)"></td>
+                    <td><input type="number" class="m" oninput="sum(this)"></td>
+                    <td><input type="number" class="m" oninput="sum(this)"></td>
+                    <td><input type="number" class="m" oninput="sum(this)"></td>
+                    <td><input type="number" class="m" oninput="sum(this)"></td>
+                    <td><input type="number" class="m" oninput="sum(this)"></td>
+                    <td class="total">0</td>
+                </tr>`;
             });
         }
     }
 
-    function downloadExcel() {
-        const wb = XLSX.utils.table_to_book(document.querySelector("table"));
+    function sum(el) {
+        let row = el.parentElement.parentElement;
+        let inputs = row.querySelectorAll('.m');
+        let total = 0;
+        inputs.forEach(i => total += (parseFloat(i.value) || 0));
+        row.querySelector('.total').innerText = total.toFixed(1);
+    }
+
+    function exportToExcel() {
+        let wb = XLSX.utils.table_to_book(document.getElementById("resultsTable"));
         XLSX.writeFile(wb, "Taytu_Academy_Results.xlsx");
     }
+
+    function logout() { location.reload(); }
 </script>
 </body>
 </html>
