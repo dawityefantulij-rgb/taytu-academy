@@ -3,92 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taytu Academy - Teacher Dawit Yemane</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <title>Taytu Academy - Dawit Yemane</title>
     <style>
-        :root { --primary: #2c3e50; --secondary: #3498db; --accent: #27ae60; --gold: #f1c40f; }
+        :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --g: #f1c40f; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
-        nav { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .nav-links a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; cursor: pointer; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1350&q=80'); height: 300px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; border-radius: 0 0 30px 30px; }
-        .dept-title { background: rgba(241, 196, 15, 0.2); border: 1px solid var(--gold); padding: 5px 25px; border-radius: 50px; font-size: 1.2rem; color: #fff; margin-top: 10px; }
-        .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 15px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-        th { background: var(--secondary); color: white; }
-        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        nav { background: var(--p); color: white; padding: 12px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'); height: 250px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 0 0 20px 20px; }
+        .container { max-width: 1000px; margin: auto; padding: 15px; }
+        .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 5px; text-align: center; }
+        th { background: var(--s); color: white; }
+        .btn { background: var(--a); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
         .hidden { display: none; }
+        input[type="number"] { width: 35px; border: 1px solid #ccc; text-align: center; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="logo">Taytu Bitul Academy</div>
-    <div class="nav-links">
-        <a onclick="showTab('home')">መነሻ ገጽ</a>
-        <a onclick="openLogin()">Admin Login</a>
-    </div>
+    <div onclick="showTab('home')" style="cursor:pointer">Taytu Bitul Academy</div>
+    <div><a onclick="openLogin()" style="color:white; font-weight:bold; cursor:pointer">Admin Login</a></div>
 </nav>
 
 <div id="home" class="tab-content container">
     <div class="hero">
         <h1>ጣይቱ ብጡል አካዳሚ</h1>
-        <h2>Teacher Dawit Yemane</h2>
-        <div class="dept-title">የስነ-ጥበባት ትምህርት ክፍል</div>
+        <p>መምህር ዳዊት የማነ - የስነ-ጥበባት ትምህርት ክፍል</p>
     </div>
-    <div class="card" style="margin-top:20px;">
-        <h3>🎨 የስራዎቻችን ጋለሪ (Gallery)</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
-            <img src="https://images.unsplash.com/photo-1545670723-196ed0954986?w=300" style="width:100%; border-radius:8px;">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=300" style="width:100%; border-radius:8px;">
-            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=300" style="width:100%; border-radius:8px;">
+    <div class="card" style="margin-top:15px">
+        <h3>🎨 የኪነ-ጥበብ ስራዎች (Gallery)</h3>
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px">
+            <div style="height:100px; background:#ddd; border-radius:5px"></div>
+            <div style="height:100px; background:#eee; border-radius:5px"></div>
+            <div style="height:100px; background:#ddd; border-radius:5px"></div>
         </div>
     </div>
 </div>
 
 <div id="adminArea" class="tab-content hidden container">
     <div class="card">
-        <h2>የውጤት መመዝገቢያ - Teacher Dawit</h2>
-        <select id="gradeSelect" onchange="loadStudents()" style="width:100%; padding:10px; margin-bottom:15px;">
+        <div style="display:flex; justify-content:space-between; align-items:center">
+            <h3>የውጤት መመዝገቢያ</h3>
+            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:5px 10px; border-radius:4px">Logout</button>
+        </div>
+        <select id="gSel" onchange="ld()" style="width:100%; padding:10px; margin:10px 0; font-weight:bold; border-radius:5px">
             <option value="">-- ክፍል ይምረጡ --</option>
             <option value="6">Grade 6</option><option value="5">Grade 5</option>
             <option value="4">Grade 4</option><option value="3">Grade 3</option>
             <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
             <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
         </select>
-        <div style="overflow-x:auto;">
-            <table id="resultsTable">
+        <div style="overflow-x:auto">
+            <table id="rTab">
                 <thead>
-                    <tr>
-                        <th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th>
-                        <th>ሚድ(20)</th><th>ስዕል(5)</th><th>ቲያትር(10)</th><th>ድርሰት(10)</th><th>ቡድን(15)</th>
-                        <th>60%</th><th>ፈተና(40)</th><th>100%</th>
-                    </tr>
+                    <tr><th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th><th>ሚድ(20)</th><th>ስዕል(5)</th><th>ቲያትር(10)</th><th>ድርሰት(10)</th><th>ቡድን(15)</th><th>60%</th><th>ፈተና(40)</th><th>100%</th></tr>
                 </thead>
-                <tbody id="studentList"></tbody>
+                <tbody id="sList"></tbody>
             </table>
         </div>
-        <div class="card" style="background:#fffde7; margin-top:20px;">
-            <h3>📊 የውጤት ትንተና</h3>
-            <table id="analysisTable">
-                <thead><tr><th>ክልል</th><th>M</th><th>%</th><th>F</th><th>%</th><th>Total</th><th>%</th></tr></thead>
-                <tbody id="analysisBody"></tbody>
+        <div class="card" style="background:#fffde7; margin-top:20px">
+            <h4>📊 የውጤት ትንተና</h4>
+            <table id="aTab">
+                <thead><tr><th>ክልል</th><th>ወንድ (M)</th><th>%</th><th>ሴት (F)</th><th>%</th><th>ድምር</th><th>%</th></tr></thead>
+                <tbody id="aBody"></tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center;">
-    <div class="card" style="width:300px; text-align:center;">
-        <h3>Login (Dawit@0721)</h3>
-        <input type="password" id="passIn" placeholder="Password" style="width:100%; padding:10px; margin-bottom:10px;">
-        <button class="btn" onclick="checkPass()">ግባ</button>
+<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:2000">
+    <div class="card" style="width:280px; text-align:center">
+        <h4>Password: Dawit@0721</h4>
+        <input type="password" id="pIn" placeholder="Password" style="width:90%; padding:10px; margin-bottom:10px">
+        <button class="btn" onclick="chk()" style="width:95%">ግባ</button>
     </div>
 </div>
 
 <script>
     const auth = "Dawit@0721";
-    const students = {
+    // ተማሪዎች በሙሉ እዚህ ገብተዋል
+    const sDb = {
         "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAGIM DEMISSIE AREYA","M"],["ELDANA SOLOMON LEUL","F"],["SURAFEL MANDEFRO AWOKE","M"],["MAEDOT YILMA BEKELE","F"],["REDIET KEBEDE KABTIMER","F"],["MARKAN ZEGEYE ABAYNEH","M"],["ESKEATSINAF BIRHANU ZEWDIE","M"],["MIKIYAS GEBREYOHANNES ESTIFANOS","M"],["DAWIT WORKE TAYE","M"],["BINIYAM ABEJE SHEWAFERA","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
-        "5": [["SAMUEL TARIKU MOLA","M"],["KALKIDAN ZENEBE ABEBE","F"],["NATANIUM WONDAFEREW BELEYNEH","M"],["ADONAIT ERMIAS BEKELE","F"],["BEMNET AKLILU MINDA","F"],["HENOK BIRUK GIRMA","M"],["REDIET DEMISEW ZELELEW","F"],["ZELEKE MELESE WORKALEMAHU","
+        "5": [["SAMUEL TARIKU MOLA","M"],["KALKIDAN ZENEBE ABEBE","F"],["NATANIUM WONDAFEREW BELEYNEH","M"],["ADONAIT ERMIAS BEKELE","F"],["BEMNET AKLILU MINDA","F"],["HENOK BIRUK GIRMA","M"],["REDIET DEMISEW ZELELEW","F"],["ZELEKE MELESE WORKALEMAHU","M"],["MENA TESFAYE GIRMA","F"],["MEKLIT MEBRAT SEMAHEGN","F"],["NATNAEL TILAHUN ALELIGN","M"],["REDIET ASCHENAKI TEFERI","F"],["YISHAK ASCHENAKI TEFERI","M"],["AMEN DIBABE ARAGE","M"],["ADONIAS MUSE MENGESHA","M"],["NATANIUM HAILU MULUGETA","M"],["YEABSIRA SIYUM ASEFA","M"],["TEMESGEN LEGESE ASFAW","M"],["TAMRU TEKLETSADIK HAILYE","M"],["ELSHADAY TEFEREDEGN DEGEFU","F"],["YORDANOS BEHAILU TESHOME","F"],["ELDANA GIRMA GEBREMICHAEL","F"]],
+        "4": [["YOHANNES MEKASHA ZENA","M"],["BEFIKAD FIRDAWOK TEKLEYOHANNES","M"],["BEMNET ABEBE TADESSE","F"],["BEREKET ERMIAS BEKELE","M"],["KALKIDAN WOLDU KEBEDE","F"],["MAHLET MESFIN ALI","F"],["YALEMWORK BELAY TAMRIE","F"],["NATAN DAMITEW TSEGAW","M"],["YOHANNES BAYELIGN AYITENFISU","M"],["NAHOM ABRHAM BEKELE","M"],["KIDUS ALEMU MULATU","M"],["AMEN HAILEMESKEL GEBREMARIAM","M"],["YEABSIRA YOSEF HAILEMICHAEL","M"],["HENOK GIRMA MAMO","M"],["BIRUK MULUGETA BEZABH","M"],["BITANIA TEWABE HAILU","F"],["RODAS NEGASH FANTAYE","M"],["HALELUYA EWAWOY MULATU","F"],["MEKUANINT GETABALEW ZEWDE","M"],["BETSELOT TENKIR ALEMU","F"],["TINSAE GEBEYEHU HAILU","M"],["MEHAMED ABDU YASIN","M"],["DAWIT ABAY GIZAW","M"]],
+        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON LEUL","F"],["AFOMIYA MESFIN YIREFSHEWA","F"],["AMANUEL GIZACHEW TEFERA","M"],["AMEN TESFAYE GIRMA","F"],["BENYAS WOYANTE MEKONNEN","M"],["BETSELOT TSEHAY BEKELE","F"],["BETSELOT MULUGETA TADESSE","F"],["BIRUK WONDOSEN GIRRMA","M"],["BITANIYA YIRGALEM WONDIMAGEGNEHU","F"],["DAGMAWIT SILESHI GIRMA","F"],["DANIEL ELIAS GIRMA","M"],["ELDANA MULUGETA BEZABIH","F"],["GELILA WORKU ZIKARGE","F"],["GIRUMNESH GETACHEW MEKASHA","F"],["HANA SHEWAYIRGA TEKLU","F"],["HERMELA DEMELASH MEKONNEN","F"],["HIYAB ENYEW HAILU","F"],["KALKIDAN ENDASHAW BELAY","F"],["KIDIST ZEWUDU GIZACHEW","F"],["KIDUS ZELALEM GEBEYEHU","M"],["KIDUS YEHUALASHET MEKONNEN","M"],["LETARIK SHEWANEGA NADEW","F"],["LEUL USMAN KASIM","M"],["LIDYIA ZEBENE DINBERU","F"],["MARUF AHMED TUHA","M"],["NATAN MINDAYE ABATE","M"],["NATAN AYELE ZENEBE","M"],["NATNAEL ZEBENE MAMO","M"],["SURAFEL TAMIRU AGONAFIR","M"],["TSEGA EZRA SAHLE","F"],["TSION DERESIE KEBEDE","F"],["YARED WORKE TAYE","M"],["YEABSIRA TEWODROS NIGUSE","M"],["YEABSIRA ALEMAYEHU NYALAD","M"],["YEABTSEGA SOLOMON GEMEDA","M"],["YEMISRACH MISGANAW TSEDEKE","F"],["YISHAK ABERA SIMA","M"],["YOHANNES AKLILU MINDA","M"],["YOHANNES ASEFA BIRHANU","M"]],
+        "2A": [["ADONIAS ALEMSEGED SEYFU","M"],["AMEN TEKALGN KEBEDE","F"],["ANANIYA GETAHUN BANJAW","F"],["BEALU TEGEGNEWORK ALEMAYEHU","M"],["BEAMLAK WOLDE TEKLE","M"],["BETSELOT GIRMA DEMEKE","F"],["BESUFIKAD ATLABACHEW YILMA","M"],["BETELHEM GETE SHIFERA","F"],["DAGIM KIDANE YESHITLA","M"],["ELSABET ABRHAM BEKELE","F"],["EYOB MERSHA TEKLU","M"],["EYOB SOLOMON WELDEKIDAN","M"],["FEVEN WENDESEN HAILU","F"],["GENET FIRDAWEK TEKLEYOHANES","F"],["KALKIDAN ASHENAFI TESFAYE","F"],["KALKIDAN BEKELE BRIHANE","F"],["MAKBEL BEREDED KIFLE","M"],["MARAMAWIT YITAGESU NADEW","F"],["MARTA ABEBE ALEMAYEHU","F"],["MIHRET TADESSE SHIFERA","F"],["NATAN ANDNET SAHLU","M"],["SAMRAWIT GIZACHEW TEFERA","F"],["TSEHAY TEKLEYOHANESS ASHENAFI","F"],["TSION SINTAYEHU DEREJE","F"],["YARED HABTAMU ALEMU","M"],["YOAKIN BIRUK GETANEH","M"],["YORDANOS TARIKU KASAW","F"],["YOSEF TSEGAYE MEKTE","M"]],
+        "2B": [["ABEMELIK SINTAYEHU BAYU","M"],["AMANUEL DERESE TILAHUN","M"],["AMANUEL GETAMESAY ASALIFEW","M"],["AMANUEL TEMESGEN BUTA","
