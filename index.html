@@ -8,25 +8,25 @@
         :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --g: #f1c40f; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
         nav { background: var(--p); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .nav-right { display: flex; align-items: center; gap: 15px; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 250px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 0 0 20px 20px; text-align: center; }
-        .container { max-width: 1100px; margin: auto; padding: 15px; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 200px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 0 0 20px 20px; }
+        .container { max-width: 1000px; margin: auto; padding: 15px; }
         .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 15px; }
+        .gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd; }
         table { width: 100%; border-collapse: collapse; font-size: 11px; }
-        th, td { border: 1px solid #ddd; padding: 6px; text-align: center; }
+        th, td { border: 1px solid #ddd; padding: 5px; text-align: center; }
         th { background: var(--s); color: white; }
         .btn { background: var(--a); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .hidden { display: none; }
-        input[type="number"], input[type="text"] { width: 90%; border: 1px solid #ccc; padding: 4px; }
-        .inbox-item { border-bottom: 1px solid #eee; padding: 10px; margin-bottom: 5px; background: #f9f9f9; border-radius: 5px; }
+        input, select, textarea { width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div onclick="showTab('home')" style="cursor:pointer; font-weight:bold;">Taytu Academy</div>
-    <div class="nav-right">
-        <a onclick="showTab('home')" style="color:white; text-decoration:none; cursor:pointer;">Home</a>
+    <div onclick="showTab('home')" style="cursor:pointer; font-weight:bold;">ጣይቱ ብጡል አካዳሚ</div>
+    <div>
+        <a onclick="showTab('home')" style="color:white; text-decoration:none; margin-right:15px; cursor:pointer;">Home</a>
         <button onclick="openLogin()" style="background:var(--g); border:none; padding:5px 10px; border-radius:4px; font-weight:bold; cursor:pointer;">Admin Login</button>
     </div>
 </nav>
@@ -34,120 +34,113 @@
 <div id="home" class="tab-content container">
     <div class="hero">
         <h1>ጣይቱ ብጡል አካዳሚ</h1>
-        <p>መምህር ዳዊት የማነ - Visual Artist</p>
+        <p>መምህር ዳዊት የማነ - የስነ-ጥበባት ትምህርት ክፍል</p>
     </div>
 
-    <div class="card" style="margin-top:20px">
-        <h3>📩 አስተያየትዎን እዚህ ይጻፉ</h3>
-        <input type="text" id="senderName" placeholder="ስምዎ"><br>
-        <textarea id="senderMsg" style="width:96%; padding:10px; height:80px; margin-bottom:10px" placeholder="መልዕክት..."></textarea><br>
-        <button class="btn" onclick="sendMessage()">መልዕክት ላክ</button>
+    <div class="card">
+        <h3>🎨 የኪነ-ጥበብ ስራዎች ጋለሪ</h3>
+        <div class="gallery">
+            <img src="https://images.unsplash.com/photo-1545670723-196ed0954986?w=300">
+            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=300">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=300">
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>📩 የአስተያየትና መረጃ መቀበያ</h3>
+        <label>ስምዎ፡</label><input type="text" id="pName">
+        <label>የሚፈልጉት መረጃ፡</label><textarea id="pInfo" placeholder="ለምሳሌ፡ የተማሪ ውጤት፣ የክለብ መረጃ..."></textarea>
+        <label>መረጃው በምን ይላክልዎት?</label>
+        <select id="pMethod">
+            <option value="Telegram">በቴሌግራም</option>
+            <option value="Email">በኢሜይል</option>
+        </select>
+        <button class="btn" onclick="sendToInbox()">መልዕክት ላክ</button>
     </div>
 </div>
 
 <div id="adminArea" class="tab-content hidden container">
-    <div class="card" style="background: #eef2f3;">
-        <div style="display:flex; justify-content:space-between">
-            <h3>📥 የመጡ መልዕክቶች (Inbox)</h3>
-            <button onclick="clearInbox()" style="background:red; color:white; border:none; padding:5px; border-radius:4px">ሁሉንም አጥፋ</button>
-        </div>
-        <div id="inboxList"><i>ምንም መልዕክት የለም...</i></div>
+    <div class="card" style="background: #f0f4f8;">
+        <h3>📥 Inbox (የመጡ መልዕክቶች)</h3>
+        <div id="inboxList"><i>መልዕክት የለም...</i></div>
     </div>
 
     <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center">
-            <h3>የተማሪዎች ውጤት</h3>
-            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:5px 10px; border-radius:4px">Logout</button>
+            <h3>የተማሪዎች ውጤት መመዝገቢያ</h3>
+            <div>
+                <button onclick="saveToFile()" style="background:var(--s); color:white; border:none; padding:8px 15px; border-radius:5px; margin-right:5px; cursor:pointer;">💾 Save Records</button>
+                <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Logout</button>
+            </div>
         </div>
-        <select id="gradeSel" onchange="loadStudents()" style="width:100%; padding:10px; margin:10px 0; font-weight:bold;">
-            <option value="">-- ክፍል ይምረጡ --</option>
-            <option value="6">Grade 6</option><option value="5">Grade 5</option><option value="4">Grade 4</option>
-            <option value="3">Grade 3</option><option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
-            <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
-        </select>
-        
+        <br>
         <div style="overflow-x:auto">
-            <table id="mainTable">
+            <table id="scoreTable">
                 <thead>
                     <tr><th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th><th>20%</th><th>5%</th><th>10%</th><th>10%</th><th>15%</th><th>60%</th><th>40%</th><th>100%</th><th>-</th></tr>
                 </thead>
                 <tbody id="sList"></tbody>
             </table>
         </div>
-        <button onclick="addRow()" style="display:block; width:100%; margin-top:10px; padding:10px; background:var(--g); border:none; font-weight:bold; cursor:pointer;">+ አዲስ ተማሪ ጨምር</button>
-        
-        <div class="card" style="background:#fffde7; margin-top:20px">
-            <h4>📊 ትንተና</h4>
-            <table id="aTab">
-                <thead><tr><th>ክልል</th><th>M</th><th>%</th><th>F</th><th>%</th><th>Total</th></tr></thead>
-                <tbody id="aBody"></tbody>
-            </table>
-        </div>
+        <button onclick="addRow()" style="width:100%; margin-top:10px; padding:10px; background:var(--g); border:none; font-weight:bold; cursor:pointer;">+ አዲስ ተማሪ ጨምር</button>
     </div>
 </div>
 
 <div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:2000">
     <div class="card" style="width:280px; text-align:center">
         <h4>Admin Password</h4>
-        <input type="password" id="passInput" placeholder="Password" style="margin-bottom:10px">
+        <input type="password" id="passIn" placeholder="Password">
         <button class="btn" onclick="checkAuth()" style="width:100%">ግባ</button>
-        <p onclick="closeLogin()" style="color:red; cursor:pointer; margin-top:10px">ተመለስ</p>
+        <p onclick="document.getElementById('loginOverlay').style.display='none'" style="color:red; cursor:pointer;">ዝጋ</p>
     </div>
 </div>
 
 <script>
-    const PASS = "Dawit@0721";
-    const DB = {
-        "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAWIT WORKE TAYE","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
-        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON LEUL","F"],["AFOMIYA MESFIN YIREFSHEWA","F"],["AMANUEL GIZACHEW TEFERA","M"],["AMEN TESFAYE GIRMA","F"],["BENYAS WOYANTE MEKONNEN","M"],["BETSELOT TSEHAY BEKELE","F"],["BIRUK WONDOSEN GIRRMA","M"],["YARED WORKE TAYE","M"],["YOHANNES ASEFA BIRHANU","M"]],
-        "1A": [["ABENEZER SEIFE SERBE","M"],["ABRHAM KETEMA WOLDEMARIAM","M"],["EDEN ABERA SIME","F"],["HASET ABAYNEH YIFRU","F"],["SAMUEL BIRUK GETANEH","M"],["ZEYEDE KEBEDE ASEFA","F"]]
-    }; // (ሙሉ ስሞቹን ለማሳጠር እዚህ ጥቂቱን አሳይቻለሁ፣ ሁሉንም ትጨምራለህ)
-
+    const AUTH = "Dawit@0721";
     function showTab(id) { document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
     function openLogin() { document.getElementById('loginOverlay').style.display='flex'; }
-    function closeLogin() { document.getElementById('loginOverlay').style.display='none'; }
-    function checkAuth() { if(document.getElementById('passInput').value === PASS) { showTab('adminArea'); closeLogin(); } else { alert("Error!"); } }
+    function checkAuth() { if(document.getElementById('passIn').value === AUTH) { showTab('adminArea'); document.getElementById('loginOverlay').style.display='none'; } else { alert("ስህተት!"); } }
 
-    function sendMessage() {
-        const name = document.getElementById("senderName").value;
-        const msg = document.getElementById("senderMsg").value;
-        if(!name || !msg) return alert("እባክዎ ስም እና መልዕክት ይጻፉ!");
+    function sendToInbox() {
+        const name = document.getElementById("pName").value;
+        const info = document.getElementById("pInfo").value;
+        const method = document.getElementById("pMethod").value;
+        if(!name || !info) return alert("እባክዎ መረጃዎቹን ይሙሉ!");
         const list = document.getElementById("inboxList");
-        if(list.innerText.includes("ምንም መልዕክት")) list.innerHTML = "";
-        list.innerHTML += `<div class="inbox-item"><b>ከ ${name}:</b><br>${msg}</div>`;
+        if(list.innerText.includes("መልዕክት የለም")) list.innerHTML = "";
+        list.innerHTML += `<div style="background:white; padding:10px; margin-bottom:5px; border-radius:5px; border-left:4px solid var(--s)"><b>ከ ${name}:</b> ${info} <br> <small>መላኪያ፡ ${method}</small></div>`;
         alert("መልዕክትዎ ተልኳል!");
-        document.getElementById("senderName").value = "";
-        document.getElementById("senderMsg").value = "";
+        document.getElementById("pName").value = ""; document.getElementById("pInfo").value = "";
     }
 
-    function clearInbox() { document.getElementById("inboxList").innerHTML = "<i>ምንም መልዕክት የለም...</i>"; }
-
-    function loadStudents() {
-        const g = document.getElementById("gradeSel").value;
+    function addRow() {
         const list = document.getElementById("sList");
-        list.innerHTML = "";
-        if(DB[g]) DB[g].forEach((s, i) => addStudentRow(i+1, s[0], s[1]));
-        calc();
+        const n = list.rows.length + 1;
+        const row = list.insertRow();
+        row.innerHTML = `<td>${n}</td><td><input type="text" placeholder="ስም"></td><td><select><option>M</option><option>F</option></select></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td><input type="number" class="sc" oninput="clc()"></td><td class="s60">0</td><td><input type="number" class="fn" oninput="clc()"></td><td class="st">0</td><td><button onclick="this.parentElement.parentElement.remove(); clc()">x</button></td>`;
     }
 
-    function addRow() { addStudentRow(document.querySelectorAll("#sList tr").length + 1, "", "M"); }
-
-    function addStudentRow(n, s, x) {
-        document.getElementById("sList").innerHTML += `<tr><td>${n}</td><td><input type="text" value="${s}"></td><td><select class="gen"><option value="M" ${x=='M'?'selected':''}>M</option><option value="F" ${x=='F'?'selected':''}>F</option></select></td><td><input type="number" class="sc" oninput="calc()"></td><td><input type="number" class="sc" oninput="calc()"></td><td><input type="number" class="sc" oninput="calc()"></td><td><input type="number" class="sc" oninput="calc()"></td><td><input type="number" class="sc" oninput="calc()"></td><td class="sxt">0</td><td><input type="number" class="fin" oninput="calc()"></td><td class="ttl">0</td><td><button onclick="this.parentElement.parentElement.remove(); calc()">x</button></td></tr>`;
-    }
-
-    function calc() {
-        let st = {m:{t:0,a:0}, f:{t:0,a:0}};
+    function clc() {
         document.querySelectorAll("#sList tr").forEach(row => {
-            let gen = row.querySelector(".gen").value;
-            let sxt = 0; row.querySelectorAll('.sc').forEach(i => sxt += (parseFloat(i.value) || 0));
-            row.querySelector('.sxt').innerText = sxt.toFixed(1);
-            let ttl = sxt + (parseFloat(row.querySelector('.fin').value) || 0);
-            row.querySelector('.ttl').innerText = ttl.toFixed(1);
-            let g = (gen === "F") ? "f" : "m";
-            st[g].t++; if(ttl >= 50) st[g].a++;
+            let s60 = 0; row.querySelectorAll('.sc').forEach(i => s60 += (parseFloat(i.value) || 0));
+            row.querySelector('.s60').innerText = s60.toFixed(1);
+            let st = s60 + (parseFloat(row.querySelector('.fn').value) || 0);
+            row.querySelector('.st').innerText = st.toFixed(1);
         });
-        document.getElementById("aBody").innerHTML = `<tr><td>Pass (>50)</td><td>${st.m.a}</td><td>${(st.m.a/(st.m.t||1)*100).toFixed(1)}%</td><td>${st.f.a}</td><td>${(st.f.a/(st.f.t||1)*100).toFixed(1)}%</td><td>${st.m.a+st.f.a}</td></tr>`;
+    }
+
+    function saveToFile() {
+        let data = "Student Records - Taytu Academy\n\n";
+        document.querySelectorAll("#sList tr").forEach(row => {
+            const name = row.cells[1].querySelector('input').value;
+            const total = row.cells[10].innerText;
+            data += `${name}: Total ${total}\n`;
+        });
+        const blob = new Blob([data], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'students_results.txt';
+        a.click();
     }
 </script>
 </body>
