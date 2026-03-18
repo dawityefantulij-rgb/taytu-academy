@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taytu Academy - Teacher Dawit</title>
+    <title>ጣይቱ ብጡል አካዳሚ - መምህር ዳዊት</title>
     <style>
         :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --g: #f1c40f; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; color: #333; }
@@ -11,88 +11,50 @@
         .container { max-width: 1300px; margin: auto; padding: 15px; }
         .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
         .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 200px; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 15px; text-align: center; margin-bottom: 20px; }
-        
-        /* Table & Inputs */
         .table-wrapper { overflow-x: auto; border: 1px solid #ddd; border-radius: 8px; background: white; }
         table { width: 100%; border-collapse: collapse; min-width: 1100px; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
         th { background: var(--s); color: white; font-weight: 600; font-size: 13px; }
-        .editable-head { background: #2980b9; color: white; border: none; text-align: center; font-weight: bold; width: 80px; cursor: edit; }
-        
+        .editable-head { background: #2980b9; color: white; border: none; text-align: center; font-weight: bold; width: 90px; }
         input[type="text"].s-name { width: 240px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        input[type="number"] { width: 50px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center; }
-        select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
-        
+        input[type="number"] { width: 55px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center; }
         .btn { padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .btn-main { background: var(--a); color: white; }
         .btn-save { background: #8e44ad; color: white; width: 100%; font-size: 16px; margin-top: 15px; }
-        .btn-add { background: var(--g); color: #222; width: 100%; margin: 10px 0; }
-        
         .hidden { display: none; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
         .gallery-grid img { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; border: 3px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        
         .analysis-box { background: #fffde7; border-left: 6px solid var(--g); padding: 20px; margin-top: 30px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div onclick="location.reload()" style="cursor:pointer; font-weight:bold; font-size: 1.3rem; letter-spacing: 1px;">ጣይቱ ብጡል አካዳሚ</div>
+    <div onclick="location.reload()" style="cursor:pointer; font-weight:bold; font-size: 1.3rem;">ጣይቱ ብጡል አካዳሚ</div>
     <button onclick="openLogin()" style="background:var(--g); border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer; color: #333;">Admin Login</button>
 </nav>
 
 <div id="homePage" class="container">
     <div class="hero">
-        <h1 style="margin:0; font-size: 2.5rem;">ጣይቱ ብጡል አካዳሚ</h1>
-        <p style="font-size: 1.2rem; margin-top: 10px;">መምህር ዳዊት የማነ - Visual Artist & Educator</p>
+        <h1 style="margin:0;">ጣይቱ ብጡል አካዳሚ</h1>
+        <p>መምህር ዳዊት የማነ - Visual Artist & Educator</p>
     </div>
-
     <div class="card">
-        <h3 style="border-bottom: 2px solid var(--s); padding-bottom: 10px;">🎨 የኪነ-ጥበብ ስራዎች ጋለሪ</h3>
+        <h3>🎨 የኪነ-ጥበብ ስራዎች ጋለሪ</h3>
         <div id="galleryHome" class="gallery-grid">
-            <div style="padding:50px; color:#999; text-align:center; grid-column: 1/-1;">እዚህ የሚጫኑ ፎቶዎች ለወላጆች ይታያሉ...</div>
-        </div>
-    </div>
-
-    <div class="card">
-        <h3 style="border-bottom: 2px solid var(--s); padding-bottom: 10px;">📩 የወላጆች መረጃ መጠየቂያ</h3>
-        <div style="max-width: 500px;">
-            <label>ሙሉ ስምዎ፡</label><br>
-            <input type="text" id="pName" style="width:100%; padding:12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px;"><br>
-            <label>የሚፈልጉት መረጃ፡</label><br>
-            <textarea id="pMsg" style="width:100%; height:100px; padding:12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px;" placeholder="መልዕክትዎን እዚህ ይጻፉ..."></textarea><br>
-            <label>መልሱ በምን ይላክልዎት?</label><br>
-            <select id="pWay" style="width:105%; padding:12px; margin: 8px 0;">
-                <option>በቴሌግራም መልሱልኝ</option>
-                <option>በኢሜይል መልሱልኝ</option>
-                <option>በስልክ ደውሉልኝ</option>
-            </select><br><br>
-            <button class="btn btn-main" onclick="sendMsg()">መልዕክት ላክ</button>
+            <div style="padding:50px; color:#999; text-align:center; grid-column: 1/-1;">እዚህ የሚጫኑ ፎቶዎች ይታያሉ...</div>
         </div>
     </div>
 </div>
 
 <div id="adminArea" class="container hidden">
-    <div class="card" style="background:#eef2f7; display: flex; flex-wrap: wrap; gap: 20px;">
-        <div style="flex: 1; min-width: 300px;">
-            <h3>📥 Inbox (መልዕክቶች)</h3>
-            <div id="inboxList" style="border:1px solid #ddd; padding:15px; background:white; height:150px; overflow-y:auto; border-radius: 10px;"><i>ምንም መልዕክት የለም...</i></div>
-        </div>
-        <div style="flex: 1; min-width: 300px;">
-            <h3>📤 ፎቶ መጫኛ</h3>
-            <input type="file" accept="image/*" onchange="addPhoto(event)" style="margin-bottom: 15px; display: block;">
-            <small style="color: #666;">* የምትጭነው ፎቶ በቀጥታ ሆም ፔጅ ላይ ለሁሉም ይታያል።</small>
-        </div>
-    </div>
-
     <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h2 style="margin:0; color: var(--p);">የተማሪዎች ውጤት መዝገብ</h2>
-            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">Logout</button>
+            <h2>የተማሪዎች ውጤት መዝገብ</h2>
+            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Logout</button>
         </div>
 
-        <select id="gradeSelect" onchange="loadGrade()" style="width:100%; padding:15px; font-weight:bold; font-size: 1rem; margin-bottom: 20px; border: 2px solid var(--s);">
+        <select id="gradeSelect" onchange="loadGrade()" style="width:100%; padding:15px; font-weight:bold; margin-bottom: 20px;">
             <option value="">-- ክፍል ይምረጡ --</option>
             <option value="6">Grade 6</option><option value="5">Grade 5</option>
             <option value="4">Grade 4</option><option value="3">Grade 3</option>
@@ -104,9 +66,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ተ.ቁ</th>
-                        <th style="min-width:260px;">የተማሪ ሙሉ ስም</th>
-                        <th>ጾታ</th>
+                        <th>ተ.ቁ</th><th style="min-width:250px;">የተማሪ ስም</th><th>ጾታ</th>
                         <th><input class="editable-head" value="Mid (20)"></th>
                         <th><input class="editable-head" value="Draw (5)"></th>
                         <th><input class="editable-head" value="Theater (10)"></th>
@@ -114,45 +74,26 @@
                         <th><input class="editable-head" value="Group (15)"></th>
                         <th style="background:#27ae60;">60%</th>
                         <th><input class="editable-head" value="Final (40)" style="background:#2980b9;"></th>
-                        <th style="background:#2c3e50;">100%</th>
-                        <th>-</th>
+                        <th style="background:#2c3e50;">100%</th><th>-</th>
                     </tr>
                 </thead>
                 <tbody id="sList"></tbody>
             </table>
         </div>
-        <button class="btn btn-add" onclick="addNewRow()">+ አዲስ ተማሪ ጨምር</button>
-        
-        <div class="analysis-box">
-            <h3 style="margin-top:0;">📊 የተሟላ የውጤት ትንተና (Full Analysis)</h3>
-            <div class="table-wrapper">
-                <table style="min-width: 800px; background: white;">
-                    <thead>
-                        <tr style="background:#eee; color: #333;">
-                            <th>የውጤት ክልል (Range)</th><th>ወንድ (M)</th><th>ወንድ (%)</th><th>ሴት (F)</th><th>ሴት (%)</th><th>ድምር (Total)</th><th>ድምር (%)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="analysisBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <button class="btn btn-save" onclick="saveToSheets()">💾 መረጃውን በቋሚነት አስቀምጥ (Save to Excel/Sheets)</button>
+        <button class="btn btn-save" onclick="saveToSheets()">💾 Save to Google Sheets</button>
     </div>
 </div>
 
-<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; z-index:2000">
-    <div class="card" style="width:320px; text-align:center">
-        <h3 style="margin-top:0;">Admin Access</h3>
-        <input type="password" id="passIn" placeholder="Password" style="width:90%; padding:12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px;">
+<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:2000">
+    <div class="card" style="width:300px; text-align:center">
+        <h3>Admin Access</h3>
+        <input type="password" id="passIn" placeholder="Password" style="width:90%; padding:10px; margin-bottom: 20px;">
         <button class="btn btn-main" style="width:100%;" onclick="checkAuth()">ግባ</button>
-        <p onclick="document.getElementById('loginOverlay').style.display='none'" style="color:red; cursor:pointer; margin-top:15px; font-size: 0.9rem;">ተመለስ</p>
     </div>
 </div>
 
 <script>
     const PASS = "Dawit@0721";
-    // ተማሪዎችን ከቀረበው ዝርዝር መሰረት አስገብቻለሁ
     const DB = {
         "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAGIM DEMISSIE AREYA","M"],["ELDANA SOLOMON LEUL","F"],["SURAFEL MANDEFRO AWOKE","M"],["MAEDOT YILMA BEKELE","F"],["REDIET KEBEDE KABTIMER","F"],["MARKAN ZEGEYE ABAYNEH","M"],["ESKEATSINAF BIRHANU ZEWDIE","M"],["MIKIYAS GEBREYOHANNES ESTIFANOS","M"],["DAWIT WORKE TAYE","M"],["BINIYAM ABEJE SHEWAFERA","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
         "5": [["SAMUEL TARIKU MOLA","M"],["KALKIDAN ZENEBE ABEBE","F"],["NATANIUM WONDAFEREW BELEYNEH","M"],["ADONAIT ERMIAS BEKELE","F"],["BEMNET AKLILU MINDA","F"],["HENOK BIRUK GIRMA","M"],["REDIET DEMISEW ZELELEW","F"],["ZELEKE MELESE WORKALEMAHU","M"],["MENA TESFAYE GIRMA","F"],["MEKLIT MEBRAT SEMAHEGN","F"],["NATNAEL TILAHUN ALELIGN","M"],["REDIET ASCHENAKI TEFERI","F"],["YISHAK ASCHENAKI TEFERI","M"],["AMEN DIBABE ARAGE","M"],["ADONIAS MUSE MENGESHA","M"],["NATANIUM HAILU MULUGETA","M"],["YEABSIRA SIYUM ASEFA","M"],["TEMESGEN LEGESE ASFAW","M"],["TAMRU TEKLETSADIK HAILYE","M"],["ELSHADAY TEFEREDEGN DEGEFU","F"],["YORDANOS BEHAILU TESHOME","F"],["ELDANA GIRMA GEBREMICHAEL","F"]],
@@ -173,31 +114,15 @@
         } else { alert("የይለፍ ቃል ተሳስቷል!"); }
     }
 
-    function sendMsg() {
-        const n = document.getElementById("pName").value, m = document.getElementById("pMsg").value, w = document.getElementById("pWay").value;
-        if(!n || !m) return alert("እባክዎ መረጃ ይሙሉ");
-        document.getElementById("inboxList").innerHTML += `<div style="padding:10px; border-bottom:1px solid #eee;"><b>${n}:</b> ${m} <br><small style="color:var(--s)">መልሱ በ: ${w}</small></div>`;
-        alert("መልዕክት ተልኳል!");
-        document.getElementById("pName").value=""; document.getElementById("pMsg").value="";
-    }
-
-    function addPhoto(e) {
-        const reader = new FileReader();
-        reader.onload = f => document.getElementById("galleryHome").innerHTML += `<img src="${f.target.result}">`;
-        reader.readAsDataURL(e.target.files[0]);
-    }
-
     function loadGrade() {
         const g = document.getElementById("gradeSelect").value;
         const list = document.getElementById("sList");
         list.innerHTML = "";
-        if(DB[g]) DB[g].forEach((s, i) => insertStudentRow(i+1, s[0], s[1]));
+        if(DB[g]) DB[g].forEach((s, i) => insertRow(i+1, s[0], s[1]));
         calc();
     }
 
-    function addNewRow() { insertStudentRow(document.getElementById("sList").rows.length + 1, "", "M"); }
-
-    function insertStudentRow(n, s, g) {
+    function insertRow(n, s, g) {
         document.getElementById("sList").innerHTML += `
             <tr>
                 <td>${n}</td>
@@ -208,101 +133,29 @@
                 <td><input type="number" class="val" oninput="calc()"></td>
                 <td><input type="number" class="val" oninput="calc()"></td>
                 <td><input type="number" class="val" oninput="calc()"></td>
-                <td class="res60" style="font-weight:bold;">0</td>
+                <td class="res60">0</td>
                 <td><input type="number" class="fin" oninput="calc()"></td>
-                <td class="res100" style="font-weight:bold; color:blue;">0</td>
-                <td><button onclick="this.parentElement.parentElement.remove(); calc()" style="background:red; color:white; border:none; border-radius:3px; padding:3px 8px;">X</button></td>
+                <td class="res100">0</td>
+                <td><button onclick="this.parentElement.parentElement.remove(); calc()">X</button></td>
             </tr>`;
     }
 
     function calc() {
-        let st = {
-            fail: {m:0, f:0}, p50: {m:0, f:0}, p75: {m:0, f:0}, p85: {m:0, f:0}, totalM: 0, totalF: 0
-        };
-
         document.querySelectorAll("#sList tr").forEach(row => {
-            let gn = row.querySelector(".s-gn").value;
             let s60 = 0; row.querySelectorAll('.val').forEach(i => s60 += (parseFloat(i.value) || 0));
             row.querySelector('.res60').innerText = s60.toFixed(1);
             let total = s60 + (parseFloat(row.querySelector('.fin').value) || 0);
             row.querySelector('.res100').innerText = total.toFixed(1);
-
-            if(gn === "M") { 
-                st.totalM++; 
-                if(total < 50) st.fail.m++;
-                if(total >= 50) st.p50.m++;
-                if(total >= 75) st.p75.m++;
-                if(total >= 85) st.p85.m++;
-            } else { 
-                st.totalF++; 
-                if(total < 50) st.fail.f++;
-                if(total >= 50) st.p50.f++;
-                if(total >= 75) st.p75.f++;
-                if(total >= 85) st.p85.f++;
-            }
         });
-
-        const all = st.totalM + st.totalF || 1;
-        const data = [
-            ["ከ 50% በታች", st.fail.m, st.fail.f],
-            ["ከ 50% - 100%", st.p50.m, st.p50.f],
-            ["ከ 75% - 100%", st.p75.m, st.p75.f],
-            ["ከ 85% - 100%", st.p85.m, st.p85.f]
-        ];
-
-        let h = "";
-        data.forEach(r => {
-            let sum = r[1]+r[2];
-            h += `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${((r[1]/(st.totalM||1))*100).toFixed(1)}%</td><td>${r[2]}</td><td>${((r[2]/(st.totalF||1))*100).toFixed(1)}%</td><td>${sum}</td><td>${((sum/all)*100).toFixed(1)}%</td></tr>`;
-        });
-        document.getElementById("analysisBody").innerHTML = h + `<tr style="font-weight:bold; background:#eee;"><td>ጠቅላላ ተማሪ</td><td>${st.totalM}</td><td>-</td><td>${st.totalF}</td><td>-</td><td>${all}</td><td>100%</td></tr>`;
     }
 
-    function saveToSheets( function saveToSheets() {
-    const g = document.getElementById("gradeSelect").value;
-    if(!g) return alert("እባክዎ መጀመሪያ ክፍል ይምረጡ!");
-
-    let allData = [];
-    document.querySelectorAll("#sList tr").forEach(row => {
-        let rowData = [
-            new Date().toLocaleString('en-GB'), // ቀን እና ሰዓት
-            g, // የክፍል ደረጃ
-            row.cells[0].innerText, // ተ.ቁ
-            [span_12](start_span)[span_13](start_span)[span_14](start_span)[span_15](start_span)[span_16](start_span)[span_17](start_span)[span_18](start_span)[span_19](start_span)[span_20](start_span)row.querySelector('.s-name').value, // የተማሪ ስም[span_12](end_span)[span_13](end_span)[span_14](end_span)[span_15](end_span)[span_16](end_span)[span_17](end_span)[span_18](end_span)[span_19](end_span)[span_20](end_span)
-            [span_21](start_span)[span_22](start_span)[span_23](start_span)[span_24](start_span)row.querySelector('.s-gn').value, // ጾታ[span_21](end_span)[span_22](end_span)[span_23](end_span)[span_24](end_span)
-            row.querySelector('.res60').innerText, // ከ 60% ድምር
-            row.querySelector('.fin').value, // የማጠቃለያ ፈተና (40%)
-            row.querySelector('.res100').innerText // ከ 100% ድምር
-        ];
-        allData.push(rowData);
-    });
-
-    // የእርስዎ Google Script URL እዚህ ጋር ተገናኝቷል
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyBbXJ1OYKBiRBHu0xRW3ysyZDPP3tqr5iUD7L6PL-AuIZpve1ntcNe9-WjNDCd3wUN/exec";
-
-    // ዳታውን ወደ Google Sheets ለመላክ
-    fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors', // በስልክም እንዲሰራ ይረዳዋል
-        cache: 'no-cache',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(allData)
-    })
-    .then(() => {
-        alert("መረጃው በ Google Sheets ላይ በስኬት ተቀምጧል!");
-    })
-    .catch(err => {
-        alert("ስህተት አጋጥሟል! እባክዎ ኢንተርኔትዎን ያረጋግጡ።");
-        console.error(err);
-    });
-}
-  ) {
-        let csv = "ተ.ቁ,ስም,ጾታ,60%,40%,100%\n";
+    function saveToSheets() {
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyBbXJ1OYKBiRBHu0xRW3ysyZDPP3tqr5iUD7L6PL-AuIZpve1ntcNe9-WjNDCd3wUN/exec";
+        let allData = [];
         document.querySelectorAll("#sList tr").forEach(row => {
-            csv += `${row.cells[0].innerText},${row.querySelector('.s-name').value},${row.querySelector('.s-gn').value},${row.querySelector('.res60').innerText},${row.querySelector('.fin').value},${row.querySelector('.res100').innerText}\n`;
+            allData.push([new Date().toLocaleDateString(), document.getElementById("gradeSelect").value, row.cells[0].innerText, row.querySelector('.s-name').value, row.querySelector('.s-gn').value, row.querySelector('.res60').innerText, row.querySelector('.fin').value, row.querySelector('.res100').innerText]);
         });
-        const b = new Blob([csv], {type: 'text/csv'});
-        const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'Taytu_Academy_Records.csv'; a.click();
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(allData) }).then(() => alert("በስኬት ተቀምጧል!"));
     }
 </script>
 </body>
