@@ -10,26 +10,24 @@
         nav { background: var(--p); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .nav-links a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; cursor: pointer; border: 1px solid white; padding: 5px 10px; border-radius: 5px; }
         .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 300px; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; border-radius: 0 0 30px 30px; }
-        .hero h1 { font-size: 2.5rem; margin: 0; }
-        .hero p { font-size: 1.2rem; color: var(--g); margin: 10px 0; }
         .container { max-width: 1100px; margin: 20px auto; padding: 20px; }
         .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .gallery img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; border: 3px solid #eee; }
         table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 15px; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
         th { background: var(--s); color: white; }
-        .btn { background: var(--a); color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn:hover { background: #219150; }
+        .btn { background: var(--a); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; margin: 5px; }
+        .add-btn { background: var(--g); color: black; font-size: 1.5rem; width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; display: block; margin: 10px auto; }
         .hidden { display: none; }
         .login-box { background: white; padding: 30px; border-radius: 15px; width: 300px; text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-        input { width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; }
+        input, select, textarea { width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; }
+        .edit-btn { background: #f39c12; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+        .del-btn { background: #e74c3c; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div style="font-size: 1.2rem; font-weight: bold;">Taytu Bitul Academy</div>
+    <div style="font-size: 1.2rem; font-weight: bold;">ጣይቱ ብጡል አካዳሚ</div>
     <div class="nav-links">
         <a onclick="showTab('home')">Home</a>
         <a onclick="openLogin()" style="background: var(--g); color: #000; border: none;">Admin Login</a>
@@ -39,61 +37,70 @@
 <div id="home" class="tab-content container">
     <div class="hero">
         <h1>ጣይቱ ብጡል አካዳሚ</h1>
-        <p>Teacher Dawit Yemane - Visual Artist</p>
-        <div style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--g);">የስነ-ጥበባት ትምህርት ክፍል</div>
+        <p>መምህር ዳዊት የማነ - የስነ-ጥበባት ትምህርት ክፍል</p>
     </div>
 
     <div class="card" style="margin-top: 30px;">
-        <h2 style="color: var(--p); border-left: 5px solid var(--g); padding-left: 10px;">🎨 የስራዎቻችን ጋለሪ (Gallery)</h2>
-        <div class="gallery">
-            <img src="https://images.unsplash.com/photo-1545670723-196ed0954986?w=400">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400">
-            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400">
-            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400">
+        <h3>🎨 የስራዎቻችን ጋለሪ (Gallery)</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+            <div style="height:150px; background:#ddd; border-radius:10px;"></div>
+            <div style="height:150px; background:#eee; border-radius:10px;"></div>
+            <div style="height:150px; background:#ddd; border-radius:10px;"></div>
         </div>
     </div>
 
     <div class="card">
-        <h3>📩 ጥያቄ ካለዎት እዚህ ይላኩ</h3>
-        <input type="text" placeholder="ሙሉ ስምዎ">
-        <textarea style="width: 90%; padding: 12px; height: 80px; border-radius: 6px; border: 1px solid #ccc;" placeholder="መልዕክት..."></textarea>
-        <br><br>
-        <button class="btn">ላክ</button>
+        <h3>📩 ለአስተማሪው አስተያየት ይስጡ</h3>
+        <form action="mailto:your-email@gmail.com" method="post" enctype="text/plain">
+            <input type="text" placeholder="የወላጅ/የተማሪ ስም" required>
+            <select name="contact_method">
+                <option value="Telegram">በቴሌግራም መልሱልኝ</option>
+                <option value="Email">በኢሜይል መልሱልኝ</option>
+            </select>
+            <textarea placeholder="አስተያየትዎን እዚህ ይጻፉ..." required style="height:100px;"></textarea>
+            <button type="submit" class="btn">በኢሜይል ላክ</button>
+            <a href="https://t.me/yourusername" target="_blank" class="btn" style="background:#0088cc; text-decoration:none; display:inline-block;">በቴሌግራም ላክ</a>
+        </form>
     </div>
 </div>
 
 <div id="adminArea" class="tab-content hidden container">
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="color: var(--s);">የውጤት መመዝገቢያ (Admin)</h2>
-            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">ውጣ (Logout)</button>
+            <h2 style="color: var(--s);">የተማሪዎች ውጤት መመዝገቢያ</h2>
+            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px;">Logout</button>
         </div>
         
         <p>ክፍል ይምረጡ፦</p>
-        <select id="gSelect" onchange="loadStudents()" style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; border: 2px solid var(--s); font-weight: bold;">
-            <option value="">-- ክፍሎች --</option>
-            <option value="6">Grade 6</option><option value="5">Grade 5</option>
-            <option value="4">Grade 4</option><option value="3">Grade 3</option>
-            <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
-            <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
+        <select id="gradeSelect" style="font-weight:bold;">
+            <option value="Grade 1">Grade 1</option>
+            <option value="Grade 2">Grade 2</option>
+            <option value="Grade 3">Grade 3</option>
+            <option value="Grade 4">Grade 4</option>
+            <option value="Grade 5">Grade 5</option>
+            <option value="Grade 6">Grade 6</option>
         </select>
 
         <div style="overflow-x: auto;">
-            <table id="resTable">
+            <table id="scoreTable">
                 <thead>
                     <tr>
-                        <th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th><th>ሚድ(20)</th><th>ስዕል(5)</th><th>ቲያትር(10)</th><th>ድርሰት(10)</th><th>ቡድን(15)</th><th>60%</th><th>ፈተና(40)</th><th>100%</th>
+                        <th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th><th>ሚድ(20)</th><th>ስዕል(5)</th><th>ቲያትር(10)</th><th>ድርሰት(10)</th><th>ቡድን(15)</th><th>60%</th><th>ፈተና(40)</th><th>100%</th><th>እርምጃ</th>
                     </tr>
                 </thead>
-                <tbody id="stBody"></tbody>
+                <tbody id="studentBody">
+                    </tbody>
             </table>
         </div>
+        
+        <button class="add-btn" onclick="addStudentRow()" title="ተማሪ ጨምር">+</button>
+        <p style="text-align:center; color: #666;">ተማሪ ለመጨመር የ "+" ምልክቷን ይጫኑ</p>
 
-        <div class="card" style="background:#fffde7; margin-top: 30px; border: 1px solid var(--g);">
-            <h3>📊 የውጤት ትንተና (Analysis)</h3>
-            <table>
-                <thead><tr><th>ክልል</th><th>M</th><th>%</th><th>F</th><th>%</th><th>Total</th><th>%</th></tr></thead>
-                <tbody id="anBody"></tbody>
+        <div class="card" style="background:#fffde7; margin-top: 30px;">
+            <h3>📊 የውጤት ትንተና (Auto-Calculate)</h3>
+            <table id="analysisTable">
+                <thead><tr><th>ክልል</th><th>ወንድ (M)</th><th>%</th><th>ሴት (F)</th><th>%</th><th>ድምር</th></tr></thead>
+                <tbody id="analysisBody"></tbody>
             </table>
         </div>
     </div>
@@ -101,55 +108,62 @@
 
 <div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; z-index:2000;">
     <div class="login-box">
-        <h2 style="color: var(--p);">Admin Login</h2>
-        <p style="font-size: 13px; color: #666;">Password: Dawit@0721</p>
-        <input type="password" id="passWord" placeholder="Password ያስገቡ">
-        <button class="btn" style="width: 100%;" onclick="checkAuth()">ግባ</button>
-        <p onclick="closeLogin()" style="color: #e74c3c; cursor: pointer; margin-top: 15px; font-weight: bold;">ተመለስ</p>
+        <h2>Admin Login</h2>
+        <input type="password" id="adminPass" placeholder="Password">
+        <button class="btn" style="width: 100%;" onclick="checkAdmin()">ግባ</button>
+        <p onclick="document.getElementById('loginOverlay').style.display='none'" style="color:red; cursor:pointer;">ዝጋ</p>
     </div>
 </div>
 
 <script>
-    const KEY = "Dawit@0721";
+    const PASS = "Dawit@0721";
     function showTab(id) { document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
     function openLogin() { document.getElementById('loginOverlay').style.display='flex'; }
-    function closeLogin() { document.getElementById('loginOverlay').style.display='none'; }
-    function checkAuth() { if(document.getElementById('passWord').value === KEY) { showTab('adminArea'); closeLogin(); } else { alert("የይለፍ ቃል ተሳስቷል!"); } }
+    function checkAdmin() { if(document.getElementById('adminPass').value === PASS) { showTab('adminArea'); document.getElementById('loginOverlay').style.display='none'; } else { alert("ስህተት!"); } }
 
-    const DB = {
-        "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAWIT WORKE TAYE","M"]],
-        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON LEUL","F"],["AFOMIYA MESFIN YIREFSHEWA","F"],["AMANUEL GIZACHEW TEFERA","M"],["AMEN TESFAYE GIRMA","F"],["BIRUK WONDOSEN GIRRMA","M"],["YARED WORKE TAYE","M"],["YEMISRACH MISGANAW TSEDEKE","F"]],
-        "1A": [["ABENEZER SEIFE SERBE","M"],["ABRHAM KETEMA WOLDEMARIAM","M"],["BETEN AMBERBIR BEKELE","F"],["EDEN ABERA SIME","F"],["HELEN ALEM TESEMA","F"],["SAMUEL BIRUK GETANEH","M"],["YEABSIRA SHEWAFERA AMENU","F"]]
-    }; // (ተማሪዎቹን ለምሳሌ ያህል ነው ያስቀመጥኳቸው - ሙሉውን ስም እንዲመጣ loadStudentsን ይጠቀማል)
-
-    function loadStudents() {
-        const grade = document.getElementById("gSelect").value;
-        const tbody = document.getElementById("stBody");
-        tbody.innerHTML = "";
-        if(DB[grade]) {
-            DB[grade].forEach((s, i) => {
-                tbody.innerHTML += `<tr><td>${i+1}</td><td>${s[0]}</td><td class="gnCell">${s[1]}</td><td><input type="number" class="inSc" oninput="calc()"></td><td><input type="number" class="inSc" oninput="calc()"></td><td><input type="number" class="inSc" oninput="calc()"></td><td><input type="number" class="inSc" oninput="calc()"></td><td><input type="number" class="inSc" oninput="calc()"></td><td class="sxt">0</td><td><input type="number" class="fnl" oninput="calc()"></td><td class="ttl">0</td></tr>`;
-            });
-        }
+    function addStudentRow() {
+        const table = document.getElementById("studentBody");
+        const rowCount = table.rows.length + 1;
+        const row = table.insertRow();
+        row.innerHTML = `
+            <td>${rowCount}</td>
+            <td><input type="text" placeholder="ስም" style="width:100px"></td>
+            <td><select style="width:50px" class="gender"><option value="M">M</option><option value="F">F</option></select></td>
+            <td><input type="number" class="score" oninput="calc()"></td>
+            <td><input type="number" class="score" oninput="calc()"></td>
+            <td><input type="number" class="score" oninput="calc()"></td>
+            <td><input type="number" class="score" oninput="calc()"></td>
+            <td><input type="number" class="score" oninput="calc()"></td>
+            <td class="sixty">0</td>
+            <td><input type="number" class="final" oninput="calc()"></td>
+            <td class="total" style="font-weight:bold">0</td>
+            <td><button class="del-btn" onclick="this.parentElement.parentElement.remove(); calc()">X</button></td>
+        `;
         calc();
     }
 
     function calc() {
-        let st = {m:{t:0,b:0,a:0}, f:{t:0,b:0,a:0}};
-        document.querySelectorAll("#stBody tr").forEach(row => {
-            let g = row.querySelector(".gnCell").innerText === "F" ? "f" : "m";
-            let sxt = 0; row.querySelectorAll('.inSc').forEach(i => sxt += (parseFloat(i.value) || 0));
-            row.querySelector('.sxt').innerText = sxt.toFixed(1);
-            let ttl = sxt + (parseFloat(row.querySelector('.fnl').value) || 0);
-            row.querySelector('.ttl').innerText = ttl.toFixed(1);
-            st[g].t++;
-            if(ttl < 50) st[g].b++; else st[g].a++;
+        let stats = {m:{t:0,a:0,b:0}, f:{t:0,a:0,b:0}};
+        document.querySelectorAll("#studentBody tr").forEach(row => {
+            let gender = row.querySelector(".gender").value;
+            let sum60 = 0;
+            row.querySelectorAll(".score").forEach(i => sum60 += (parseFloat(i.value) || 0));
+            row.querySelector(".sixty").innerText = sum60.toFixed(1);
+            let total = sum60 + (parseFloat(row.querySelector(".final").value) || 0);
+            row.querySelector(".total").innerText = total.toFixed(1);
+            
+            let g = gender === "F" ? "f" : "m";
+            stats[g].t++;
+            if(total >= 50) stats[g].a++; else stats[g].b++;
         });
-        const r = [["< 50%", st.m.b, st.f.b], ["> 50%", st.m.a, st.f.a]];
-        document.getElementById("anBody").innerHTML = r.map(x => {
-            let sum = x[1]+x[2];
-            return `<tr><td>${x[0]}</td><td>${x[1]}</td><td>${(st.m.t?x[1]/st.m.t*100:0).toFixed(1)}%</td><td>${x[2]}</td><td>${(st.f.t?x[2]/st.f.t*100:0).toFixed(1)}%</td><td>${sum}</td><td>${((st.m.t+st.f.t)?sum/(st.m.t+st.f.t)*100:0).toFixed(1)}%</td></tr>`;
-        }).join('');
+
+        const mPass = (stats.m.a/(stats.m.t||1)*100).toFixed(1);
+        const fPass = (stats.f.a/(stats.f.t||1)*100).toFixed(1);
+        
+        document.getElementById("analysisBody").innerHTML = `
+            <tr><td>ከ 50 በላይ</td><td>${stats.m.a}</td><td>${mPass}%</td><td>${stats.f.a}</td><td>${fPass}%</td><td>${stats.m.a+stats.f.a}</td></tr>
+            <tr><td>ከ 50 በታች</td><td>${stats.m.b}</td><td>-</td><td>${stats.f.b}</td><td>-</td><td>${stats.m.b+stats.f.b}</td></tr>
+        `;
     }
 </script>
 </body>
