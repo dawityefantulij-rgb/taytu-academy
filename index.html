@@ -258,7 +258,45 @@
         document.getElementById("analysisBody").innerHTML = h + `<tr style="font-weight:bold; background:#eee;"><td>ጠቅላላ ተማሪ</td><td>${st.totalM}</td><td>-</td><td>${st.totalF}</td><td>-</td><td>${all}</td><td>100%</td></tr>`;
     }
 
-    function saveToSheets() {
+    function saveToSheets( function saveToSheets() {
+    const g = document.getElementById("gradeSelect").value;
+    if(!g) return alert("እባክዎ መጀመሪያ ክፍል ይምረጡ!");
+
+    let allData = [];
+    document.querySelectorAll("#sList tr").forEach(row => {
+        let rowData = [
+            new Date().toLocaleString('en-GB'), // ቀን እና ሰዓት
+            g, // የክፍል ደረጃ
+            row.cells[0].innerText, // ተ.ቁ
+            [span_12](start_span)[span_13](start_span)[span_14](start_span)[span_15](start_span)[span_16](start_span)[span_17](start_span)[span_18](start_span)[span_19](start_span)[span_20](start_span)row.querySelector('.s-name').value, // የተማሪ ስም[span_12](end_span)[span_13](end_span)[span_14](end_span)[span_15](end_span)[span_16](end_span)[span_17](end_span)[span_18](end_span)[span_19](end_span)[span_20](end_span)
+            [span_21](start_span)[span_22](start_span)[span_23](start_span)[span_24](start_span)row.querySelector('.s-gn').value, // ጾታ[span_21](end_span)[span_22](end_span)[span_23](end_span)[span_24](end_span)
+            row.querySelector('.res60').innerText, // ከ 60% ድምር
+            row.querySelector('.fin').value, // የማጠቃለያ ፈተና (40%)
+            row.querySelector('.res100').innerText // ከ 100% ድምር
+        ];
+        allData.push(rowData);
+    });
+
+    // የእርስዎ Google Script URL እዚህ ጋር ተገናኝቷል
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyBbXJ1OYKBiRBHu0xRW3ysyZDPP3tqr5iUD7L6PL-AuIZpve1ntcNe9-WjNDCd3wUN/exec";
+
+    // ዳታውን ወደ Google Sheets ለመላክ
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors', // በስልክም እንዲሰራ ይረዳዋል
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(allData)
+    })
+    .then(() => {
+        alert("መረጃው በ Google Sheets ላይ በስኬት ተቀምጧል!");
+    })
+    .catch(err => {
+        alert("ስህተት አጋጥሟል! እባክዎ ኢንተርኔትዎን ያረጋግጡ።");
+        console.error(err);
+    });
+}
+  ) {
         let csv = "ተ.ቁ,ስም,ጾታ,60%,40%,100%\n";
         document.querySelectorAll("#sList tr").forEach(row => {
             csv += `${row.cells[0].innerText},${row.querySelector('.s-name').value},${row.querySelector('.s-gn').value},${row.querySelector('.res60').innerText},${row.querySelector('.fin').value},${row.querySelector('.res100').innerText}\n`;
