@@ -7,54 +7,77 @@
     <style>
         :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --g: #f1c40f; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; color: #333; }
-        nav { background: var(--p); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        nav { background: var(--p); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .container { max-width: 1300px; margin: auto; padding: 15px; }
         .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 200px; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 15px; text-align: center; margin-bottom: 20px; }
-        .table-wrapper { overflow-x: auto; border: 1px solid #ddd; border-radius: 8px; background: white; }
-        table { width: 100%; border-collapse: collapse; min-width: 1100px; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 180px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 15px; text-align: center; }
+        .table-wrapper { overflow-x: auto; margin-top: 15px; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; background: white; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-        th { background: var(--s); color: white; font-weight: 600; font-size: 13px; }
-        .editable-head { background: #2980b9; color: white; border: none; text-align: center; font-weight: bold; width: 90px; }
-        input[type="text"].s-name { width: 240px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        input[type="number"] { width: 55px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center; }
-        .btn { padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-main { background: var(--a); color: white; }
-        .btn-save { background: #8e44ad; color: white; width: 100%; font-size: 16px; margin-top: 15px; }
+        th { background: var(--s); color: white; }
+        .edit-head { background: #2980b9; color: white; border: 1px dashed #fff; text-align: center; font-weight: bold; width: 80px; padding: 5px; cursor: pointer; }
+        input[type="text"], input[type="number"], select { width: 90%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-save { background: #8e44ad; color: white; width: 100%; font-size: 16px; margin-top: 10px; }
         .hidden { display: none; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
-        .gallery-grid img { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; border: 3px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .analysis-box { background: #fffde7; border-left: 6px solid var(--g); padding: 20px; margin-top: 30px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .analysis-box { background: #fffde7; border-left: 6px solid var(--g); padding: 20px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div onclick="location.reload()" style="cursor:pointer; font-weight:bold; font-size: 1.3rem;">ጣይቱ ብጡል አካዳሚ</div>
-    <button onclick="openLogin()" style="background:var(--g); border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer; color: #333;">Admin Login</button>
+    <div onclick="location.reload()" style="cursor:pointer; font-weight:bold; font-size: 1.2rem;">ጣይቱ ብጡል አካዳሚ</div>
+    <button onclick="openLogin()" style="background:var(--g); border:none; padding:8px 15px; border-radius:5px; font-weight:bold; cursor:pointer;">Admin Login</button>
 </nav>
 
 <div id="homePage" class="container">
     <div class="hero">
-        <h1 style="margin:0;">ጣይቱ ብጡል አካዳሚ</h1>
+        <h1>ጣይቱ ብጡል አካዳሚ</h1>
         <p>መምህር ዳዊት የማነ - Visual Artist & Educator</p>
     </div>
+
     <div class="card">
-        <h3>🎨 የኪነ-ጥበብ ስራዎች ጋለሪ</h3>
+        <h3>🎨 የኪነ-ጥበብ ስራዎች ጋለሪ (Gallery)</h3>
         <div id="galleryHome" class="gallery-grid">
-            <div style="padding:50px; color:#999; text-align:center; grid-column: 1/-1;">እዚህ የሚጫኑ ፎቶዎች ይታያሉ...</div>
+            <p style="color:#999; text-align:center; grid-column: 1/-1;">ገና አልተጫነም...</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>📩 የመረጃ መጠየቂያ (Contact Form)</h3>
+        <div style="max-width: 450px;">
+            <input type="text" id="pName" placeholder="የእርስዎ ስም" style="margin-bottom:10px;"><br>
+            <textarea id="pMsg" placeholder="የሚፈልጉት መረጃ..." style="width:96%; height:80px; padding:10px; margin-bottom:10px; border:1px solid #ddd;"></textarea><br>
+            <select id="pWay" style="margin-bottom:10px;">
+                <option value="Telegram">በቴሌግራም መልሱልኝ</option>
+                <option value="Email">በኢሜይል መልሱልኝ</option>
+            </select><br>
+            <button class="btn" style="background:var(--a); color:white;" onclick="sendMsg()">መረጃ ላክ</button>
         </div>
     </div>
 </div>
 
 <div id="adminArea" class="container hidden">
+    <div class="card" style="display:flex; flex-wrap:wrap; gap:20px; background:#f9f9f9;">
+        <div style="flex:1; min-width:280px;">
+            <h3>📥 Inbox (መልዕክቶች)</h3>
+            <div id="inboxList" style="background:white; height:100px; overflow-y:auto; border:1px solid #ddd; padding:10px; border-radius:8px;"></div>
+        </div>
+        <div style="flex:1; min-width:280px;">
+            <h3>📤 ፎቶ መጫኛ (Upload)</h3>
+            <input type="file" accept="image/*" onchange="addPhoto(event)">
+        </div>
+    </div>
+
     <div class="card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
             <h2>የተማሪዎች ውጤት መዝገብ</h2>
-            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Logout</button>
+            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px;">Logout</button>
         </div>
 
-        <select id="gradeSelect" onchange="loadGrade()" style="width:100%; padding:15px; font-weight:bold; margin-bottom: 20px;">
+        <select id="gradeSelect" onchange="loadGrade()" style="width:100%; padding:12px; font-weight:bold; margin-bottom:15px; border:2px solid var(--s);">
             <option value="">-- ክፍል ይምረጡ --</option>
             <option value="6">Grade 6</option><option value="5">Grade 5</option>
             <option value="4">Grade 4</option><option value="3">Grade 3</option>
@@ -66,34 +89,51 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ተ.ቁ</th><th style="min-width:250px;">የተማሪ ስም</th><th>ጾታ</th>
-                        <th><input class="editable-head" value="Mid (20)"></th>
-                        <th><input class="editable-head" value="Draw (5)"></th>
-                        <th><input class="editable-head" value="Theater (10)"></th>
-                        <th><input class="editable-head" value="Write (10)"></th>
-                        <th><input class="editable-head" value="Group (15)"></th>
-                        <th style="background:#27ae60;">60%</th>
-                        <th><input class="editable-head" value="Final (40)" style="background:#2980b9;"></th>
-                        <th style="background:#2c3e50;">100%</th><th>-</th>
+                        <th>ተ.ቁ</th><th>ስም (Edit)</th><th>ጾታ</th>
+                        <th><input class="edit-head" value="Mid(20)"></th>
+                        <th><input class="edit-head" value="Draw(5)"></th>
+                        <th><input class="edit-head" value="Theater(10)"></th>
+                        <th><input class="edit-head" value="Write(10)"></th>
+                        <th><input class="edit-head" value="Group(15)"></th>
+                        <th style="background:var(--a);">60%</th>
+                        <th><input class="edit-head" value="Final(40)" style="background:#2980b9;"></th>
+                        <th style="background:#2c3e50;">100%</th>
+                        <th>ድርጊት</th>
                     </tr>
                 </thead>
                 <tbody id="sList"></tbody>
             </table>
         </div>
+        <button class="btn" style="background:var(--g); width:100%; margin:10px 0;" onclick="addNewRow()">+ አዲስ ተማሪ ጨምር</button>
+        
+        <div class="analysis-box">
+            <h3>📊 የውጤት ትንተና (Full Analysis)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr style="background:#ddd;">
+                            <th>የውጤት ክልል</th><th>ወንድ (M)</th><th>ወንድ %</th><th>ሴት (F)</th><th>ሴት %</th><th>ድምር</th><th>ድምር %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="analysisBody"></tbody>
+                </table>
+            </div>
+        </div>
         <button class="btn btn-save" onclick="saveToSheets()">💾 Save to Google Sheets</button>
     </div>
 </div>
 
-<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:2000">
-    <div class="card" style="width:300px; text-align:center">
+<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; z-index:2000">
+    <div class="card" style="width:280px; text-align:center">
         <h3>Admin Access</h3>
-        <input type="password" id="passIn" placeholder="Password" style="width:90%; padding:10px; margin-bottom: 20px;">
-        <button class="btn btn-main" style="width:100%;" onclick="checkAuth()">ግባ</button>
+        <input type="password" id="passIn" placeholder="Password" style="width:85%; padding:10px; margin-bottom:15px;">
+        <button class="btn" style="background:var(--a); color:white; width:95%;" onclick="checkAuth()">ግባ</button>
     </div>
 </div>
 
 <script>
     const PASS = "Dawit@0721";
+    // ተማሪዎች በክፍል ተለይተው እዚህ ተቀምጠዋል
     const DB = {
         "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAGIM DEMISSIE AREYA","M"],["ELDANA SOLOMON LEUL","F"],["SURAFEL MANDEFRO AWOKE","M"],["MAEDOT YILMA BEKELE","F"],["REDIET KEBEDE KABTIMER","F"],["MARKAN ZEGEYE ABAYNEH","M"],["ESKEATSINAF BIRHANU ZEWDIE","M"],["MIKIYAS GEBREYOHANNES ESTIFANOS","M"],["DAWIT WORKE TAYE","M"],["BINIYAM ABEJE SHEWAFERA","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
         "5": [["SAMUEL TARIKU MOLA","M"],["KALKIDAN ZENEBE ABEBE","F"],["NATANIUM WONDAFEREW BELEYNEH","M"],["ADONAIT ERMIAS BEKELE","F"],["BEMNET AKLILU MINDA","F"],["HENOK BIRUK GIRMA","M"],["REDIET DEMISEW ZELELEW","F"],["ZELEKE MELESE WORKALEMAHU","M"],["MENA TESFAYE GIRMA","F"],["MEKLIT MEBRAT SEMAHEGN","F"],["NATNAEL TILAHUN ALELIGN","M"],["REDIET ASCHENAKI TEFERI","F"],["YISHAK ASCHENAKI TEFERI","M"],["AMEN DIBABE ARAGE","M"],["ADONIAS MUSE MENGESHA","M"],["NATANIUM HAILU MULUGETA","M"],["YEABSIRA SIYUM ASEFA","M"],["TEMESGEN LEGESE ASFAW","M"],["TAMRU TEKLETSADIK HAILYE","M"],["ELSHADAY TEFEREDEGN DEGEFU","F"],["YORDANOS BEHAILU TESHOME","F"],["ELDANA GIRMA GEBREMICHAEL","F"]],
@@ -112,6 +152,25 @@
             document.getElementById('adminArea').classList.remove('hidden');
             document.getElementById('loginOverlay').style.display='none';
         } else { alert("የይለፍ ቃል ተሳስቷል!"); }
+    }
+
+    function sendMsg() {
+        const n = document.getElementById("pName").value, m = document.getElementById("pMsg").value, w = document.getElementById("pWay").value;
+        if(!n || !m) return alert("እባክዎ መረጃ ይሙሉ");
+        document.getElementById("inboxList").innerHTML += `<div style="border-bottom:1px solid #eee; padding:5px;"><b>${n} (${w}):</b> ${m}</div>`;
+        alert("ተልኳል! እናመሰግናለን።");
+        document.getElementById("pName").value=""; document.getElementById("pMsg").value="";
+    }
+
+    function addPhoto(e) {
+        const r = new FileReader();
+        r.onload = f => {
+            const img = document.createElement("img");
+            img.src = f.target.result;
+            document.getElementById("galleryHome").innerHTML = "";
+            document.getElementById("galleryHome").appendChild(img);
+        };
+        r.readAsDataURL(e.target.files[0]);
     }
 
     function loadGrade() {
@@ -133,29 +192,76 @@
                 <td><input type="number" class="val" oninput="calc()"></td>
                 <td><input type="number" class="val" oninput="calc()"></td>
                 <td><input type="number" class="val" oninput="calc()"></td>
-                <td class="res60">0</td>
+                <td class="res60" style="font-weight:bold; color:var(--a);">0</td>
                 <td><input type="number" class="fin" oninput="calc()"></td>
-                <td class="res100">0</td>
-                <td><button onclick="this.parentElement.parentElement.remove(); calc()">X</button></td>
+                <td class="res100" style="font-weight:bold; background:#eee;">0</td>
+                <td><button onclick="this.parentElement.parentElement.remove(); calc()" style="background:#ff7675; border:none; color:white; border-radius:4px; cursor:pointer;">X</button></td>
             </tr>`;
     }
 
+    function addNewRow() { insertRow(document.getElementById("sList").rows.length + 1, "", "M"); }
+
     function calc() {
+        let stats = { 
+            f50: {m:0, f:0}, p50: {m:0, f:0}, p75: {m:0, f:0}, p85: {m:0, f:0}, 
+            tm: 0, tf: 0 
+        };
+
         document.querySelectorAll("#sList tr").forEach(row => {
+            let gn = row.querySelector(".s-gn").value;
+            if(gn === "M") stats.tm++; else stats.tf++;
+
             let s60 = 0; row.querySelectorAll('.val').forEach(i => s60 += (parseFloat(i.value) || 0));
             row.querySelector('.res60').innerText = s60.toFixed(1);
             let total = s60 + (parseFloat(row.querySelector('.fin').value) || 0);
             row.querySelector('.res100').innerText = total.toFixed(1);
+
+            if(total < 50) { if(gn==="M") stats.f50.m++; else stats.f50.f++; }
+            if(total >= 50) { if(gn==="M") stats.p50.m++; else stats.p50.f++; }
+            if(total >= 75) { if(gn==="M") stats.p75.m++; else stats.p75.f++; }
+            if(total >= 85) { if(gn==="M") stats.p85.m++; else stats.p85.f++; }
         });
+
+        const rows = [
+            ["ከ 50 በታች", stats.f50.m, stats.f50.f],
+            ["50 - 100%", stats.p50.m, stats.p50.f],
+            ["75 - 100%", stats.p75.m, stats.p75.f],
+            ["85 - 100%", stats.p85.m, stats.p85.f]
+        ];
+
+        let h = "";
+        rows.forEach(r => {
+            let sum = r[1] + r[2];
+            let pm = ((r[1]/(stats.tm||1))*100).toFixed(1);
+            let pf = ((r[2]/(stats.tf||1))*100).toFixed(1);
+            let pt = ((sum/((stats.tm+stats.tf)||1))*100).toFixed(1);
+            h += `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${pm}%</td><td>${r[2]}</td><td>${pf}%</td><td>${sum}</td><td>${pt}%</td></tr>`;
+        });
+        document.getElementById("analysisBody").innerHTML = h;
     }
 
     function saveToSheets() {
         const scriptURL = "https://script.google.com/macros/s/AKfycbyBbXJ1OYKBiRBHu0xRW3ysyZDPP3tqr5iUD7L6PL-AuIZpve1ntcNe9-WjNDCd3wUN/exec";
         let allData = [];
+        const grade = document.getElementById("gradeSelect").value;
+        if(!grade) return alert("እባክዎ መጀመሪያ ክፍል ይምረጡ!");
+
         document.querySelectorAll("#sList tr").forEach(row => {
-            allData.push([new Date().toLocaleDateString(), document.getElementById("gradeSelect").value, row.cells[0].innerText, row.querySelector('.s-name').value, row.querySelector('.s-gn').value, row.querySelector('.res60').innerText, row.querySelector('.fin').value, row.querySelector('.res100').innerText]);
+            allData.push([
+                new Date().toLocaleDateString(),
+                grade,
+                row.cells[0].innerText,
+                row.querySelector('.s-name').value,
+                row.querySelector('.s-gn').value,
+                row.querySelector('.res60').innerText,
+                row.querySelector('.fin').value,
+                row.querySelector('.res100').innerText
+            ]);
         });
-        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(allData) }).then(() => alert("በስኬት ተቀምጧል!"));
+
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(allData) })
+        .then(() => alert("መረጃው በ Google Sheets ላይ በስኬት ተቀምጧል!"))
+        .catch(() => alert("ስህተት ተፈጥሯል!"));
     }
 </script>
 </body>
