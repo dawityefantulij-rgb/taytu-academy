@@ -3,43 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taytu Academy - Dawit Yemane Portal</title>
+    <title>Taytu Academy - Teacher Dawit Yemane</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root { --primary: #2c3e50; --secondary: #3498db; --accent: #27ae60; --gold: #f1c40f; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
         nav { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .nav-links a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; cursor: pointer; }
-        
-        /* HERO SECTION */
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1350&q=80'); 
-            height: 380px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; border-radius: 0 0 30px 30px; 
-        }
-        .hero h1 { font-size: 2.8rem; margin-bottom: 5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .hero h2 { 
-            font-family: 'Georgia', serif; font-style: italic; color: var(--gold); font-size: 2rem; margin: 10px 0;
-        }
-        .dept-title {
-            background: rgba(241, 196, 15, 0.2); border: 1px solid var(--gold); padding: 5px 25px; border-radius: 50px; font-size: 1.4rem; color: #fff; margin-top: 10px; font-weight: bold;
-        }
-
-        /* GALLERY SECTION */
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .gallery img { 
-            width: 100%; height: 200px; object-fit: cover; border-radius: 10px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
-        }
-        .gallery img:hover { transform: scale(1.05); }
-
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1350&q=80'); height: 300px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; border-radius: 0 0 30px 30px; }
+        .hero h2 { font-family: 'Georgia', serif; font-style: italic; color: var(--gold); font-size: 2.2rem; margin: 10px 0; }
         .container { max-width: 1100px; margin: 20px auto; padding: 20px; }
         .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
         .btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; }
-        #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; }
-        .hidden { display: none; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 15px; }
-        th, td { border: 1px solid #ddd; padding: 5px; text-align: left; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 15px; background: white; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
         th { background: var(--secondary); color: white; }
+        .analysis-section { margin-top: 30px; background: #fff; padding: 20px; border-radius: 12px; border-top: 5px solid var(--gold); }
+        .analysis-table th { background: #34495e; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -55,116 +36,117 @@
 <div id="home" class="tab-content container">
     <div class="hero">
         <h1>ጣይቱ ብጡል አካዳሚ</h1>
-        <h2>Dawit Yemane</h2>
-        <div class="dept-title">የስነ-ጥበባት ትምህርት ክፍል</div>
-        <p style="margin-top: 15px; font-size: 1.1rem;">የጥበብ እና የእውቀት ማዕከል</p>
+        <h2>Teacher Dawit Yemane</h2>
+        <div style="border: 1px solid var(--gold); padding: 5px 20px; border-radius: 50px;">የስነ-ጥበባት ትምህርት ክፍል</div>
     </div>
-
-    <div class="card">
-        <h3>የስራዎቻችን ጋለሪ (Gallery)</h3>
-        <div class="gallery">
-            <img src="https://images.unsplash.com/photo-1545670723-196ed0954986?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
-            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
-            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
-        </div>
-    </div>
-
-    <div class="card">
-        <h3>የመረጃ መጠየቂያ ፎርም</h3>
-        <input type="text" id="pName" placeholder="ሙሉ ስምዎ">
-        <select id="pMethod">
-            <option value="Telegram">በቴሌግራም መልሱልኝ</option>
-            <option value="Email">በኢሜይል መልሱልኝ</option>
-            <option value="Phone">በስልክ/አድራሻ መልሱልኝ</option>
-        </select>
-        <input type="text" id="pContact" placeholder="አድራሻዎ">
-        <textarea id="pMsg" placeholder="ጥያቄዎን እዚህ ይጻፉ..." rows="4"></textarea>
-        <button class="btn" onclick="sendMsg()">ጥያቄውን ላክ</button>
+    <div class="card" style="margin-top:20px; text-align:center;">
+        <h3>ወደ መምህር ዳዊት መረጃ መድረሻ ገጽ እንኳን ደህና መጡ</h3>
+        <p>ለማንኛውም ጥያቄ የአስተዳዳሪ ክፍሉን ይጠቀሙ።</p>
     </div>
 </div>
 
 <div id="adminArea" class="tab-content hidden container">
     <div class="card">
-        <div style="display:flex; justify-content:space-between;">
-            <h2>Admin Area - መምህር ዳዊት</h2>
-            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; border-radius:5px; padding:5px 10px; cursor:pointer;">Logout</button>
-        </div>
-        <div style="display:flex; gap:10px; margin-bottom:20px;">
-            <button class="btn" onclick="toggleAdmin('records')">ውጤት መመዝገቢያ</button>
-            <button class="btn" style="background:#8e44ad;" onclick="toggleAdmin('inbox')">Inbox (ጥያቄዎች)</button>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2>Admin Dashboard</h2>
+            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">ውጣ</button>
         </div>
         
         <div id="recordsSec">
-            <select id="gradeSelect" onchange="loadStudents()">
+            <select id="gradeSelect" onchange="loadStudents()" style="width:100%; padding:12px; margin-bottom:15px; font-weight:bold; border-radius:6px;">
                 <option value="">-- ክፍል ይምረጡ --</option>
                 <option value="6">Grade 6</option><option value="5">Grade 5</option>
                 <option value="4">Grade 4</option><option value="3">Grade 3</option>
                 <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
                 <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
             </select>
-            <table id="resultsTable">
-                <thead>
-                    <tr>
-                        <th>ተ.ቁ</th><th contenteditable="true">ስም</th><th contenteditable="true">ጾታ</th>
-                        <th contenteditable="true">ሚድ(20)</th><th contenteditable="true">ስዕል(5)</th>
-                        <th contenteditable="true">ቲያትር(10)</th><th contenteditable="true">ድርሰት(10)</th>
-                        <th contenteditable="true">ቡድን(15)</th><th>60%</th><th contenteditable="true">ፈተና(40)</th><th>100%</th>
-                    </tr>
-                </thead>
-                <tbody id="studentList"></tbody>
-            </table>
-            <textarea id="analysisText" rows="4" placeholder="የክፍል ውጤት ትንተና እዚህ ይጻፉ..."></textarea><br>
-            <button class="btn" onclick="exportToExcel()">ውጤቱን ወደ Excel አውርድ</button>
-        </div>
-        
-        <div id="inboxSec" class="hidden">
-            <h3>የወላጆች ጥያቄዎች</h3><div id="msgDisplay">መልዕክት የለም</div>
+
+            <div style="overflow-x:auto;">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>ተ.ቁ</th><th contenteditable="true">ስም</th><th contenteditable="true">ጾታ</th>
+                            <th contenteditable="true">ሚድ(20)</th><th contenteditable="true">ስዕል(5)</th>
+                            <th contenteditable="true">ቲያትር(10)</th><th contenteditable="true">ድርሰት(10)</th>
+                            <th contenteditable="true">ቡድን(15)</th><th>60%</th><th contenteditable="true">ፈተና(40)</th><th>100%</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentList"></tbody>
+                </table>
+            </div>
+
+            <div class="analysis-section">
+                <h3 style="color: #2c3e50; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">📊 የውጤት ትንተና (Result Analysis)</h3>
+                <table class="analysis-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">የውጤት ክልል</th>
+                            <th colspan="2">ወንድ (Male)</th>
+                            <th colspan="2">ሴት (Female)</th>
+                            <th colspan="2">ድምር (Total)</th>
+                        </tr>
+                        <tr>
+                            <th>ብዛት</th><th>በ %</th>
+                            <th>ብዛት</th><th>በ %</th>
+                            <th>ብዛት</th><th>በ %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ከ 50% በታች</td>
+                            <td id="m_below50">0</td><td id="mp_below50">0%</td>
+                            <td id="f_below50">0</td><td id="fp_below50">0%</td>
+                            <td id="t_below50">0</td><td id="tp_below50">0%</td>
+                        </tr>
+                        <tr>
+                            <td>ከ 50% - 100%</td>
+                            <td id="m_above50">0</td><td id="mp_above50">0%</td>
+                            <td id="f_above50">0</td><td id="fp_above50">0%</td>
+                            <td id="t_above50">0</td><td id="tp_above50">0%</td>
+                        </tr>
+                        <tr>
+                            <td>ከ 75% - 100%</td>
+                            <td id="m_above75">0</td><td id="mp_above75">0%</td>
+                            <td id="f_above75">0</td><td id="fp_above75">0%</td>
+                            <td id="t_above75">0</td><td id="tp_above75">0%</td>
+                        </tr>
+                        <tr>
+                            <td>ከ 85% - 100%</td>
+                            <td id="m_above85">0</td><td id="mp_above85">0%</td>
+                            <td id="f_above85">0</td><td id="fp_above85">0%</td>
+                            <td id="t_above85">0</td><td id="tp_above85">0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="margin-top:20px;">
+                <button class="btn" onclick="exportToExcel()">ውጤቱን ወደ Excel አውርድ</button>
+            </div>
         </div>
     </div>
 </div>
 
-<div id="loginOverlay">
+<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:2000;">
     <div class="card" style="width:300px; text-align:center;">
-        <h3>ይግቡ</h3>
-        <input type="password" id="passIn" placeholder="Password">
+        <h3>Login</h3>
+        <input type="password" id="passIn" placeholder="Password" style="width:100%; padding:10px; margin-bottom:10px;">
         <button class="btn" onclick="checkPass()">ግባ</button>
-        <button class="btn" style="background:#95a5a6; margin-top:5px;" onclick="closeLogin()">ተመለስ</button>
     </div>
 </div>
 
 <script>
     const auth = "Dawit@0721";
-    let inbox = [];
-
     function showTab(id) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
         document.getElementById(id).classList.remove('hidden');
     }
     function openLogin() { document.getElementById('loginOverlay').style.display='flex'; }
-    function closeLogin() { document.getElementById('loginOverlay').style.display='none'; }
     function checkPass() {
-        if(document.getElementById('passIn').value === auth) { showTab('adminArea'); closeLogin(); }
+        if(document.getElementById('passIn').value === auth) { showTab('adminArea'); document.getElementById('loginOverlay').style.display='none'; }
         else { alert("ስህተት!"); }
     }
-    function toggleAdmin(sec) {
-        document.getElementById('recordsSec').classList.toggle('hidden', sec !== 'records');
-        document.getElementById('inboxSec').classList.toggle('hidden', sec !== 'inbox');
-        if(sec === 'inbox') renderInbox();
-    }
-    function sendMsg() {
-        const m = { name: document.getElementById('pName').value, method: document.getElementById('pMethod').value, contact: document.getElementById('pContact').value, msg: document.getElementById('pMsg').value, time: new Date().toLocaleString() };
-        if(!m.name || !m.msg) return alert("መረጃ ይሙሉ");
-        inbox.push(m); alert("ጥያቄዎ ተልኳል!");
-    }
-    function renderInbox() {
-        document.getElementById('msgDisplay').innerHTML = inbox.map(i => `
-            <div style="background:#f9f9f9; padding:10px; border-bottom:1px solid #ddd; margin-bottom:5px;">
-                <strong>ከ: ${i.name}</strong> (${i.method})<br><small>${i.contact}</small><p>${i.msg}</p>
-            </div>`).join('') || "መልዕክት የለም";
-    }
 
-    // ተማሪዎች (ሙሉው ዝርዝር በመረጃው መሠረት ይቀጥላል)
     const students = {
         "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAWIT WORKE TAYE","M"]],
         "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON LEUL","F"],["AFOMIYA MESFIN YIREFSHEWA","F"]]
@@ -177,28 +159,70 @@
         if(students[grade]) {
             students[grade].forEach((s, i) => {
                 tbody.innerHTML += `<tr>
-                    <td>${i+1}</td><td contenteditable="true">${s[0]}</td><td contenteditable="true">${s[1]}</td>
-                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
-                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
-                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
-                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
-                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
-                    <td class="sixty">0</td><td><input type="number" style="width:40px" class="final" oninput="cal(this)"></td><td class="total">0</td>
+                    <td>${i+1}</td><td contenteditable="true">${s[0]}</td><td class="gender-cell" contenteditable="true">${s[1]}</td>
+                    <td><input type="number" class="sc" oninput="runCalculations()"></td>
+                    <td><input type="number" class="sc" oninput="runCalculations()"></td>
+                    <td><input type="number" class="sc" oninput="runCalculations()"></td>
+                    <td><input type="number" class="sc" oninput="runCalculations()"></td>
+                    <td><input type="number" class="sc" oninput="runCalculations()"></td>
+                    <td class="sixty">0</td>
+                    <td><input type="number" class="final" oninput="runCalculations()"></td>
+                    <td class="total-cell">0</td>
                 </tr>`;
             });
         }
     }
-    function cal(el) {
-        let row = el.parentElement.parentElement;
-        let sixty = 0;
-        row.querySelectorAll('.sc').forEach(s => sixty += (parseFloat(s.value) || 0));
-        row.querySelector('.sixty').innerText = sixty.toFixed(1);
-        let fin = parseFloat(row.querySelector('.final').value) || 0;
-        row.querySelector('.total').innerText = (sixty + fin).toFixed(1);
+
+    function runCalculations() {
+        let rows = document.querySelectorAll("#studentList tr");
+        let stats = {
+            m: { total: 0, below50: 0, above50: 0, above75: 0, above85: 0 },
+            f: { total: 0, below50: 0, above50: 0, above75: 0, above85: 0 }
+        };
+
+        rows.forEach(row => {
+            let gender = row.querySelector(".gender-cell").innerText.trim().toUpperCase();
+            let sixty = 0;
+            row.querySelectorAll('.sc').forEach(input => sixty += (parseFloat(input.value) || 0));
+            row.querySelector('.sixty').innerText = sixty.toFixed(1);
+            
+            let final = parseFloat(row.querySelector('.final').value) || 0;
+            let total = sixty + final;
+            row.querySelector('.total-cell').innerText = total.toFixed(1);
+
+            let g = (gender === "F" || gender === "ሴ") ? "f" : "m";
+            stats[g].total++;
+
+            if (total < 50) stats[g].below50++;
+            if (total >= 50) stats[g].above50++;
+            if (total >= 75) stats[g].above75++;
+            if (total >= 85) stats[g].above85++;
+        });
+
+        updateAnalysisUI(stats);
     }
+
+    function updateAnalysisUI(s) {
+        const updateRow = (idPrefix, mCount, fCount, mTotal, fTotal) => {
+            let tCount = mCount + fCount;
+            let tTotal = mTotal + fTotal;
+            document.getElementById(`m_${idPrefix}`).innerText = mCount;
+            document.getElementById(`f_${idPrefix}`).innerText = fCount;
+            document.getElementById(`t_${idPrefix}`).innerText = tCount;
+            document.getElementById(`mp_${idPrefix}`).innerText = mTotal ? ((mCount/mTotal)*100).toFixed(1) + "%" : "0%";
+            document.getElementById(`fp_${idPrefix}`).innerText = fTotal ? ((fCount/fTotal)*100).toFixed(1) + "%" : "0%";
+            document.getElementById(`tp_${idPrefix}`).innerText = tTotal ? ((tCount/tTotal)*100).toFixed(1) + "%" : "0%";
+        };
+
+        updateRow("below50", s.m.below50, s.f.below50, s.m.total, s.f.total);
+        updateRow("above50", s.m.above50, s.f.above50, s.m.total, s.f.total);
+        updateRow("above75", s.m.above75, s.f.above75, s.m.total, s.f.total);
+        updateRow("above85", s.m.above85, s.f.above85, s.m.total, s.f.total);
+    }
+
     function exportToExcel() {
         let wb = XLSX.utils.table_to_book(document.getElementById("resultsTable"));
-        XLSX.writeFile(wb, "Taytu_Academy_Dawit.xlsx");
+        XLSX.writeFile(wb, "Teacher_Dawit_Report.xlsx");
     }
 </script>
 </body>
