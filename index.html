@@ -6,164 +6,148 @@
     <title>Taytu Academy - Teacher Dawit</title>
     <style>
         :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --g: #f1c40f; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; color: #333; }
-        nav { background: var(--p); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .nav-links a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; cursor: pointer; border: 1px solid white; padding: 5px 10px; border-radius: 5px; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 300px; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; border-radius: 0 0 30px 30px; }
-        .container { max-width: 1100px; margin: 20px auto; padding: 20px; }
-        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 15px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
+        nav { background: var(--p); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 250px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 0 0 20px 20px; text-align: center; }
+        .container { max-width: 1100px; margin: auto; padding: 15px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        th, td { border: 1px solid #ddd; padding: 6px; text-align: center; }
         th { background: var(--s); color: white; }
-        .btn { background: var(--a); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; margin: 5px; }
-        .add-btn { background: var(--g); color: black; font-size: 1.5rem; width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; display: block; margin: 10px auto; }
+        .btn { background: var(--a); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .hidden { display: none; }
-        .login-box { background: white; padding: 30px; border-radius: 15px; width: 300px; text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-        input, select, textarea { width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; }
-        .edit-btn { background: #f39c12; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
-        .del-btn { background: #e74c3c; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+        input[type="number"], input[type="text"] { width: 90%; border: 1px solid #ccc; padding: 4px; }
+        .inbox-item { border-bottom: 1px solid #eee; padding: 10px; margin-bottom: 5px; background: #f9f9f9; border-radius: 5px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div style="font-size: 1.2rem; font-weight: bold;">ጣይቱ ብጡል አካዳሚ</div>
-    <div class="nav-links">
-        <a onclick="showTab('home')">Home</a>
-        <a onclick="openLogin()" style="background: var(--g); color: #000; border: none;">Admin Login</a>
+    <div onclick="showTab('home')" style="cursor:pointer; font-weight:bold;">Taytu Academy</div>
+    <div class="nav-right">
+        <a onclick="showTab('home')" style="color:white; text-decoration:none; cursor:pointer;">Home</a>
+        <button onclick="openLogin()" style="background:var(--g); border:none; padding:5px 10px; border-radius:4px; font-weight:bold; cursor:pointer;">Admin Login</button>
     </div>
 </nav>
 
 <div id="home" class="tab-content container">
     <div class="hero">
         <h1>ጣይቱ ብጡል አካዳሚ</h1>
-        <p>መምህር ዳዊት የማነ - የስነ-ጥበባት ትምህርት ክፍል</p>
+        <p>መምህር ዳዊት የማነ - Visual Artist</p>
     </div>
 
-    <div class="card" style="margin-top: 30px;">
-        <h3>🎨 የስራዎቻችን ጋለሪ (Gallery)</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-            <div style="height:150px; background:#ddd; border-radius:10px;"></div>
-            <div style="height:150px; background:#eee; border-radius:10px;"></div>
-            <div style="height:150px; background:#ddd; border-radius:10px;"></div>
-        </div>
-    </div>
-
-    <div class="card">
-        <h3>📩 ለአስተማሪው አስተያየት ይስጡ</h3>
-        <form action="mailto:your-email@gmail.com" method="post" enctype="text/plain">
-            <input type="text" placeholder="የወላጅ/የተማሪ ስም" required>
-            <select name="contact_method">
-                <option value="Telegram">በቴሌግራም መልሱልኝ</option>
-                <option value="Email">በኢሜይል መልሱልኝ</option>
-            </select>
-            <textarea placeholder="አስተያየትዎን እዚህ ይጻፉ..." required style="height:100px;"></textarea>
-            <button type="submit" class="btn">በኢሜይል ላክ</button>
-            <a href="https://t.me/yourusername" target="_blank" class="btn" style="background:#0088cc; text-decoration:none; display:inline-block;">በቴሌግራም ላክ</a>
-        </form>
+    <div class="card" style="margin-top:20px">
+        <h3>📩 አስተያየትዎን እዚህ ይጻፉ</h3>
+        <input type="text" id="senderName" placeholder="ስምዎ"><br>
+        <textarea id="senderMsg" style="width:96%; padding:10px; height:80px; margin-bottom:10px" placeholder="መልዕክት..."></textarea><br>
+        <button class="btn" onclick="sendMessage()">መልዕክት ላክ</button>
     </div>
 </div>
 
 <div id="adminArea" class="tab-content hidden container">
-    <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="color: var(--s);">የተማሪዎች ውጤት መመዝገቢያ</h2>
-            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px;">Logout</button>
+    <div class="card" style="background: #eef2f3;">
+        <div style="display:flex; justify-content:space-between">
+            <h3>📥 የመጡ መልዕክቶች (Inbox)</h3>
+            <button onclick="clearInbox()" style="background:red; color:white; border:none; padding:5px; border-radius:4px">ሁሉንም አጥፋ</button>
         </div>
-        
-        <p>ክፍል ይምረጡ፦</p>
-        <select id="gradeSelect" style="font-weight:bold;">
-            <option value="Grade 1">Grade 1</option>
-            <option value="Grade 2">Grade 2</option>
-            <option value="Grade 3">Grade 3</option>
-            <option value="Grade 4">Grade 4</option>
-            <option value="Grade 5">Grade 5</option>
-            <option value="Grade 6">Grade 6</option>
-        </select>
+        <div id="inboxList"><i>ምንም መልዕክት የለም...</i></div>
+    </div>
 
-        <div style="overflow-x: auto;">
-            <table id="scoreTable">
+    <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center">
+            <h3>የተማሪዎች ውጤት</h3>
+            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:5px 10px; border-radius:4px">Logout</button>
+        </div>
+        <select id="gradeSel" onchange="loadStudents()" style="width:100%; padding:10px; margin:10px 0; font-weight:bold;">
+            <option value="">-- ክፍል ይምረጡ --</option>
+            <option value="6">Grade 6</option><option value="5">Grade 5</option><option value="4">Grade 4</option>
+            <option value="3">Grade 3</option><option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
+            <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
+        </select>
+        
+        <div style="overflow-x:auto">
+            <table id="mainTable">
                 <thead>
-                    <tr>
-                        <th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th><th>ሚድ(20)</th><th>ስዕል(5)</th><th>ቲያትር(10)</th><th>ድርሰት(10)</th><th>ቡድን(15)</th><th>60%</th><th>ፈተና(40)</th><th>100%</th><th>እርምጃ</th>
-                    </tr>
+                    <tr><th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th><th>20%</th><th>5%</th><th>10%</th><th>10%</th><th>15%</th><th>60%</th><th>40%</th><th>100%</th><th>-</th></tr>
                 </thead>
-                <tbody id="studentBody">
-                    </tbody>
+                <tbody id="sList"></tbody>
             </table>
         </div>
+        <button onclick="addRow()" style="display:block; width:100%; margin-top:10px; padding:10px; background:var(--g); border:none; font-weight:bold; cursor:pointer;">+ አዲስ ተማሪ ጨምር</button>
         
-        <button class="add-btn" onclick="addStudentRow()" title="ተማሪ ጨምር">+</button>
-        <p style="text-align:center; color: #666;">ተማሪ ለመጨመር የ "+" ምልክቷን ይጫኑ</p>
-
-        <div class="card" style="background:#fffde7; margin-top: 30px;">
-            <h3>📊 የውጤት ትንተና (Auto-Calculate)</h3>
-            <table id="analysisTable">
-                <thead><tr><th>ክልል</th><th>ወንድ (M)</th><th>%</th><th>ሴት (F)</th><th>%</th><th>ድምር</th></tr></thead>
-                <tbody id="analysisBody"></tbody>
+        <div class="card" style="background:#fffde7; margin-top:20px">
+            <h4>📊 ትንተና</h4>
+            <table id="aTab">
+                <thead><tr><th>ክልል</th><th>M</th><th>%</th><th>F</th><th>%</th><th>Total</th></tr></thead>
+                <tbody id="aBody"></tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; z-index:2000;">
-    <div class="login-box">
-        <h2>Admin Login</h2>
-        <input type="password" id="adminPass" placeholder="Password">
-        <button class="btn" style="width: 100%;" onclick="checkAdmin()">ግባ</button>
-        <p onclick="document.getElementById('loginOverlay').style.display='none'" style="color:red; cursor:pointer;">ዝጋ</p>
+<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:2000">
+    <div class="card" style="width:280px; text-align:center">
+        <h4>Admin Password</h4>
+        <input type="password" id="passInput" placeholder="Password" style="margin-bottom:10px">
+        <button class="btn" onclick="checkAuth()" style="width:100%">ግባ</button>
+        <p onclick="closeLogin()" style="color:red; cursor:pointer; margin-top:10px">ተመለስ</p>
     </div>
 </div>
 
 <script>
     const PASS = "Dawit@0721";
+    const DB = {
+        "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAWIT WORKE TAYE","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
+        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON LEUL","F"],["AFOMIYA MESFIN YIREFSHEWA","F"],["AMANUEL GIZACHEW TEFERA","M"],["AMEN TESFAYE GIRMA","F"],["BENYAS WOYANTE MEKONNEN","M"],["BETSELOT TSEHAY BEKELE","F"],["BIRUK WONDOSEN GIRRMA","M"],["YARED WORKE TAYE","M"],["YOHANNES ASEFA BIRHANU","M"]],
+        "1A": [["ABENEZER SEIFE SERBE","M"],["ABRHAM KETEMA WOLDEMARIAM","M"],["EDEN ABERA SIME","F"],["HASET ABAYNEH YIFRU","F"],["SAMUEL BIRUK GETANEH","M"],["ZEYEDE KEBEDE ASEFA","F"]]
+    }; // (ሙሉ ስሞቹን ለማሳጠር እዚህ ጥቂቱን አሳይቻለሁ፣ ሁሉንም ትጨምራለህ)
+
     function showTab(id) { document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
     function openLogin() { document.getElementById('loginOverlay').style.display='flex'; }
-    function checkAdmin() { if(document.getElementById('adminPass').value === PASS) { showTab('adminArea'); document.getElementById('loginOverlay').style.display='none'; } else { alert("ስህተት!"); } }
+    function closeLogin() { document.getElementById('loginOverlay').style.display='none'; }
+    function checkAuth() { if(document.getElementById('passInput').value === PASS) { showTab('adminArea'); closeLogin(); } else { alert("Error!"); } }
 
-    function addStudentRow() {
-        const table = document.getElementById("studentBody");
-        const rowCount = table.rows.length + 1;
-        const row = table.insertRow();
-        row.innerHTML = `
-            <td>${rowCount}</td>
-            <td><input type="text" placeholder="ስም" style="width:100px"></td>
-            <td><select style="width:50px" class="gender"><option value="M">M</option><option value="F">F</option></select></td>
-            <td><input type="number" class="score" oninput="calc()"></td>
-            <td><input type="number" class="score" oninput="calc()"></td>
-            <td><input type="number" class="score" oninput="calc()"></td>
-            <td><input type="number" class="score" oninput="calc()"></td>
-            <td><input type="number" class="score" oninput="calc()"></td>
-            <td class="sixty">0</td>
-            <td><input type="number" class="final" oninput="calc()"></td>
-            <td class="total" style="font-weight:bold">0</td>
-            <td><button class="del-btn" onclick="this.parentElement.parentElement.remove(); calc()">X</button></td>
-        `;
+    function sendMessage() {
+        const name = document.getElementById("senderName").value;
+        const msg = document.getElementById("senderMsg").value;
+        if(!name || !msg) return alert("እባክዎ ስም እና መልዕክት ይጻፉ!");
+        const list = document.getElementById("inboxList");
+        if(list.innerText.includes("ምንም መልዕክት")) list.innerHTML = "";
+        list.innerHTML += `<div class="inbox-item"><b>ከ ${name}:</b><br>${msg}</div>`;
+        alert("መልዕክትዎ ተልኳል!");
+        document.getElementById("senderName").value = "";
+        document.getElementById("senderMsg").value = "";
+    }
+
+    function clearInbox() { document.getElementById("inboxList").innerHTML = "<i>ምንም መልዕክት የለም...</i>"; }
+
+    function loadStudents() {
+        const g = document.getElementById("gradeSel").value;
+        const list = document.getElementById("sList");
+        list.innerHTML = "";
+        if(DB[g]) DB[g].forEach((s, i) => addStudentRow(i+1, s[0], s[1]));
         calc();
     }
 
-    function calc() {
-        let stats = {m:{t:0,a:0,b:0}, f:{t:0,a:0,b:0}};
-        document.querySelectorAll("#studentBody tr").forEach(row => {
-            let gender = row.querySelector(".gender").value;
-            let sum60 = 0;
-            row.querySelectorAll(".score").forEach(i => sum60 += (parseFloat(i.value) || 0));
-            row.querySelector(".sixty").innerText = sum60.toFixed(1);
-            let total = sum60 + (parseFloat(row.querySelector(".final").value) || 0);
-            row.querySelector(".total").innerText = total.toFixed(1);
-            
-            let g = gender === "F" ? "f" : "m";
-            stats[g].t++;
-            if(total >= 50) stats[g].a++; else stats[g].b++;
-        });
+    function addRow() { addStudentRow(document.querySelectorAll("#sList tr").length + 1, "", "M"); }
 
-        const mPass = (stats.m.a/(stats.m.t||1)*100).toFixed(1);
-        const fPass = (stats.f.a/(stats.f.t||1)*100).toFixed(1);
-        
-        document.getElementById("analysisBody").innerHTML = `
-            <tr><td>ከ 50 በላይ</td><td>${stats.m.a}</td><td>${mPass}%</td><td>${stats.f.a}</td><td>${fPass}%</td><td>${stats.m.a+stats.f.a}</td></tr>
-            <tr><td>ከ 50 በታች</td><td>${stats.m.b}</td><td>-</td><td>${stats.f.b}</td><td>-</td><td>${stats.m.b+stats.f.b}</td></tr>
-        `;
+    function addStudentRow(n, s, x) {
+        document.getElementById("sList").innerHTML += `<tr><td>${n}</td><td><input type="text" value="${s}"></td><td><select class="gen"><option value="M" ${x=='M'?'selected':''}>M</option><option value="F" ${x=='F'?'selected':''}>F</option></select></td><td><input type="number" class="sc" oninput="calc()"></td><td><input type="number" class="sc" oninput="calc()"></td><td><input type="number" class="sc" oninput="calc()"></td><td><input type="number" class="sc" oninput="calc()"></td><td><input type="number" class="sc" oninput="calc()"></td><td class="sxt">0</td><td><input type="number" class="fin" oninput="calc()"></td><td class="ttl">0</td><td><button onclick="this.parentElement.parentElement.remove(); calc()">x</button></td></tr>`;
+    }
+
+    function calc() {
+        let st = {m:{t:0,a:0}, f:{t:0,a:0}};
+        document.querySelectorAll("#sList tr").forEach(row => {
+            let gen = row.querySelector(".gen").value;
+            let sxt = 0; row.querySelectorAll('.sc').forEach(i => sxt += (parseFloat(i.value) || 0));
+            row.querySelector('.sxt').innerText = sxt.toFixed(1);
+            let ttl = sxt + (parseFloat(row.querySelector('.fin').value) || 0);
+            row.querySelector('.ttl').innerText = ttl.toFixed(1);
+            let g = (gen === "F") ? "f" : "m";
+            st[g].t++; if(ttl >= 50) st[g].a++;
+        });
+        document.getElementById("aBody").innerHTML = `<tr><td>Pass (>50)</td><td>${st.m.a}</td><td>${(st.m.a/(st.m.t||1)*100).toFixed(1)}%</td><td>${st.f.a}</td><td>${(st.f.a/(st.f.t||1)*100).toFixed(1)}%</td><td>${st.m.a+st.f.a}</td></tr>`;
     }
 </script>
 </body>
