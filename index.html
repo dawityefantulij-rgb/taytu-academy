@@ -3,28 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taytu Academy - Home & Portal</title>
+    <title>Taytu Academy - Dawit Yemane Portal</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        :root { --primary: #2c3e50; --secondary: #3498db; --accent: #27ae60; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f0f2f5; }
-        nav { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        :root { --primary: #2c3e50; --secondary: #3498db; --accent: #27ae60; --gold: #f1c40f; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
+        nav { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .nav-links a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; cursor: pointer; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1350&q=80'); 
-                height: 350px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; }
-        .section { padding: 40px 20px; max-width: 1200px; margin: auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        .card img { width: 100%; border-radius: 8px; height: 180px; object-fit: cover; }
-        #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .login-box { background: white; padding: 30px; border-radius: 15px; text-align: center; width: 90%; max-width: 350px; }
-        input[type="password"] { width: 90%; padding: 12px; margin: 15px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
-        #managementArea { display: none; padding: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; background: white; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: var(--secondary); color: white; }
-        .btn { background: var(--accent); color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        input[type="number"] { width: 45px; padding: 4px; border: 1px solid #ccc; }
+        
+        /* HERO SECTION */
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1350&q=80'); 
+            height: 380px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; border-radius: 0 0 30px 30px; 
+        }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero h2 { 
+            font-family: 'Georgia', serif; font-style: italic; color: var(--gold); font-size: 2rem; margin: 10px 0;
+        }
+        .dept-title {
+            background: rgba(241, 196, 15, 0.2); border: 1px solid var(--gold); padding: 5px 25px; border-radius: 50px; font-size: 1.4rem; color: #fff; margin-top: 10px; font-weight: bold;
+        }
+
+        /* GALLERY SECTION */
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .gallery img { 
+            width: 100%; height: 200px; object-fit: cover; border-radius: 10px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+        }
+        .gallery img:hover { transform: scale(1.05); }
+
+        .container { max-width: 1100px; margin: 20px auto; padding: 20px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; }
+        #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .hidden { display: none; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 5px; text-align: left; }
+        th { background: var(--secondary); color: white; }
     </style>
 </head>
 <body>
@@ -32,87 +47,129 @@
 <nav>
     <div class="logo">Taytu Bitul Academy</div>
     <div class="nav-links">
-        <a onclick="showHome()">Home</a>
-        <a onclick="openLogin()">Portal</a>
+        <a onclick="showTab('home')">መነሻ ገጽ</a>
+        <a onclick="openLogin()">Admin (Dawit)</a>
     </div>
 </nav>
 
-<div id="homePage">
+<div id="home" class="tab-content container">
     <div class="hero">
         <h1>ጣይቱ ብጡል አካዳሚ</h1>
-        <p>የጥበብ እና የእውቀት ማዕከል</p>
+        <h2>Dawit Yemane</h2>
+        <div class="dept-title">የስነ-ጥበባት ትምህርት ክፍል</div>
+        <p style="margin-top: 15px; font-size: 1.1rem;">የጥበብ እና የእውቀት ማዕከል</p>
     </div>
-    <div class="section">
-        <h2 style="text-align:center;">የትምህርት ቤቱ ጋለሪ</h2>
-        <div class="grid">
-            <div class="card"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c"><h3>ስነ-ጥበብ (Art)</h3></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d"><h3>ሙዚቃ (Music)</h3></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6"><h3>ቤተ-መጽሐፍት</h3></div>
+
+    <div class="card">
+        <h3>የስራዎቻችን ጋለሪ (Gallery)</h3>
+        <div class="gallery">
+            <img src="https://images.unsplash.com/photo-1545670723-196ed0954986?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
+            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>የመረጃ መጠየቂያ ፎርም</h3>
+        <input type="text" id="pName" placeholder="ሙሉ ስምዎ">
+        <select id="pMethod">
+            <option value="Telegram">በቴሌግራም መልሱልኝ</option>
+            <option value="Email">በኢሜይል መልሱልኝ</option>
+            <option value="Phone">በስልክ/አድራሻ መልሱልኝ</option>
+        </select>
+        <input type="text" id="pContact" placeholder="አድራሻዎ">
+        <textarea id="pMsg" placeholder="ጥያቄዎን እዚህ ይጻፉ..." rows="4"></textarea>
+        <button class="btn" onclick="sendMsg()">ጥያቄውን ላክ</button>
+    </div>
+</div>
+
+<div id="adminArea" class="tab-content hidden container">
+    <div class="card">
+        <div style="display:flex; justify-content:space-between;">
+            <h2>Admin Area - መምህር ዳዊት</h2>
+            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; border-radius:5px; padding:5px 10px; cursor:pointer;">Logout</button>
+        </div>
+        <div style="display:flex; gap:10px; margin-bottom:20px;">
+            <button class="btn" onclick="toggleAdmin('records')">ውጤት መመዝገቢያ</button>
+            <button class="btn" style="background:#8e44ad;" onclick="toggleAdmin('inbox')">Inbox (ጥያቄዎች)</button>
+        </div>
+        
+        <div id="recordsSec">
+            <select id="gradeSelect" onchange="loadStudents()">
+                <option value="">-- ክፍል ይምረጡ --</option>
+                <option value="6">Grade 6</option><option value="5">Grade 5</option>
+                <option value="4">Grade 4</option><option value="3">Grade 3</option>
+                <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
+                <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
+            </select>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>ተ.ቁ</th><th contenteditable="true">ስም</th><th contenteditable="true">ጾታ</th>
+                        <th contenteditable="true">ሚድ(20)</th><th contenteditable="true">ስዕል(5)</th>
+                        <th contenteditable="true">ቲያትር(10)</th><th contenteditable="true">ድርሰት(10)</th>
+                        <th contenteditable="true">ቡድን(15)</th><th>60%</th><th contenteditable="true">ፈተና(40)</th><th>100%</th>
+                    </tr>
+                </thead>
+                <tbody id="studentList"></tbody>
+            </table>
+            <textarea id="analysisText" rows="4" placeholder="የክፍል ውጤት ትንተና እዚህ ይጻፉ..."></textarea><br>
+            <button class="btn" onclick="exportToExcel()">ውጤቱን ወደ Excel አውርድ</button>
+        </div>
+        
+        <div id="inboxSec" class="hidden">
+            <h3>የወላጆች ጥያቄዎች</h3><div id="msgDisplay">መልዕክት የለም</div>
         </div>
     </div>
 </div>
 
 <div id="loginOverlay">
-    <div class="login-box">
-        <h3>መምህር ዳዊት - ይግቡ</h3>
-        <input type="password" id="passInput" placeholder="Password">
-        <br>
-        <button class="btn" onclick="verifyAccess()">ግባ</button>
-        <button class="btn" style="background:#95a5a6;" onclick="closeLogin()">ተመለስ</button>
-    </div>
-</div>
-
-<div id="managementArea" class="section">
-    <div style="background: white; padding: 20px; border-radius: 10px;">
-        <h2>የተማሪዎች ውጤት መመዝገቢያ</h2>
-        <select id="gradeSelect" onchange="loadStudents()" style="padding:10px; margin-bottom:20px;">
-            <option value="">-- ክፍል ይምረጡ --</option>
-            <option value="6">Grade 6</option><option value="5">Grade 5</option>
-            <option value="4">Grade 4</option><option value="3">Grade 3</option>
-            <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
-            <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
-        </select>
-        <div style="overflow-x:auto;">
-            <table id="resultsTable">
-                <thead>
-                    <tr>
-                        <th>ተ.ቁ</th><th>ስም</th><th>ጾታ</th>
-                        <th>ሚድ(20)</th><th>ስዕል(5)</th><th>ቲያትር(10)</th>
-                        <th>ድርሰት(10)</th><th>ቡድን(15)</th><th>ማጠቃለያ(40)</th>
-                        <th>ጠቅላላ(100)</th>
-                    </tr>
-                </thead>
-                <tbody id="studentList"></tbody>
-            </table>
-        </div>
-        <br>
-        <button class="btn" onclick="exportToExcel()">ወደ Excel አውርድ</button>
+    <div class="card" style="width:300px; text-align:center;">
+        <h3>ይግቡ</h3>
+        <input type="password" id="passIn" placeholder="Password">
+        <button class="btn" onclick="checkPass()">ግባ</button>
+        <button class="btn" style="background:#95a5a6; margin-top:5px;" onclick="closeLogin()">ተመለስ</button>
     </div>
 </div>
 
 <script>
-    const authPass = "Dawit@0721";
-    const students = {
-        "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAGIM DEMISSIE AREYA","M"],["ELDANA SOLOMON LEUL","F"],["SURAFEL MANDEFRO AWOKE","M"],["MAEDOT YILMA BEKELE","F"],["REDIET KEBEDE KABTIMER","F"],["MARKAN ZEGEYE ABAYNEH","M"],["ESKEATSINAF BIRHANU ZEWDIE","M"],["MIKIYAS GEBREYOHANNES ESTIFANOS","M"],["DAWIT WORKE TAYE","M"],["BINIYAM ABEJE SHEWAFERA","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
-        "5": [["SAMUEL TARIKU MOLA","M"],["KALKIDAN ZENEBE ABEBE","F"],["NATANIUM WONDAFEREW BELEYNEH","M"],["ADONAIT ERMIAS BEKELE","F"],["BEMNET AKLILU MINDA","F"],["HENOK BIRUK GIRMA","M"],["REDIET DEMISEW ZELELEW","F"],["ZELEKE MELESE WORKALEMAHU","M"],["MENA TESFAYE GIRMA","F"],["MEKLIT MEBRAT SEMAHEGN","F"],["NATNAEL TILAHUN ALELIGN","M"],["REDIET ASCHENAKI TEFERI","F"],["YISHAK ASCHENAKI TEFERI","M"],["AMEN DIBABE ARAGE","M"],["ADONIAS MUSE MENGESHA","M"],["NATANIUM HAILU MULUGETA","M"],["YEABSIRA SIYUM ASEFA","M"],["TEMESGEN LEGESE ASFAW","M"],["TAMRU TEKLETSADIK HAILYE","M"],["ELSHADAY TEFEREDEGN DEGEFU","F"],["YORDANOS BEHAILU TESHOME","F"],["ELDANA GIRMA GEBREMICHAEL","F"]],
-        "4": [["YOHANNES MEKASHA ZENA","M"],["BEFIKAD FIRDAWOK TEKLEYOHANNES","M"],["BEMNET ABEBE TADESSE","F"],["BEREKET ERMIAS BEKELE","M"],["KALKIDAN WOLDU KEBEDE","F"],["MAHLET MESFIN ALI","F"],["YALEMWORK BELAY TAMRIE","F"],["NATAN DAMITEW TSEGAW","M"],["YOHANNES BAYELIGN AYITENFISU","M"],["NAHOM ABRHAM BEKELE","M"],["KIDUS ALEMU MULATU","M"],["AMEN HAILEMESKEL GEBREMARIAM","M"],["YEABSIRA YOSEF HAILEMICHAEL","M"],["HENOK GIRMA MAMO","M"],["BIRUK MULUGETA BEZABH","M"],["BITANIA TEWABE HAILU","F"],["RODAS NEGASH FANTAYE","M"],["HALELUYA EWAWOY MULATU","F"],["MEKUANINT GETABALEW ZEWDE","M"],["BETSELOT TENKIR ALEMU","F"],["TINSAE GEBEYEHU HAILU","M"],["MEHAMED ABDU YASIN","M"],["DAWIT ABAY GIZAW","M"]],
-        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON LEUL","F"],["AFOMIYA MESFIN YIREFSHEWA","F"],["AMANUEL GIZACHEW TEFERA","M"],["AMEN TESFAYE GIRMA","F"],["BENYAS WOYANTE MEKONNEN","M"],["BETSELOT TSEHAY BEKELE","F"],["BETSELOT MULUGETA TADESSE","F"],["BIRUK WONDOSEN GIRRMA","M"],["BITANIYA YIRGALEM WONDIMAGEGNEHU","F"],["DAGMAWIT SILESHI GIRMA","F"],["DANIEL ELIAS GIRMA","M"],["ELDANA MULUGETA BEZABIH","F"],["GELILA WORKU ZIKARGE","F"],["GIRUMNESH GETACHEW MEKASHA","F"],["HANA SHEWAYIRGA TEKLU","F"],["HERMELA DEMELASH MEKONNEN","F"],["HIYAB ENYEW HAILU","F"],["KALKIDAN ENDASHAW BELAY","F"],["KIDIST ZEWUDU GIZACHEW","F"],["KIDUS ZELALEM GEBEYEHU","M"],["KIDUS YEHUALASHET MEKONNEN","M"],["LETARIK SHEWANEGA NADEW","F"],["LEUL USMAN KASIM","M"],["LIDYIA ZEBENE DINBERU","F"],["MARUF AHMED TUHA","M"],["NATAN MINDAYE ABATE","M"],["NATAN AYELE ZENEBE","M"],["NATNAEL ZEBENE MAMO","M"],["SURAFEL TAMIRU AGONAFIR","M"],["TSEGA EZRA SAHLE","F"],["TSION DERESIE KEBEDE","F"],["YARED WORKE TAYE","M"],["YEABSIRA TEWODROS NIGUSE","M"],["YEABSIRA ALEMAYEHU MOHAMED","M"],["YEABTSEGA SOLOMON GEMEDA","M"],["YEMISRACH MISGANAW TSEDEKE","F"],["YISHAK ABERA SIMA","M"],["YOHANNES AKLILU MINDA","M"],["YOHANNES ASEFA BIRHANU","M"]],
-        "2A": [["ADONIAS ALEMSEGED SEYFU","M"],["AMEN TEKALGN KEBEDE","F"],["ANANIYA GETAHUN BANJAW","F"],["BEALU TEGEGNEWORK ALEMAYEHU","M"],["BEAMLAK WOLDE TEKLE","M"],["BETSELOT GIRMA DEMEKE","F"],["BESUFIKAD ATLABACHEW YILMA","M"],["BETELHEM GETE SHIFERA","F"],["DAGIM KIDANE YESHITLA","M"],["ELSABET ABRHAM BEKELE","F"],["EYOB MERSHA TEKLU","M"],["EYOB SOLOMON WELDEKIDAN","M"],["FEVEN WENDESEN HAILU","F"],["GENET FIRDAWEK TEKLEYOHANES","F"],["KALKIDAN ASHENAFI TESFAYE","F"],["KALKIDAN BEKELE BRIHANE","F"],["MAKBEL BEREDED KIFLE","M"],["MARAMAWIT YITAGESU NADEW","F"],["MARTA ABEBE ALEMAYEHU","F"],["MIHRET TADESSE SHIFERA","F"],["NATAN ANDNET SAHLU","M"],["SAMRAWIT GIZACHEW TEFERA","F"],["TSEHAY TEKLEYOHANESS ASHENAFI","F"],["TSION SINTAYEHU DEREJE","F"],["YARED HABTAMU ALEMU","M"],["YOAKIN BIRUK GETANEH","M"],["YORDANOS TARIKU KASAW","F"],["YOSEF TSEGAYE MEKTE","M"]],
-        "2B": [["ABEMELIK SINTAYEHU BAYU","M"],["AMANUEL DERESE TILAHUN","M"],["AMANUEL GETAMESAY ASALIFEW","M"],["AMANUEL TEMESGEN BUTA","M"],["BAHRAN METADEL HAILU","M"],["BEKALU EFREM DAMITEW","M"],["BEREKET ESHETU AFINE","M"],["BETSELOT KIDANE FELEKE","F"],["EDEN SHAMBEL AKLILU","F"],["ELISABET WONDOSEN MAMO","F"],["FIKIR AHADU KETSELA","F"],["HANANIEL HABTOM GIDEY","M"],["HENOK FETENE MOGES","M"],["HIWOT KABTAMU TADESSE","F"],["KIDIST ALEMAYEHU TESHOME","F"],["KIRUBEL FIKREMARIAM BETRE","M"],["MAHDER GETACHEW BEGASHAW","F"],["MARAMAWIT MUSE MENGESHA","F"],["MEKLIT ZERIHUN SISAY","F"],["MIKIAS ALEM TESEMA","M"],["NOAH TEMESGEN SAMUEL","M"],["SAMRAWIT ZENEBE ABEBE","F"],["TSION TEMESGEN MEQUANINT","F"],["YEABSIRA DAWIT TESFAYE","M"],["YEABSIRA TEKA MULUGETA","M"],["YONATHAN TADESSE BEREGA","M"],["ZELALEM TESHOME ADANE","M"]],
-        "1A": [["ABENEZER SEIFE SERBE","M"],["ABRHAM KETEMA WOLDEMARIAM","M"],["BARKONAL AYINEKULU ABEBE","M"],["BETEN AMBERBIR BEKELE","F"],["EDEN ABERA SIME","F"],["ELDA ELIAS GIRMA","F"],["EYUEL SITOTAW ABABU","M"],["EZANA ANTENEH MEKONEN","M"],["FIKR ESHETU BAYU","F"],["FIKR ASHENAFI HAILU","F"],["HAILEMARIAM ADAM DAGIM","M"],["HASET ABAYNEH YIFRU","F"],["HASET ANDINET GEBEYEHU","F"],["HELEN ALEM TESEMA","F"],["KALYE TADYE GETACHEW","F"],["KIDUS YARED TADESSE","M"],["LEUL SHAMBEL AKLILU","M"],["MINAS TENKIR ALEMU","M"],["NATNAEL ASRES AYITENFISU","M"],["SAMRAWIT ASEGAHEGN BESHAH","F"],["SAMUEL BIRUK GETANEH","M"],["SAYZANA ANTENEH MEKONEN","F"],["SOFONIAS BENEBERU BEREHANU","M"],["SURAFEL CHANYALEW AYICHEW","M"],["TIZIBT ASHENAFI WODAJO","F"],["TSEDENIA GIRMA EMYU","F"],["TSINAT GEDLU TENSAW","F"],["YEABSIRA SHEWAFERA AMENU","F"],["YEABSIRA NEGASH MINIYLU","F"],["YEAMLAK BEREKET MULAT","M"],["YEMICHAEL SOLOMON DEMISSEW","M"],["YOHANNES SEBHAT KAGNEW","M"],["YOSTINA SIBHAT KAGNEW","F"],["ZEYEDE KEBEDE ASEFA","F"]],
-        "1B": [["AMANUEL AKALU BIRHANU","M"],["AMEN ABRHAM BOGALE","M"],["ANANIA TEFEREDEGN DEGEFU","M"],["ASHENAFI MULATU WORKE","M"],["BARKOT MULUGETA TADESSE","F"],["BEKALU ABRHAM BEKELE","M"],["BEREKET BEKELE WOSNE","M"],["BETELHEM DEMEKE DAGNACHEW","F"],["BETSEHA BEZA MUSE","F"],["BIRUKTAWIT MESFIN TSEGAYE","F"],["BITANIA ABEJE SHEWAFERA","F"],["BIZUWORK WOLDEYOHANES DEMISSIE","F"],["EDLAWIT GOSAYE MAMO","F"],["ESUBALEW TADESSE BESHAHWURED","M"],["GETABALEW DEMEKE LEMA","M"],["GETESEMANI METADEL HAILU","F"],["HEMEN ENDALKACHEW HAILEMARIAM","F"],["HERMELA DIBEKULU SILESHI","F"],["HIBIST LEMA MINDA","F"],["KALEAB WORKU ZIKAREGE","M"],["KIDUS CHERYE ESHETE","M"],["LIELT ENDALKACHEW GIRMA","F"],["MARIAMAWIT ANDUALEM AYALEW","F"],["MIKIAS GETAWE ARKEW","M"],["NEBIYAT DAWIT FIKRIE","F"],["RIBKA ZERIHUN NEGESSE","F"],["SAMRAWIT DEBAS DEMISSIE","F"],["SAMUEL GETNET SHEWATATEK","M"],["SEMEON ANTENEH TEKIL","M"],["YEABSIRA AYELE TESFAYE","F"]]
-    };
+    const auth = "Dawit@0721";
+    let inbox = [];
 
-    function showHome() { document.getElementById('homePage').style.display='block'; document.getElementById('managementArea').style.display='none'; }
+    function showTab(id) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+    }
     function openLogin() { document.getElementById('loginOverlay').style.display='flex'; }
     function closeLogin() { document.getElementById('loginOverlay').style.display='none'; }
-    function verifyAccess() {
-        if(document.getElementById('passInput').value === authPass) {
-            document.getElementById('homePage').style.display='none';
-            document.getElementById('managementArea').style.display='block';
-            closeLogin();
-        } else { alert("ትክክለኛውን ፓስወርድ ያስገቡ!"); }
+    function checkPass() {
+        if(document.getElementById('passIn').value === auth) { showTab('adminArea'); closeLogin(); }
+        else { alert("ስህተት!"); }
     }
+    function toggleAdmin(sec) {
+        document.getElementById('recordsSec').classList.toggle('hidden', sec !== 'records');
+        document.getElementById('inboxSec').classList.toggle('hidden', sec !== 'inbox');
+        if(sec === 'inbox') renderInbox();
+    }
+    function sendMsg() {
+        const m = { name: document.getElementById('pName').value, method: document.getElementById('pMethod').value, contact: document.getElementById('pContact').value, msg: document.getElementById('pMsg').value, time: new Date().toLocaleString() };
+        if(!m.name || !m.msg) return alert("መረጃ ይሙሉ");
+        inbox.push(m); alert("ጥያቄዎ ተልኳል!");
+    }
+    function renderInbox() {
+        document.getElementById('msgDisplay').innerHTML = inbox.map(i => `
+            <div style="background:#f9f9f9; padding:10px; border-bottom:1px solid #ddd; margin-bottom:5px;">
+                <strong>ከ: ${i.name}</strong> (${i.method})<br><small>${i.contact}</small><p>${i.msg}</p>
+            </div>`).join('') || "መልዕክት የለም";
+    }
+
+    // ተማሪዎች (ሙሉው ዝርዝር በመረጃው መሠረት ይቀጥላል)
+    const students = {
+        "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAWIT WORKE TAYE","M"]],
+        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON LEUL","F"],["AFOMIYA MESFIN YIREFSHEWA","F"]]
+    };
+
     function loadStudents() {
         const grade = document.getElementById("gradeSelect").value;
         const tbody = document.getElementById("studentList");
@@ -120,28 +177,28 @@
         if(students[grade]) {
             students[grade].forEach((s, i) => {
                 tbody.innerHTML += `<tr>
-                    <td>${i+1}</td><td>${s[0]}</td><td>${s[1]}</td>
-                    <td><input type="number" class="m" oninput="sum(this)"></td>
-                    <td><input type="number" class="m" oninput="sum(this)"></td>
-                    <td><input type="number" class="m" oninput="sum(this)"></td>
-                    <td><input type="number" class="m" oninput="sum(this)"></td>
-                    <td><input type="number" class="m" oninput="sum(this)"></td>
-                    <td><input type="number" class="m" oninput="sum(this)"></td>
-                    <td class="total" style="font-weight:bold;">0</td>
+                    <td>${i+1}</td><td contenteditable="true">${s[0]}</td><td contenteditable="true">${s[1]}</td>
+                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
+                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
+                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
+                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
+                    <td><input type="number" style="width:40px" class="sc" oninput="cal(this)"></td>
+                    <td class="sixty">0</td><td><input type="number" style="width:40px" class="final" oninput="cal(this)"></td><td class="total">0</td>
                 </tr>`;
             });
         }
     }
-    function sum(el) {
+    function cal(el) {
         let row = el.parentElement.parentElement;
-        let inputs = row.querySelectorAll('.m');
-        let total = 0;
-        inputs.forEach(i => total += (parseFloat(i.value) || 0));
-        row.querySelector('.total').innerText = total.toFixed(1);
+        let sixty = 0;
+        row.querySelectorAll('.sc').forEach(s => sixty += (parseFloat(s.value) || 0));
+        row.querySelector('.sixty').innerText = sixty.toFixed(1);
+        let fin = parseFloat(row.querySelector('.final').value) || 0;
+        row.querySelector('.total').innerText = (sixty + fin).toFixed(1);
     }
     function exportToExcel() {
         let wb = XLSX.utils.table_to_book(document.getElementById("resultsTable"));
-        XLSX.writeFile(wb, "Taytu_Academy_Scores.xlsx");
+        XLSX.writeFile(wb, "Taytu_Academy_Dawit.xlsx");
     }
 </script>
 </body>
