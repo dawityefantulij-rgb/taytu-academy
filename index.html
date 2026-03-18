@@ -11,18 +11,18 @@
         .container { max-width: 1300px; margin: auto; padding: 15px; }
         .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
         .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1000'); height: 180px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 15px; text-align: center; }
-        .table-wrapper { overflow-x: auto; margin-top: 15px; border-radius: 8px; }
+        .table-wrapper { overflow-x: auto; margin-top: 15px; border-radius: 8px; border: 1px solid #ddd; }
         table { width: 100%; border-collapse: collapse; min-width: 1000px; background: white; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
         th { background: var(--s); color: white; }
-        .edit-head { background: #2980b9; color: white; border: 1px dashed #fff; text-align: center; font-weight: bold; width: 80px; padding: 5px; cursor: pointer; }
+        .edit-head { background: #2980b9; color: white; border: 1px dashed #fff; text-align: center; font-weight: bold; width: 85px; padding: 5px; cursor: pointer; }
         input[type="text"], input[type="number"], select { width: 90%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .btn-save { background: #8e44ad; color: white; width: 100%; font-size: 16px; margin-top: 10px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-save { background: #8e44ad; color: white; width: 100%; font-size: 16px; margin-top: 15px; }
         .hidden { display: none; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
         .gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .analysis-box { background: #fffde7; border-left: 6px solid var(--g); padding: 20px; margin-top: 20px; }
+        .analysis-box { background: #fffde7; border-left: 6px solid var(--g); padding: 20px; margin-top: 25px; }
     </style>
 </head>
 <body>
@@ -39,34 +39,28 @@
     </div>
 
     <div class="card">
-        <h3>🎨 የኪነ-ጥበብ ስራዎች ጋለሪ (Gallery)</h3>
+        <h3>🎨 የኪነ-ጥበብ ስራዎች ጋለሪ</h3>
         <div id="galleryHome" class="gallery-grid">
             <p style="color:#999; text-align:center; grid-column: 1/-1;">ገና አልተጫነም...</p>
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" style="max-width: 500px;">
         <h3>📩 የመረጃ መጠየቂያ (Contact Form)</h3>
-        <div style="max-width: 450px;">
-            <input type="text" id="pName" placeholder="የእርስዎ ስም" style="margin-bottom:10px;"><br>
-            <textarea id="pMsg" placeholder="የሚፈልጉት መረጃ..." style="width:96%; height:80px; padding:10px; margin-bottom:10px; border:1px solid #ddd;"></textarea><br>
-            <select id="pWay" style="margin-bottom:10px;">
-                <option value="Telegram">በቴሌግራም መልሱልኝ</option>
-                <option value="Email">በኢሜይል መልሱልኝ</option>
-            </select><br>
-            <button class="btn" style="background:var(--a); color:white;" onclick="sendMsg()">መረጃ ላክ</button>
-        </div>
+        <input type="text" id="pName" placeholder="የእርስዎ ስም" style="margin-bottom:10px;"><br>
+        <textarea id="pMsg" placeholder="መልዕክትዎን እዚህ ይጻፉ..." style="width:96%; height:80px; padding:10px; margin-bottom:10px; border:1px solid #ddd;"></textarea><br>
+        <button class="btn" style="background:var(--a); color:white; width:100%;" onclick="sendMsg()">መረጃ ላክ</button>
     </div>
 </div>
 
 <div id="adminArea" class="container hidden">
     <div class="card" style="display:flex; flex-wrap:wrap; gap:20px; background:#f9f9f9;">
         <div style="flex:1; min-width:280px;">
-            <h3>📥 Inbox (መልዕክቶች)</h3>
+            <h3>📥 Inbox</h3>
             <div id="inboxList" style="background:white; height:100px; overflow-y:auto; border:1px solid #ddd; padding:10px; border-radius:8px;"></div>
         </div>
         <div style="flex:1; min-width:280px;">
-            <h3>📤 ፎቶ መጫኛ (Upload)</h3>
+            <h3>📤 ፎቶ መጫኛ</h3>
             <input type="file" accept="image/*" onchange="addPhoto(event)">
         </div>
     </div>
@@ -133,7 +127,8 @@
 
 <script>
     const PASS = "Dawit@0721";
-    // ተማሪዎች በክፍል ተለይተው እዚህ ተቀምጠዋል
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBbXJ1OYKBiRBHu0xRW3ysyZDPP3tqr5iUD7L6PL-AuIZpve1ntcNe9-WjNDCd3wUN/exec";
+
     const DB = {
         "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAGIM DEMISSIE AREYA","M"],["ELDANA SOLOMON LEUL","F"],["SURAFEL MANDEFRO AWOKE","M"],["MAEDOT YILMA BEKELE","F"],["REDIET KEBEDE KABTIMER","F"],["MARKAN ZEGEYE ABAYNEH","M"],["ESKEATSINAF BIRHANU ZEWDIE","M"],["MIKIYAS GEBREYOHANNES ESTIFANOS","M"],["DAWIT WORKE TAYE","M"],["BINIYAM ABEJE SHEWAFERA","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
         "5": [["SAMUEL TARIKU MOLA","M"],["KALKIDAN ZENEBE ABEBE","F"],["NATANIUM WONDAFEREW BELEYNEH","M"],["ADONAIT ERMIAS BEKELE","F"],["BEMNET AKLILU MINDA","F"],["HENOK BIRUK GIRMA","M"],["REDIET DEMISEW ZELELEW","F"],["ZELEKE MELESE WORKALEMAHU","M"],["MENA TESFAYE GIRMA","F"],["MEKLIT MEBRAT SEMAHEGN","F"],["NATNAEL TILAHUN ALELIGN","M"],["REDIET ASCHENAKI TEFERI","F"],["YISHAK ASCHENAKI TEFERI","M"],["AMEN DIBABE ARAGE","M"],["ADONIAS MUSE MENGESHA","M"],["NATANIUM HAILU MULUGETA","M"],["YEABSIRA SIYUM ASEFA","M"],["TEMESGEN LEGESE ASFAW","M"],["TAMRU TEKLETSADIK HAILYE","M"],["ELSHADAY TEFEREDEGN DEGEFU","F"],["YORDANOS BEHAILU TESHOME","F"],["ELDANA GIRMA GEBREMICHAEL","F"]],
@@ -155,10 +150,10 @@
     }
 
     function sendMsg() {
-        const n = document.getElementById("pName").value, m = document.getElementById("pMsg").value, w = document.getElementById("pWay").value;
+        const n = document.getElementById("pName").value, m = document.getElementById("pMsg").value;
         if(!n || !m) return alert("እባክዎ መረጃ ይሙሉ");
-        document.getElementById("inboxList").innerHTML += `<div style="border-bottom:1px solid #eee; padding:5px;"><b>${n} (${w}):</b> ${m}</div>`;
-        alert("ተልኳል! እናመሰግናለን።");
+        document.getElementById("inboxList").innerHTML += `<div style="border-bottom:1px solid #eee; padding:5px;"><b>${n}:</b> ${m}</div>`;
+        alert("ተልኳል!");
         document.getElementById("pName").value=""; document.getElementById("pMsg").value="";
     }
 
@@ -202,15 +197,10 @@
     function addNewRow() { insertRow(document.getElementById("sList").rows.length + 1, "", "M"); }
 
     function calc() {
-        let stats = { 
-            f50: {m:0, f:0}, p50: {m:0, f:0}, p75: {m:0, f:0}, p85: {m:0, f:0}, 
-            tm: 0, tf: 0 
-        };
-
+        let stats = { f50: {m:0, f:0}, p50: {m:0, f:0}, p75: {m:0, f:0}, p85: {m:0, f:0}, tm: 0, tf: 0 };
         document.querySelectorAll("#sList tr").forEach(row => {
             let gn = row.querySelector(".s-gn").value;
             if(gn === "M") stats.tm++; else stats.tf++;
-
             let s60 = 0; row.querySelectorAll('.val').forEach(i => s60 += (parseFloat(i.value) || 0));
             row.querySelector('.res60').innerText = s60.toFixed(1);
             let total = s60 + (parseFloat(row.querySelector('.fin').value) || 0);
@@ -222,13 +212,7 @@
             if(total >= 85) { if(gn==="M") stats.p85.m++; else stats.p85.f++; }
         });
 
-        const rows = [
-            ["ከ 50 በታች", stats.f50.m, stats.f50.f],
-            ["50 - 100%", stats.p50.m, stats.p50.f],
-            ["75 - 100%", stats.p75.m, stats.p75.f],
-            ["85 - 100%", stats.p85.m, stats.p85.f]
-        ];
-
+        const rows = [["ከ 50 በታች", stats.f50.m, stats.f50.f], ["50 - 100%", stats.p50.m, stats.p50.f], ["75 - 100%", stats.p75.m, stats.p75.f], ["85 - 100%", stats.p85.m, stats.p85.f]];
         let h = "";
         rows.forEach(r => {
             let sum = r[1] + r[2];
@@ -241,27 +225,12 @@
     }
 
     function saveToSheets() {
-        const scriptURL = "https://script.google.com/macros/s/AKfycbyBbXJ1OYKBiRBHu0xRW3ysyZDPP3tqr5iUD7L6PL-AuIZpve1ntcNe9-WjNDCd3wUN/exec";
-        let allData = [];
-        const grade = document.getElementById("gradeSelect").value;
-        if(!grade) return alert("እባክዎ መጀመሪያ ክፍል ይምረጡ!");
-
+        let allData = []; const grade = document.getElementById("gradeSelect").value;
+        if(!grade) return alert("ክፍል ይምረጡ!");
         document.querySelectorAll("#sList tr").forEach(row => {
-            allData.push([
-                new Date().toLocaleDateString(),
-                grade,
-                row.cells[0].innerText,
-                row.querySelector('.s-name').value,
-                row.querySelector('.s-gn').value,
-                row.querySelector('.res60').innerText,
-                row.querySelector('.fin').value,
-                row.querySelector('.res100').innerText
-            ]);
+            allData.push([new Date().toLocaleDateString(), grade, row.cells[0].innerText, row.querySelector('.s-name').value, row.querySelector('.s-gn').value, row.querySelector('.res60').innerText, row.querySelector('.fin').value, row.querySelector('.res100').innerText]);
         });
-
-        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(allData) })
-        .then(() => alert("መረጃው በ Google Sheets ላይ በስኬት ተቀምጧል!"))
-        .catch(() => alert("ስህተት ተፈጥሯል!"));
+        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(allData) }).then(() => alert("ተቀምጧል!"));
     }
 </script>
 </body>
