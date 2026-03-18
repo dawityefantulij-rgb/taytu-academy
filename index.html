@@ -10,19 +10,15 @@
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
         nav { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .nav-links a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; cursor: pointer; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1350&q=80'); height: 350px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; border-radius: 0 0 30px 30px; }
-        .hero h2 { font-family: 'Georgia', serif; font-style: italic; color: var(--gold); font-size: 2.2rem; margin: 10px 0; }
-        .dept-title { background: rgba(241, 196, 15, 0.2); border: 1px solid var(--gold); padding: 5px 25px; border-radius: 50px; font-size: 1.4rem; color: #fff; margin-top: 10px; font-weight: bold; }
-        .container { max-width: 1150px; margin: 20px auto; padding: 20px; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .gallery img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 15px; background: white; }
-        th, td { border: 1px solid #ddd; padding: 6px; text-align: center; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1350&q=80'); height: 300px; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; border-radius: 0 0 30px 30px; }
+        .dept-title { background: rgba(241, 196, 15, 0.2); border: 1px solid var(--gold); padding: 5px 25px; border-radius: 50px; font-size: 1.2rem; color: #fff; margin-top: 10px; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
         th { background: var(--secondary); color: white; }
-        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; margin: 5px; }
+        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .hidden { display: none; }
-        .login-box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.5); width: 320px; text-align: center; }
     </style>
 </head>
 <body>
@@ -31,7 +27,7 @@
     <div class="logo">Taytu Bitul Academy</div>
     <div class="nav-links">
         <a onclick="showTab('home')">መነሻ ገጽ</a>
-        <a onclick="openLogin()">Admin (Teacher Dawit)</a>
+        <a onclick="openLogin()">Admin Login</a>
     </div>
 </nav>
 
@@ -41,40 +37,26 @@
         <h2>Teacher Dawit Yemane</h2>
         <div class="dept-title">የስነ-ጥበባት ትምህርት ክፍል</div>
     </div>
-
-    <div class="card">
+    <div class="card" style="margin-top:20px;">
         <h3>🎨 የስራዎቻችን ጋለሪ (Gallery)</h3>
-        <div class="gallery">
-            <img src="https://images.unsplash.com/photo-1545670723-196ed0954986?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
-            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
-            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=500&q=80" onclick="window.open(this.src)">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+            <img src="https://images.unsplash.com/photo-1545670723-196ed0954986?w=300" style="width:100%; border-radius:8px;">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=300" style="width:100%; border-radius:8px;">
+            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=300" style="width:100%; border-radius:8px;">
         </div>
-    </div>
-
-    <div class="card">
-        <h3>📩 የመረጃ መጠየቂያ (Contact Form)</h3>
-        <input type="text" id="pName" placeholder="ሙሉ ስምዎ" style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ddd;">
-        <textarea id="pMsg" placeholder="ጥያቄዎን እዚህ ይጻፉ..." rows="4" style="width:100%; padding:10px; border-radius:5px; border:1px solid #ddd;"></textarea>
-        <button class="btn" onclick="alert('መልዕክቱ ተልኳል!')">መልዕክቱን ላክ</button>
     </div>
 </div>
 
 <div id="adminArea" class="tab-content hidden container">
     <div class="card">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2>Admin - Teacher Dawit</h2>
-            <button onclick="location.reload()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">ውጣ (Logout)</button>
-        </div>
-        
-        <select id="gradeSelect" onchange="loadStudents()" style="width:100%; padding:12px; margin-bottom:15px; font-weight:bold; border-radius:6px;">
+        <h2>የውጤት መመዝገቢያ - Teacher Dawit</h2>
+        <select id="gradeSelect" onchange="loadStudents()" style="width:100%; padding:10px; margin-bottom:15px;">
             <option value="">-- ክፍል ይምረጡ --</option>
             <option value="6">Grade 6</option><option value="5">Grade 5</option>
             <option value="4">Grade 4</option><option value="3">Grade 3</option>
             <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
             <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
         </select>
-
         <div style="overflow-x:auto;">
             <table id="resultsTable">
                 <thead>
@@ -87,126 +69,26 @@
                 <tbody id="studentList"></tbody>
             </table>
         </div>
-        <button class="btn" style="background:#34495e;" onclick="addRow()">+ ተማሪ ጨምር</button>
-        <button class="btn" onclick="exportToExcel()">Excel አውርድ</button>
-
-        <div class="card" style="background:#fffde7; margin-top:20px; border:1px solid #f1c40f;">
-            <h3 id="analysisTitle">📊 የውጤት ትንተና (Auto Analysis)</h3>
+        <div class="card" style="background:#fffde7; margin-top:20px;">
+            <h3>📊 የውጤት ትንተና</h3>
             <table id="analysisTable">
-                <thead>
-                    <tr><th>ክልል</th><th>ወንድ (M)</th><th>በ %</th><th>ሴት (F)</th><th>በ %</th><th>ድምር</th><th>በ %</th></tr>
-                </thead>
+                <thead><tr><th>ክልል</th><th>M</th><th>%</th><th>F</th><th>%</th><th>Total</th><th>%</th></tr></thead>
                 <tbody id="analysisBody"></tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; z-index:2000;">
-    <div class="login-box">
-        <h2 style="color:var(--primary);">መምህር ዳዊት ይግቡ</h2>
-        <p style="font-size:12px; color:#666;">Password: Dawit@0721</p>
-        <input type="password" id="passIn" placeholder="Password ያስገቡ" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc; border-radius:5px;">
-        <button class="btn" onclick="checkPass()" style="width:100%;">ግባ</button>
-        <button onclick="closeLogin()" style="background:none; border:none; color:#e74c3c; cursor:pointer; margin-top:10px;">ተመለስ</button>
+<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center;">
+    <div class="card" style="width:300px; text-align:center;">
+        <h3>Login (Dawit@0721)</h3>
+        <input type="password" id="passIn" placeholder="Password" style="width:100%; padding:10px; margin-bottom:10px;">
+        <button class="btn" onclick="checkPass()">ግባ</button>
     </div>
 </div>
 
 <script>
-    // ዋናው Password እዚህ ጋር ነው ያለው
     const auth = "Dawit@0721";
-
-    function showTab(id) {
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-        document.getElementById(id).classList.remove('hidden');
-    }
-
-    function openLogin() { document.getElementById('loginOverlay').style.display='flex'; }
-    function closeLogin() { document.getElementById('loginOverlay').style.display='none'; }
-
-    function checkPass() {
-        const input = document.getElementById('passIn').value;
-        if(input === auth) {
-            showTab('adminArea');
-            closeLogin();
-        } else {
-            alert("የይለፍ ቃል ተሳስቷል! እባክዎ እንደገና ይሞክሩ።");
-        }
-    }
-
-    // ከዚህ በታች ያለው የተማሪዎች ዝርዝር ነው (ምንም አልተቀየረም)
     const students = {
-        "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAWIT WORKE TAYE","M"]],
-        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON LEUL","F"],["AFOMIYA MESFIN YIREFSHEWA","F"]]
-    };
-
-    function loadStudents() {
-        const grade = document.getElementById("gradeSelect").value;
-        const tbody = document.getElementById("studentList");
-        tbody.innerHTML = "";
-        if(students[grade]) {
-            students[grade].forEach((s, i) => addStudentRow(i+1, s[0], s[1]));
-        }
-        runCalculations();
-    }
-
-    function addStudentRow(num, name, gender) {
-        const tbody = document.getElementById("studentList");
-        tbody.innerHTML += `<tr>
-            <td>${num}</td><td contenteditable="true">${name}</td><td class="gender-cell" contenteditable="true">${gender}</td>
-            <td><input type="number" class="sc" oninput="runCalculations()" style="width:40px"></td>
-            <td><input type="number" class="sc" oninput="runCalculations()" style="width:40px"></td>
-            <td><input type="number" class="sc" oninput="runCalculations()" style="width:40px"></td>
-            <td><input type="number" class="sc" oninput="runCalculations()" style="width:40px"></td>
-            <td><input type="number" class="sc" oninput="runCalculations()" style="width:40px"></td>
-            <td class="sixty">0</td><td><input type="number" class="final" oninput="runCalculations()" style="width:40px"></td><td class="total-cell">0</td>
-        </tr>`;
-    }
-
-    function addRow() {
-        const num = document.querySelectorAll("#studentList tr").length + 1;
-        addStudentRow(num, "New Student", "M");
-    }
-
-    function runCalculations() {
-        let rows = document.querySelectorAll("#studentList tr");
-        let stats = { m: {t:0, b50:0, a50:0, a75:0, a85:0}, f: {t:0, b50:0, a50:0, a75:0, a85:0} };
-
-        rows.forEach(row => {
-            let gender = row.querySelector(".gender-cell").innerText.trim().toUpperCase();
-            let sixty = 0;
-            row.querySelectorAll('.sc').forEach(input => sixty += (parseFloat(input.value) || 0));
-            row.querySelector('.sixty').innerText = sixty.toFixed(1);
-            let final = parseFloat(row.querySelector('.final').value) || 0;
-            let total = sixty + final;
-            row.querySelector('.total-cell').innerText = total.toFixed(1);
-
-            let g = (gender === "F" || gender === "ሴ") ? "f" : "m";
-            stats[g].t++;
-            if (total < 50) stats[g].b50++;
-            if (total >= 50) stats[g].a50++;
-            if (total >= 75) stats[g].a75++;
-            if (total >= 85) stats[g].a85++;
-        });
-        updateAnalysisTable(stats);
-    }
-
-    function updateAnalysisTable(s) {
-        const body = document.getElementById("analysisBody");
-        const rows = [["ከ 50% በታች", s.m.b50, s.f.b50],["ከ 50% - 100%", s.m.a50, s.f.a50],["ከ 75% - 100%", s.m.a75, s.f.a75],["ከ 85% - 100%", s.m.a85, s.f.a85]];
-        body.innerHTML = rows.map(r => {
-            let tm = r[1], tf = r[2], tot = tm + tf;
-            let pm = s.m.t ? ((tm/s.m.t)*100).toFixed(1) : 0;
-            let pf = s.f.t ? ((tf/s.f.t)*100).toFixed(1) : 0;
-            let pt = (s.m.t + s.f.t) ? ((tot/(s.m.t + s.f.t))*100).toFixed(1) : 0;
-            return `<tr><td>${r[0]}</td><td>${tm}</td><td>${pm}%</td><td>${tf}</td><td>${pf}%</td><td>${tot}</td><td>${pt}%</td></tr>`;
-        }).join('');
-    }
-
-    function exportToExcel() {
-        let wb = XLSX.utils.table_to_book(document.getElementById("resultsTable"));
-        XLSX.writeFile(wb, "Teacher_Dawit_Report.xlsx");
-    }
-</script>
-</body>
-</html>
+        "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAGIM DEMISSIE AREYA","M"],["ELDANA SOLOMON LEUL","F"],["SURAFEL MANDEFRO AWOKE","M"],["MAEDOT YILMA BEKELE","F"],["REDIET KEBEDE KABTIMER","F"],["MARKAN ZEGEYE ABAYNEH","M"],["ESKEATSINAF BIRHANU ZEWDIE","M"],["MIKIYAS GEBREYOHANNES ESTIFANOS","M"],["DAWIT WORKE TAYE","M"],["BINIYAM ABEJE SHEWAFERA","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
+        "5": [["SAMUEL TARIKU MOLA","M"],["KALKIDAN ZENEBE ABEBE","F"],["NATANIUM WONDAFEREW BELEYNEH","M"],["ADONAIT ERMIAS BEKELE","F"],["BEMNET AKLILU MINDA","F"],["HENOK BIRUK GIRMA","M"],["REDIET DEMISEW ZELELEW","F"],["ZELEKE MELESE WORKALEMAHU","
