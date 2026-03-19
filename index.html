@@ -3,155 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ጣይቱ ብጡል አካዳሚ - መምህር ዳዊት</title>
+    <title>ጣይቱ ብጡል አካዳሚ - መ/ር ዳዊት የማነ</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --g: #f1c40f; --w: #ffffff; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; color: #333; }
+        :root { --p: #2c3e50; --s: #3498db; --a: #27ae60; --w: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f4f7f6; color: #333; }
         
-        nav { background: var(--p); color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1000'); height: 40vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; }
+        /* Navigation */
+        nav { background: var(--p); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         
-        .container { width: 96%; max-width: 1400px; margin: auto; padding: 20px 5px; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
-
-        /* Homepage Components */
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .gallery img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; border: 2px solid #ddd; }
-
-        /* Admin/Table Styles */
-        .teacher-info { background: #e3f2fd; border-left: 5px solid var(--s); padding: 15px; margin-bottom: 15px; border-radius: 5px; }
-        .table-wrapper { overflow-x: auto; background: white; border: 1px solid #ccc; border-radius: 8px; }
-        table { width: 100%; border-collapse: collapse; min-width: 1150px; }
-        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-        th { background: var(--p); color: white; position: sticky; top: 0; }
+        .container { width: 95%; max-width: 1400px; margin: 20px auto; display: block; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 25px; }
         
-        input[type="text"], input[type="number"], select { 
-            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; box-sizing: border-box;
+        .hero-section { 
+            text-align: center; 
+            background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-position: center; color: white; padding: 80px 20px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
-        .s-name-col { min-width: 280px; text-align: left; }
 
-        .btn { padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; margin: 5px 0; }
-        .btn-login { background: var(--g); color: var(--p); }
-        .btn-save { background: #6c5ce7; color: white; width: 100%; }
-        .btn-pdf { background: #e67e22; color: white; }
-        .btn-add { background: var(--s); color: white; width: 100%; }
+        .btn { padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; margin: 5px; text-decoration: none; display: inline-block; }
+        .btn-blue { background: var(--s); color: white; }
+        .btn-green { background: var(--a); color: white; }
+        .btn-red { background: #e74c3c; color: white; }
 
-        .hidden { display: none; }
-        #loginOverlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; z-index:2000; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; font-size: 0.9rem; }
+        th, td { border: 1px solid #dee2e6; padding: 10px; text-align: center; }
+        th { background: var(--p); color: white; }
 
-        @media print { .no-print { display: none !important; } .table-wrapper { overflow: visible; } table { min-width: 100%; } }
+        .s-name { width: 320px !important; min-width: 320px; font-weight: 500; }
+        .v, .fin { width: 60px; text-align: center; }
+        .hidden { display: none !important; }
+        
+        #loginOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; margin-top: 15px; }
+        .gallery-item { border-radius: 10px; overflow: hidden; border: 1px solid #ddd; background: #eee; height: 200px; display: flex; align-items: center; justify-content: center; }
+        
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; margin-top: 5px; box-sizing: border-box; }
+        
+        @media print { .no-print { display: none !important; } .card, .hero-section { box-shadow: none; border: 1px solid #000; background: none !important; color: black !important; } body { background: white; } }
     </style>
 </head>
 <body>
 
 <nav class="no-print">
-    <div style="font-weight:bold; font-size:1.2rem;">ጣይቱ ብጡል አካዳሚ</div>
-    <button class="btn btn-login" onclick="showLogin()">Admin Login</button>
+    <div style="font-size:1.3rem; font-weight:bold;">ጣይቱ ብጡል አካዳሚ</div>
+    <div id="navButtons">
+        <button class="btn btn-blue" onclick="showSection('homePage')">Home</button>
+        <button class="btn btn-blue" onclick="showLogin()">Admin Login</button>
+    </div>
 </nav>
 
-<div id="homePage">
-    <section class="hero no-print">
-        <h1>እንኳን ደህና መጡ</h1>
-        <p>ጣይቱ ብጡል አካዳሚ - የጥበብ እና የዕውቀት ማዕከል</p>
-    </section>
+<div id="homePage" class="container">
+    <div class="hero-section">
+        <h1 style="margin:0; font-size: 3rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">መ/ር ዳዊት የማነ</h1>
+        <h3 style="opacity:0.9; margin-top:10px; font-size: 1.5rem;">የስነ-ጥበብ (Art) እና ሙዚቃ ትምህርት ክፍል</h3>
+        <p style="margin-top:20px; font-size:1.2rem; max-width: 800px; margin-left: auto; margin-right: auto;">ጥበብ የነፍስ ቋንቋ ነው! እንኳን ወደ ጣይቱ ብጡል አካዳሚ የውጤት መከታተያና የጥበብ ማሳያ ገጽ በሰላም መጡ።</p>
+    </div>
 
-    <div class="container">
-        <div class="card">
-            <h3>ስለ አካዳሚው</h3>
-            <p>በመምህር ዳዊት የማነ የሚመራው የስነ-ጥበብ እና የሙዚቃ ክፍል ተማሪዎችን በክህሎት ለማብቃት በትጋት ይሰራል።</p>
+    <div class="card">
+        <h2>🎨 የጥበብ ጋለሪ (Gallery)</h2>
+        <div class="gallery-grid" id="publicGallery">
+            <div class="gallery-item"><p style="color:#888;">ፎቶዎች በአድሚን በኩል ሲጫኑ እዚህ ይታያሉ</p></div>
         </div>
+    </div>
 
-        <div class="card no-print">
-            <h3>የወላጅ መረጃ መጠየቂያ</h3>
-            <div style="margin-bottom:10px;"><input type="text" placeholder="የተማሪ ስም"></div>
-            <div style="margin-bottom:10px;"><input type="text" placeholder="የወላጅ ስልከ"></div>
-            <button class="btn btn-add" onclick="alert('መረጃው ተልኳል!')">መረጃ ላክ</button>
-        </div>
-
-        <div class="card">
-            <h3>ጋለሪ</h3>
-            <div class="gallery">
-                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=300">
-                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300">
-            </div>
+    <div class="card">
+        <h2>📩 የወላጅና ትምህርት ቤት መረጃ መጠየቂያ</h2>
+        <div style="display: grid; gap: 15px;">
+            <input type="text" id="pName" placeholder="ሙሉ ስምዎን ያስገቡ">
+            <textarea id="pMsg" rows="4" placeholder="ምን ማወቅ ይፈልጋሉ?"></textarea>
+            <button class="btn btn-blue" onclick="sendToInbox()">መልዕክት ላክ</button>
         </div>
     </div>
 </div>
 
 <div id="loginOverlay">
     <div class="card" style="width: 320px; text-align: center;">
-        <h3>Admin Access</h3>
-        <input type="password" id="passIn" placeholder="Password" style="margin-bottom: 20px;">
-        <div style="display:flex; gap:10px;">
-            <button class="btn btn-add" style="flex:1;" onclick="checkAuth()">ግባ</button>
-            <button class="btn" style="background:#ccc; flex:1;" onclick="hideLogin()">ዝጋ</button>
-        </div>
+        <h3 style="margin-top:0;">የአድሚን መግቢያ</h3>
+        <input type="password" id="passInput" placeholder="Password" style="margin-bottom: 20px; text-align:center;">
+        <button class="btn btn-blue" style="width: 100%;" onclick="checkAuth()">ግባ</button>
+        <button class="btn" style="width: 100%; margin-top:10px; color:#777;" onclick="closeLogin()">ዝጋ</button>
     </div>
 </div>
 
 <div id="adminArea" class="container hidden">
-    <div class="teacher-info no-print">
-        <h2 style="margin:0;">መምህር፡ ዳዊት የማነ (Teacher Dawit Yemane)</h2>
-        <p>🎨 የትምህርት ክፍል፡ ስነ-ጥበብ እና ሙዚቃ</p>
-    </div>
-
     <div class="card no-print">
-        <label><strong>ክፍል ይምረጡ (Select Grade):</strong></label>
-        <select id="gradeSelect" onchange="loadGrade()" style="margin-top:10px; border:2px solid var(--s);">
-            <option value="">-- ክፍል ምረጥ --</option>
-            <option value="6">Grade 6</option><option value="5">Grade 5</option>
-            <option value="4">Grade 4</option><option value="3">Grade 3</option>
-            <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
-            <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
-        </select>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div style="border-right: 1px solid #eee; padding-right: 20px;">
+                <h3>📥 Inbox (መልዕክቶች)</h3>
+                <div id="inboxList" style="max-height: 200px; overflow-y: auto;">መልዕክት የለም።</div>
+            </div>
+            <div>
+                <h3>📸 ፎቶ ጫን (Gallery)</h3>
+                <input type="file" accept="image/*" onchange="uploadPhoto(event)">
+            </div>
+        </div>
     </div>
 
-    <div id="report-section" class="card">
-        <div style="text-align: center; border-bottom: 3px solid #333; margin-bottom: 20px; padding-bottom: 15px;">
-            <h1 style="margin:0;">ጣይቱ ብጡል አካዳሚ</h1>
-            <h3 id="printTitle">የተማሪዎች ውጤት ሪፖርት</h3>
-            <p>መምህር፡ ዳዊት የማነ | ቀን፡ <span id="currentDate"></span></p>
+    <div class="card" id="printableArea">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <h2 id="gradeTitle" style="margin:0;">የተማሪዎች ውጤት መዝገብ</h2>
+            <div class="no-print">
+                <select id="gradeSelector" onchange="changeGrade(this.value)" style="width: 200px;">
+                    <option value="">-- ክፍል ይምረጡ --</option>
+                    <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
+                    <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
+                    <option value="3">Grade 3</option><option value="4">Grade 4</option>
+                    <option value="5">Grade 5</option><option value="6">Grade 6</option>
+                </select>
+            </div>
         </div>
 
-        <div class="table-wrapper">
-            <table id="mainTable">
+        <div style="overflow-x: auto; margin-top: 20px;">
+            <table id="markTable">
                 <thead>
                     <tr>
-                        <th style="width:40px;">ተ.ቁ</th>
-                        <th class="s-name-col">የተማሪ ስም</th>
-                        <th style="width:80px;">ጾታ</th>
-                        <th>Mid(20)</th><th>Draw(5)</th><th>Theater(10)</th><th>Write(10)</th><th>Group(15)</th>
-                        <th style="background:var(--a); color:white;">60%</th>
+                        <th>ተ.ቁ</th>
+                        <th style="width:320px;">የተማሪ ስም</th>
+                        <th>ጾታ</th>
+                        <th>Mid(20)</th><th>Draw(5)</th>
+                        <th onclick="editHeader(this)" style="cursor:pointer; background:#34495e;">Theater(10) ✎</th>
+                        <th onclick="editHeader(this)" style="cursor:pointer; background:#34495e;">Writing(10) ✎</th>
+                        <th onclick="editHeader(this)" style="cursor:pointer; background:#34495e;">Group(15) ✎</th>
+                        <th style="background:#27ae60; color:white;">60%</th>
                         <th>Final(40)</th>
-                        <th style="background:var(--p); color:white;">100%</th>
+                        <th style="background:#2c3e50; color:white;">100%</th>
                         <th class="no-print">X</th>
                     </tr>
                 </thead>
-                <tbody id="sList"></tbody>
+                <tbody id="tableBody"></tbody>
             </table>
         </div>
-        <button class="btn btn-add no-print" style="margin-top:15px;" onclick="addNewRow()">+ አዲስ ተማሪ ጨምር</button>
+        <button class="btn btn-blue no-print" onclick="addNewRow()">+ አዲስ ተማሪ ጨምር</button>
+
+        <div style="margin-top: 40px;">
+            <h3>📊 የውጤት ትንተና (Analysis)</h3>
+            <table id="analysisTable">
+                <thead>
+                    <tr>
+                        <th>የውጤት ክልል</th><th>ወንድ (M)</th><th>ወንድ %</th><th>ሴት (F)</th><th>ሴት %</th><th>ድምር</th>
+                    </tr>
+                </thead>
+                <tbody id="analysisBody"></tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="no-print">
-        <button class="btn btn-save" onclick="alert('መረጃው ወደ Google Sheets ተልኳል!')">💾 ወደ Google Sheets መረጃውን ላክ</button>
-        <div style="display:flex; gap:10px; margin-top:10px;">
-            <button class="btn btn-pdf" style="flex:1;" onclick="downloadPDF()">📥 በ PDF አውርድ</button>
-            <button class="btn" style="background:var(--a); color:white; flex:1;" onclick="window.print()">🖨️ አትም (Print)</button>
-        </div>
+    <div class="card no-print" style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="btn btn-green" style="flex:1" onclick="saveToSheets()">💾 Save to Sheets</button>
+        <button class="btn btn-blue" style="flex:1" onclick="downloadPDF()">📥 Download PDF</button>
+        <button class="btn" style="flex:1; background:#555; color:white;" onclick="window.print()">🖨️ Print Report</button>
+        <button class="btn btn-red" onclick="location.reload()">Logout</button>
     </div>
 </div>
 
 <script>
-    const PASS = "Dawit@0721";
-    
-    // የተማሪዎች ስም ዝርዝር (Database)
-    const DB = {
-        "6": [["DAGIM SHEWAFERA AMENU","M"],["KALKIDAN FANTU TESFU","F"],["HERAN DIBEKULU SILESHI","F"],["NATANEM ABAYNEH YIFRU","M"],["DAGIM DEMISSIE AREYA","M"],["ELDANA SOLOMON LEUL","F"],["SURAFEL MANDEFRO AWOKE","M"],["MAEDOT YILMA BEKELE","F"],["REDIET KEBEDE KABTIMER","F"],["MARKAN ZEGEYE ABAYNEH","M"],["ESKEATSINAF BIRHANU ZEWDIE","M"],["MIKIYAS GEBREYOHANNES ESTIFANOS","M"],["DAWIT WORKE TAYE","M"],["BINIYAM ABEJE SHEWAFERA","M"],["KIRSE ZERFU TEKLEHAWARIAT","F"]],
-        "5": [["SAMUEL TARIKU MOLA","M"],["KALKIDAN ZENEBE ABEBE","F"],["NATANIUM WONDAFEREW BELEYNEH","M"],["ADONAIT ERMIAS BEKELE","F"],["BEMNET AKLILU MINDA","F"],["HENOK BIRUK GIRMA","M"],["REDIET DEMISEW ZELELEW","F"],["ZELEKE MELESE WORKALEMAHU","M"],["MENA TESFAYE GIRMA","F"],["MEKLIT MEBRAT SEMAHEGN","F"],["NATNAEL TILAHUN ALELIGN","M"],["REDIET ASCHENAKI TEFERI","F"],["YISHAK ASCHENAKI TEFERI","M"],["AMEN DIBABE ARAGE","M"],["ADONIAS MUSE MENGESHA","M"],["NATANIUM HAILU MULUGETA","M"],["YEABSIRA SIYUM ASEFA","M"],["TEMESGEN LEGESE ASFAW","M"],["TAMRU TEKLETSADIK HAILYE","M"],["ELSHADAY TEFEREDEGN DEGEFU","F"],["YORDANOS BEHAILU TESHOME","F"],["ELDANA GIRMA GEBREMICHAEL","F"]],
-        "4": [["YOHANNES MEKASHA ZENA","M"],["BEFIKAD FIRDAWOK TEKLEYOHANNES","M"],["BEMNET ABEBE TADESSE","F"],["BEREKET ERMIAS BEKELE","M"],["KALKIDAN WOLDU KEBEDE","F"],["MAHLET MESFIN ALI","F"],["YALEMWORK BELAY TAMRIE","F"],["NATAN DAMITEW TSEGAW","M"],["YOHANNES BAYELIGN AYITENFISU","M"],["NAHOM ABRHAM BEKELE","M"],["KIDUS ALEMU MULATU","M"],["AMEN HAILEMESKEL GEBREMARIAM","M"],["YEABSIRA YOSEF HAILEMICHAEL","M"],["HENOK GIRMA MAMO","M"],["BIRUK MULUGETA BEZABH","M"],["BITANIA TEWABE HAILU","F"],["RODAS NEGASH FANTAYE","M"],["HALELUYA EWAWOY MULATU","F"],["MEKUANINT GETABALEW ZEWDE","M"],["BETSELOT TENKIR ALEMU","F"],["TINSAE GEBEYEHU HAILU","M"],["MEHAMED ABDU YASIN","M"],["DAWIT ABAY GIZAW","M"]],
-        "3": [["ABENEZER AMBERBIR","M"],["ABSALAT SOLOMON LEUL","F"],["AFOMIYA MESFIN YIREFSHEWA","F"],["AMANUEL GIZACHEW TEFERA","M"],["AMEN TESFAYE GIRMA","M"],["BENYAS WOYANTE MEKONNEN","M"],["BETSELOT TSEHAY BEKELE","F"],["BETSELOT MULUGETA TADESSE","F"],["BIRUK WONDOSEN GIRRMA","M"],["BITANIYA YIRGALEM WONDIMAGEGNEHU","F"],["DAGMAWIT SILESHI GIRMA","F"],["DANIEL ELIAS GIRMA","M"],["ELDANA MULUGETA BEZABIH","F"],["GELILA WORKU ZIKARGE","F"],["GIRUMNESH GETACHEW MEKASHA","F"],["HANA SHEWAYIRGA TEKLU","F"],["HERMELA DEMELASH MEKONNEN","F"],["HIYAB ENYEW HAILU","F"],["KALKIDAN ENDASHAW BELAY","F"],["KIDST ZEWUDU GIZACHEW","F"],["KIDUS ZELALEM GEBEYEHU","M"],["KIDUS YEHUALASHET MEKONNEN","M"],["LETARIK SHEWANEGA NADEW","F"],["LEUL USMAN KASIM","M"],["LIDYIA ZEBENE DINBERU","F"],["MARUF AHMED TUHA","M"],["NATAN MINDAYE ABATE","M"],["NATAN AYELE ZENEBE","M"],["NATNAEL ZEBENE MAMO","M"],["SURAFEL TAMIRU AGONAFIR","M"],["TSEGA EZRA SAHLE","F"],["TSION DERESIE KEBEDE","F"],["YARED WORKE TAYE","M"],["YEABSIRA TEWODROS NIGUSE","M"],["YEABSIRA ALEMAYEHU MOHAMED","M"]],
-        "2A": [["ADONIAS ALEMSEGED SEYFU","M"],["AMEN TEKALGN KEBEDE","M"],["ANANIYA GETAHUN BANJAW","M"],["BEALU TEGEGNEWORK ALEMAYEHU","M"],["BEAMLAK WOLDE TEKLE","M"],["BETSELOT GIRMA DEMEKE","F"],["BESUFIKAD ATLABACHEW YILMA","M"],["BETELHEM GETE SHIFERA","F"],["DAGIM KIDANE YESHITLA","M"],["ELSABET ABRHAM BEKELE","F"],["EYOB MERSHA TEKLU","M"],["EYOB SOLOMON WELDEKIDAN","M"],["FEVEN WENDESEN HAILU","F"],["GENET FIRDAWEK TEKLEYOHANES","F"],["KALKIDAN ASHENAFI TESFAYE","F"],["KALKIDAN BEKELE BRIHANE","F"],["MAKBEL BEREDED KIFLE","M"],["MARAMAWIT YITAGESU NADEW","F"],["MARTA ABEBE ALEMAYEHU","F"],["MIHRET TADESSE SHIFERA","F"],["NATAN ANDNET SAHLU","M"],["SAMRAWIT GIZACHEW TEFERA","F"],["TSEHAY TEKLEYOHANESS ASHENAFI","F"],["TSION SINTAYEHU DEREJE","F"],["YARED HABTAMU ALEMU","M"],["YOAKIN BIRUK GETANEH","M"],["YORDANOS TARIKU KASAW","F"],["YOSEF TSEGAYE MEKTE","M"]],
-        "2B": [["ABEMELIK SINTAYEHU BAYU","M"],["AMANUEL DERESE TILAHUN","M"],["AMANUEL GETAMESAY ASALIFEW","M"],["AMANUEL TEMESGEN BUTA","M"],["BAHRAN METADEL HAILU","M"],["BEKALU EFREM DAMITEW","M"],["BEREKET ESHETU AFINE","M"],["BETSELOT KIDANE FELEKE","F"],["EDEN SHAMBEL AKLILU","F"],["ELISABET WONDOSEN MAMO","F"],["FIKIR AHADU KETSELA","F"],["HANANIEL HABTOM GIDEY","M"],["HENOK FETENE MOGES","M"],["HIWOT KABTAMU TADESSE","F"],["KIDIST ALEMAYEHU TESHOME","F"],["KIRUBEL FIKREMARIAM BETRE","M"],["MAHDER GETACHEW BEGASHAW","F"],["MARAMAWIT MUSE MENGESHA","F"],["MEKLIT ZERIHUN SISAY","F"],["MIKIAS ALEM TESEMA","M"],["NOAH TEMESGEN SAMUEL","M"],["SAMRAWIT ZENEBE ABEBE","F"],["TSION TEMESGEN MEQUANINT","F"],["YEABSIRA DAWIT TESFAYE","M"],["YEABSIRA TEKA MULUGETA","M"],["YONATHAN TADESSE BEREGA","M"],["ZELALEM TESHOME ADANE","M"]],
-        "1A": [["ABENEZER SEIFE SERBE","M"],["ABRHAM KETEMA WOLDEMARIAM","M"],["BARKONAL AYINEKULU ABEBE","M"],["BETEN AMBERBIR BEKELE
+    const scriptURL = 'https:/AKfycbwW_7qNsrnIQR5PfyEfUlq1ka3L98IYXCuDCCfuPxq_HaVbhzP-mCpLAJt__YwIeotD/macros/s/AKfycbxDi0AAWFOl5K-0doGSmwcb4C87SZXBWrso_3P_5qY/exec';
+
+    function showSection(id) {
+        document.getElementById('homePage').classList.add('hidden');
+        document.getElementById('adminArea').classList.add('hidden');
+        document.getElementById(id).classList.remove('hidden');
+    }
+
+    function showLogin() { document.getElementById('loginOverlay').style.display='flex'; }
+    function closeLogin() { document.getElementById('loginOverlay').style.display='none'; }
+
+    function checkAuth() {
+        const pass = document.getElementById('passInput').value;
+        if(pass === "Dawit@0721") {
+            document.getElementById('loginOverlay').style.display='none';
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('adminArea').classList.remove('hidden');
+            window.scrollTo(0,0);
+        } else { alert("የተሳሳተ የይለፍ ቃል!"); }
+    }
+
+    const studentsData = {
+        "1A": ["ABENEZER SEIFE SERBE", "ABRHAM KETEMA WOLDEMARIAM", "BARKONAL AYINEKULU ABEBE", "BETEN AMBERBIR BEKELE", "EDEN ABERA SIME", "ELDA ELIAS GIRMA", "EYUEL SITOTAW ABABU", "EZANA ANTENEH MEKONEN", "FIKR ESHETU BAYU", "FIKR ASHENAFI HAILU", "HAILEMARIAM ADAM DAGIM", "HASET ABAYNEH YIFRU", "HASET ANDINET GEBEYEHU", "HELEN ALEM TESEMA", "KALYE TADYE GETACHEW", "KIDUS YARED TADESSE", "LEUL SHAMBEL AKLILU", "MINAS TENKIR ALEMU", "NATNAEL ASRES AYITENFISU", "SAMRAWIT ASEGAHEGN BESHAH", "SAMUEL BIRUK GETANEH", "SAYZANA ANTENEH MEKONEN", "SOFONIAS BENEBERU BEREHANU", "SURAFEL CHANYALEW AYICHEW", "TIZIBT ASHENAFI WODAJO", "TSEDENIA GIRMA EMYU", "TSINAT GEDLU TENSAW", "YEABSIRA SHEWAFERA AMENU", "YEABSIRA NEGASH MINIYLU", "YEAMLAK BEREKET MULAT", "YEMICHAEL SOLOMON DEMISSEW", "YOHANNES SEBHAT KAGNEW", "YOSTINA SIBHAT KAGNEW", "ZEYEDE KEBEDE ASEFA"],
+        "1B": ["AMANUEL AKALU BIRHANU", "AMEN ABRHAM BOGALE", "ANANIA TEFEREDEGN DEGEFU", "ASHENAFI MULATU WORKE", "BARKOT MULUGETA TADESSE", "BEKALU ABRHAM BEKELE", "BEREKET BEKELE WOSNE", "BETELHEM DEMEKE DAGNACHEW", "BETSEHA BEZA MUSE", "BIRUKTAWIT MESFIN TSEGAYE", "BITANIA ABEJE SHEWAFERA", "BIZUWORK WOLDEYOHANES DEMISSIE", "EDLAWIT GOSAYE MAMO", "ESUBALEW TADESSE BESHAHWURED", "GETABALEW DEMEKE LEMA", "GETESEMANI METADEL HAILU", "HEMEN ENDALKACHEW HAILEMARIAM", "HERMELA DIBEKULU SILESHI", "HIBIST LEMA MINDA", "KALEAB WORKU ZIKAREGE", "KIDUS CHERYE ESHETE", "LIELT ENDALKACHEW GIRMA", "MARIAMAWIT ANDUALEM AYALEW", "MIKIAS GETAWE ARKEW", "NEBIYAT DAWIT FIKRIE", "RIBKA ZERIHUN NEGESSE", "SAMRAWIT DEBAS DEMISSIE", "SAMUEL GETNET SHEWATATEK", "SEMEON ANTENEH TEKIL", "YEABSIRA AYELE TESFAYE"],
+        "2A": ["ADONIAS ALEMSEGED SEYFU", "AMEN TEKALGN KEBEDE", "ANANIYA GETAHUN BANJAW", "BEALU TEGEGNEWORK ALEMAYEHU", "BEAMLAK WOLDE TEKLE", "BETSELOT GIRMA DEMEKE", "BESUFIKAD ATLABACHEW YILMA", "BETELHEM GETE SHIFERA", "DAGIM KIDANE YESHITLA", "ELSABET ABRHAM BEKELE", "EYOB MERSHA TEKLU", "EYOB SOLOMON WELDEKIDAN", "FEVEN WENDESEN HAILU", "GENET FIRDAWEK TEKLEYOHANES", "KALKIDAN ASHENAFI TESFAYE", "KALKIDAN BEKELE BRIHANE", "MAKBEL BEREDED KIFLE", "MARAMAWIT YITAGESU NADEW", "MARTA ABEBE ALEMAYEHU", "MIHRET TADESSE SHIFERA", "NATAN ANDNET SAHLU", "SAMRAWIT GIZACHEW TEFERA", "TSEHAY TEKLEYOHANESS ASHENAFI", "TSION SINTAYEHU DEREJE", "YARED HABTAMU ALEMU", "YOAKIN BIRUK GETANEH", "YORDANOS TARIKU KASAW", "YOSEF TSEGAYE MEKTE"],
+        "2B": ["ABEMELIK SINTAYEHU BAYU", "AMANUEL DERESE TILAHUN", "AMANUEL GETAMESAY ASALIFEW", "AMANUEL TEMESGEN BUTA", "BAHRAN METADEL HAILU", "BEKALU EFREM DAMITEW", "BEREKET ESHETU AFINE", "BETSELOT KIDANE FELEKE", "EDEN SHAMBEL AKLILU", "ELISABET WONDOSEN MAMO", "FIKIR AHADU KETSELA", "HANANIEL HABTOM GIDEY", "HENOK FETENE MOGES", "HIWOT KABTAMU TADESSE", "KIDIST ALEMAYEHU TESHOME", "KIRUBEL FIKREMARIAM BETRE", "MAHDER GETACHEW BEGASHAW", "MARAMAWIT MUSE MENGESHA", "MEKLIT ZERIHUN SISAY", "MIKIAS ALEM TESEMA", "NOAH TEMESGEN SAMUEL", "SAMRAWIT ZENEBE ABEBE", "TSION TEMESGEN MEQUANINT", "YEABSIRA DAWIT TESFAYE", "YEABSIRA TEKA MULUGETA", "YONATHAN TADESSE BEREGA", "ZELALEM TESHOME ADANE"],
+        "3": ["ABENEZER AMBERBIR", "ABSALAT SOLOMON LEUL", "AFOMIYA MESFIN YIREFSHEWA", "AMANUEL GIZACHEW TEFERA", "AMEN TESFAYE GIRMA", "BENYAS WOYANTE MEKONNEN", "BETSELOT TSEHAY BEKELE", "BETSELOT MULUGETA TADESSE", "BIRUK WONDOSEN GIRRMA", "BITANIYA YIRGALEM WONDIMAGEGNEHU", "DAGMAWIT SILESHI GIRMA", "DANIEL ELIAS GIRMA", "ELDANA MULUGETA BEZABIH", "GELILA WORKU ZIKARGE", "GIRUMNESH GETACHEW MEKASHA", "HANA SHEWAYIRGA TEKLU", "HERMELA DEMELASH MEKONNEN", "HIYAB ENYEW HAILU", "KALKIDAN ENDASHAW BELAY", "KIDIST ZEWUDU GIZACHEW", "KIDUS ZELALEM GEBEYEHU", "KIDUS YEHUALASHET MEKONNEN", "LETARIK SHEWANEGA NADEW", "LEUL USMAN KASIM", "LIDYIA ZEBENE DINBERU", "MARUF AHMED TUHA", "NATAN MINDAYE ABATE", "NATAN AYELE ZENEBE", "NATNAEL ZEBENE MAMO", "SURAFEL TAMIRU AGONAFIR", "TSEGA EZRA SAHLE", "TSION DERESIE KEBEDE", "YARED WORKE TAYE", "YEABSIRA TEWODROS NIGUSE", "YEABSIRA ALEMAYEHU MOHAMED"],
+        "4": ["YOHANNES MEKASHA ZENA", "BEFIKAD FIRDAWOK TEKLEYOHANNES", "BEMNET ABEBE TADESSE", "BEREKET ERMIAS BEKELE", "KALKIDAN WOLDU KEBEDE", "MAHLET MESFIN ALI", "YALEMWORK BELAY TAMRIE", "NATAN DAMITEW TSEGAW", "YOHANNES BAYELIGN AYITENFISU", "NAHOM ABRHAM BEKELE", "KIDUS ALEMU MULATU", "AMEN HAILEMESKEL GEBREMARIAM", "YEABSIRA YOSEF HAILEMICHAEL", "HENOK GIRMA MAMO", "BIRUK MULUGETA BEZABH", "BITANIA TEWABE HAILU", "RODAS NEGASH FANTAYE", "HALELUYA EWAWOY MULATU", "MEKUANINT GETABALEW ZEWDE", "BETSELOT TENKIR ALEMU", "TINSAE GEBEYEHU HAILU", "MEHAMED ABDU YASIN", "DAWIT ABAY GIZAW"],
+        "5": ["SAMUEL TARIKU MOLA", "KALKIDAN ZENEBE ABEBE", "NATANIUM WONDAFEREW BELEYNEH", "ADONAIT ERMIAS BEKELE", "BEMNET AKLILU MINDA", "HENOK BIRUK GIRMA", "REDIET DEMISEW ZELELEW", "ZELEKE MELESE WORKALEMAHU", "MENA TESFAYE GIRMA", "MEKLIT MEBRAT SEMAHEGN", "NATNAEL TILAHUN ALELIGN", "REDIET ASCHENAKI TEFERI", "YISHAK ASCHENAKI TEFERI", "AMEN DIBABE ARAGE", "ADONIAS MUSE MENGESHA", "NATANIUM HAILU MULUGETA", "YEABSIRA SIYUM ASEFA", "TEMESGEN LEGESE ASFAW", "TAMRU TEKLETSADIK HAILYE", "ELSHADAY TEFEREDEGN DEGEFU", "YORDANOS BEHAILU TESHOME", "ELDANA GIRMA GEBREMICHAEL"],
+        "6": ["DAGIM SHEWAFERA AMENU", "KALKIDAN FANTU TESFU", "HERAN DIBEKULU SILESHI", "NATANEM ABAYNEH YIFRU", "DAGIM DEMISSIE AREYA", "ELDANA SOLOMON LEUL", "SURAFEL MANDEFRO AWOKE", "MAEDOT YILMA BEKELE", "REDIET KEBEDE KABTIMER", "MARKAN ZEGEYE ABAYNEH", "ESKEATSINAF BIRHANU ZEWDIE", "MIKIYAS GEBREYOHANNES ESTIFANOS", "DAWIT WORKE TAYE", "BINIYAM ABEJE SHEWAFERA", "KIRSE ZERFU TEKLEHAWARIAT"]
+    };
+
+    function changeGrade(g) {
+        if(!g) return;
+        document.getElementById('gradeTitle').innerText = "ክፍል " + g + " - የውጤት መዝገብ";
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = "";
+        const list = studentsData[g] || [];
+        list.forEach((name, i) => addRow(i+1, name));
+        updateAnalysis();
+    }
+
+    function addRow(no, name) {
+        const tr = `<tr>
+            <td>${no}</td>
+            <td><input type="text" value="${name}" class="s-name"></td>
+            <td><select class="s-gen" onchange="updateAnalysis()"><option value="M">M</option><option value="F">F</option></select></td>
+            <td><input type="number" class="v" oninput="calc(this)"></td>
+            <td><input type="number" class="v" oninput="calc(this)"></td>
+            <td><input type="number" class="v" oninput="calc(this)"></td>
+            <td><input type="number" class="v" oninput="calc(this)"></td>
+            <td><input type="number" class="v" oninput="calc(this)"></td>
+            <td class="r60" style="font-weight:bold; color:#27ae60;">0</td>
+            <td><input type="number" class="fin" oninput="calc(this)"></td>
+            <td class="r100" style="font-weight:bold; color:#2c3e50;">0</td>
+            <td class="no-print"><button onclick="this.closest('tr').remove(); updateAnalysis();" style="color:red; background:none; border:none; cursor:pointer; font-weight:bold;">X</button></td>
+        </tr>`;
+        document.getElementById('tableBody').insertAdjacentHTML('beforeend', tr);
+    }
+
+    function calc(el) {
+        const tr = el.closest('tr');
+        let s60 = 0;
+        tr.querySelectorAll('.v').forEach(i => s60 += parseFloat(i.value) || 0);
+        tr.querySelector('.r60').innerText = s60.toFixed(1);
+        let total = s60 + (parseFloat(tr.querySelector('.fin').value) || 0);
+        tr.querySelector('.r100').innerText = total.toFixed(1);
+        updateAnalysis();
+    }
+
+    function updateAnalysis() {
+        const rows = document.querySelectorAll('#tableBody tr');
+        let data = { "Below 50": {m:0, f:0}, "50-100": {m:0, f:0}, "75-100": {m:0, f:0}, "85-100": {m:0, f:0} };
+        let mTotal = 0, fTotal = 0;
+        rows.forEach(r => {
+            const val = parseFloat(r.querySelector('.r100').innerText) || 0;
+            const gen = r.querySelector('.s-gen').value;
+            if(gen === "M") mTotal++; else fTotal++;
+            if(val < 50) data["Below 50"][gen.toLowerCase()]++;
+            if(val >= 50) data["50-100"][gen.toLowerCase()]++;
+            if(val >= 75) data["75-100"][gen.toLowerCase()]++;
+            if(val >= 85) data["85-100"][gen.toLowerCase()]++;
+        });
+        const ab = document.getElementById('analysisBody');
+        ab.innerHTML = "";
+        for(let k in data) {
+            let mp = mTotal > 0 ? ((data[k].m/mTotal)*100).toFixed(1) : 0;
+            let fp = fTotal > 0 ? ((data[k].f/fTotal)*100).toFixed(1) : 0;
+            ab.innerHTML += `<tr><td>${k}</td><td>${data[k].m}</td><td>${mp}%</td><td>${data[k].f}</td><td>${fp}%</td><td>${data[k].m+data[k].f}</td></tr>`;
+        }
+    }
+
+    async function saveToSheets() {
+        const rows = document.querySelectorAll('#tableBody tr');
+        if(rows.length === 0) return alert("እባክዎ መጀመሪያ ክፍል ይምረጡ!");
+        
+        const list = Array.from(rows).map(r => ({
+            no: r.cells[0].innerText, 
+            name: r.querySelector('.s-name').value, 
+            gender: r.querySelector('.s-gen').value,
+            mid: r.querySelectorAll('.v')[0].value, 
+            draw: r.querySelectorAll('.v')[1].value, 
+            theater: r.querySelectorAll('.v')[2].value, 
+            writing: r.querySelectorAll('.v')[3].value,
+            group: r.querySelectorAll('.v')[4].value, 
+            r60: r.querySelector('.r60').innerText,
+            final: r.querySelector('.fin').value, 
+            r100: r.querySelector('.r100').innerText
+        }));
+
+        try {
+            await fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify({ students: list, grade: document.getElementById('gradeSelector').value })
+            });
+            alert('መረጃው በተሳካ ሁኔታ ወደ Google Sheets ተልኳል!');
+        } catch (e) {
+            alert('ስህተት ተከስቷል!');
+        }
+    }
+
+    function sendToInbox() {
+        const n = document.getElementById('pName').value;
+        const m = document.getElementById('pMsg').value;
+        if(!n || !m) return alert("እባክዎ መረጃ ይሙሉ!");
+        const list = document.getElementById('inboxList');
+        if(list.innerText.includes("የለም")) list.innerHTML = "";
+        list.innerHTML += `<div style="padding:10px; border-bottom:1px solid #ddd; background:#f0f7ff; margin-bottom:5px; border-radius:5px;"><strong>${n}:</strong> ${m}</div>`;
+        alert("መልዕክት ተልኳል!");
+        document.getElementById('pName').value = ""; document.getElementById('pMsg').value = "";
+    }
+
+    function uploadPhoto(e) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const g = document.getElementById('publicGallery');
+            if(g.innerText.includes("ፎቶዎች")) g.innerHTML = "";
+            g.innerHTML += `<div class="gallery-item"><img src="${reader.result}" style="width:100%; height:100%; object-fit:cover;"></div>`;
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
+    function editHeader(el) {
+        const n = prompt("አዲስ ርዕስ ያስገቡ፦", el.innerText.replace(" ✎", ""));
+        if(n) el.innerText = n + " ✎";
+    }
+
+    function addNewRow() { addRow(document.getElementById('tableBody').rows.length + 1, ""); }
+
+    function downloadPDF() {
+        const element = document.getElementById('printableArea');
+        html2pdf().set({ margin:0.3, filename:'Student_Report.pdf', jsPDF:{orientation:'landscape'} }).from(element).save();
+    }
+</script>
+</body>
+</html>
