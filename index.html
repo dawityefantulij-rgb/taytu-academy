@@ -7,35 +7,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        :root { --primary: #1e3c72; --secondary: #2a5298; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; color: #333; }
+        :root { --primary: #1e3c72; --white: #ffffff; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; }
         nav { background: var(--primary); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; color: white; position: sticky; top: 0; z-index: 1000; }
         .container { width: 95%; max-width: 1200px; margin: 20px auto; }
-        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; position: relative; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; position: relative; }
         
-        /* Edit ለማድረግ እንዲመች የሰንጠረዥ ማስተካከያ */
-        table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
-        th, td { border: 1px solid #ccc; padding: 8px 4px; text-align: center; }
-        th { background: #f2f2f2; }
-        .col-name { width: 180px; }
-        .col-mark { width: 45px; }
-        
-        input[type="text"], input[type="number"] {
-            width: 90%; padding: 5px; border: 1px solid #ddd; border-radius: 4px; text-align: center; font-size: 12px;
-        }
-        input:focus { border-color: var(--primary); outline: none; background: #fffde7; }
+        /* Edit ለማድረግ እንዲመች */
+        table { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed; }
+        th, td { border: 1px solid #444; padding: 5px 2px; text-align: center; }
+        th { background: #eee; }
+        input[type="text"], input[type="number"] { width: 95%; border: 1px solid #ddd; border-radius: 3px; padding: 3px; text-align: center; font-size: 11px; }
+        input:focus { background: #fffde7; border-color: var(--primary); outline: none; }
 
-        .btn { padding: 10px 20px; border: none; border-radius: 30px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .btn { padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; font-size: 13px; }
         .btn-blue { background: #3498db; color: white; }
         .btn-green { background: #27ae60; color: white; }
         .btn-red { background: #e74c3c; color: white; }
 
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .img-box { height: 180px; border-radius: 10px; overflow: hidden; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 15px; }
+        .img-box { height: 160px; border-radius: 8px; overflow: hidden; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
+        .watermark { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 3rem; color: rgba(0,0,0,0.05); font-weight: bold; pointer-events: none; display: none; }
+        .page-break { page-break-after: always; margin-bottom: 30px; }
         .hidden { display: none !important; }
-        @media print { .no-print { display: none !important; } }
+
+        @media print { .no-print { display: none !important; } .watermark { display: block !important; } }
     </style>
 </head>
 <body onload="initApp()">
@@ -49,63 +47,74 @@
 </nav>
 
 <div id="homePage" class="container">
-    <div class="card" style="text-align:center; background:var(--primary); color:white;">
+    <div class="card" style="text-align:center; background: var(--primary); color:white; padding: 40px;">
         <h1>መ/ር ዳዊት የማነ</h1>
-        <p>የስነ-ጥበብ (Art) እና ሙዚቃ (Music) ትምህርት ክፍል</p>
+        <p>የስነ-ጥበብ እና ሙዚቃ ትምህርት ክፍል (Arts & Music)</p>
     </div>
     <div class="card">
-        <h2>🎨 ጋለሪ</h2>
+        <h3>🎨 ጋለሪ (Gallery)</h3>
         <div id="publicGallery" class="gallery-grid"></div>
     </div>
     <div class="card">
-        <h2>📩 መልዕክት ይላኩ</h2>
-        <input type="text" id="senderName" placeholder="ስም" style="width:100%; padding:10px; margin-bottom:10px;">
-        <textarea id="senderMsg" placeholder="መልዕክት..." style="width:100%; padding:10px; height:80px;"></textarea>
-        <button class="btn btn-blue" onclick="sendMessage()" style="width:100%">ላክ</button>
+        <h3>📩 መልዕክት ይላኩ</h3>
+        <input type="text" id="pName" placeholder="ስም" style="width:98%; padding:10px; margin-bottom:10px;">
+        <textarea id="pMsg" placeholder="መልዕክት..." style="width:98%; padding:10px; height:80px;"></textarea>
+        <button class="btn btn-blue" style="width:100%" onclick="sendMsg()">ላክ</button>
     </div>
+    <footer style="text-align:center; padding:20px; color:#777;">Developed by Dawit Yemane &copy; 2026 | dawityefantulij@gmail.com</footer>
 </div>
 
 <div id="adminArea" class="container hidden">
-    <div class="card no-print" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:15px;">
-        <div>
-            <select id="gradeSelector" onchange="changeGrade(this.value)" style="padding:10px; border-radius:5px;">
-                <option value="">-- ክፍል ይምረጡ --</option>
-                <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
-                <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
-                <option value="3">Grade 3</option><option value="4">Grade 4</option>
-                <option value="5">Grade 5</option><option value="6">Grade 6</option>
-            </select>
-            <button class="btn btn-blue" onclick="addNewRow()"><i class="fas fa-plus"></i> ተማሪ ጨምር</button>
+    <div class="card no-print">
+        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:15px; align-items:center;">
+            <div>
+                <select id="gradeSelector" onchange="changeGrade(this.value)" style="padding:10px; border-radius:5px;">
+                    <option value="">-- ክፍል ይምረጡ --</option>
+                    <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
+                    <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
+                    <option value="3">Grade 3</option><option value="4">Grade 4</option>
+                    <option value="5">Grade 5</option><option value="6">Grade 6</option>
+                </select>
+                <button class="btn btn-blue" onclick="addNewRow()"><i class="fas fa-plus"></i> ተማሪ ጨምር</button>
+            </div>
+            <div>
+                <input type="file" id="fInput" accept="image/*" style="display:none" onchange="uploadPhoto(event)">
+                <button class="btn btn-green" onclick="document.getElementById('fInput').click()"><i class="fas fa-camera"></i> ፎቶ ስቀል</button>
+                <button class="btn btn-red" onclick="location.reload()">Logout</button>
+            </div>
         </div>
-        <div>
-            <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="uploadPhoto(event)">
-            <button class="btn btn-green" onclick="document.getElementById('photoInput').click()"><i class="fas fa-camera"></i> ፎቶ ስቀል</button>
-        </div>
+        <div id="inboxList" class="card" style="margin-top:15px; font-size:12px; background:#f9f9f9;">መልዕክቶች እዚህ ይታያሉ...</div>
     </div>
 
     <div id="printableArea">
         <div id="tablesContainer"></div>
-        <div id="analysisPage" class="card" style="page-break-before: always;">
-            <h3 style="text-align:center;">📉 የውጤት ትንተና</h3>
+        <div id="analysisSection" class="card" style="page-break-before: always;">
+            <div class="watermark">Approved by ART&MUSIC DPT</div>
+            <h3 style="text-align:center;">📈 የውጤት ትንተና (Analysis)</h3>
             <table id="analysisTable">
-                <thead><tr><th>ክልል</th><th>ወንድ</th><th>ሴት</th><th>ድምር</th></tr></thead>
+                <thead><tr><th>ክልል</th><th>ወንድ</th><th>ወንድ %</th><th>ሴት</th><th>ሴት %</th><th>ድምር</th></tr></thead>
                 <tbody id="analysisBody"></tbody>
             </table>
+            <div style="margin-top:50px; display:flex; justify-content:space-around; font-weight:bold; font-size:12px;">
+                <div>Prepared by: ________</div>
+                <div>Dept Head: ________</div>
+                <div>Director: ________</div>
+            </div>
         </div>
     </div>
 
     <div class="card no-print" style="text-align:center;">
-        <button class="btn btn-green" onclick="saveData()"><i class="fas fa-save"></i> Save</button>
-        <button class="btn btn-blue" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
-        <button class="btn btn-red" onclick="location.reload()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <button class="btn btn-green" onclick="saveData()"><i class="fas fa-save"></i> Save Data</button>
+        <button class="btn btn-blue" onclick="window.print()"><i class="fas fa-print"></i> Print / PDF</button>
     </div>
 </div>
 
 <div id="loginOverlay" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:2000;">
-    <div class="card" style="width:300px; text-align:center;">
+    <div class="card" style="width:280px; text-align:center;">
         <h3>Admin Login</h3>
-        <input type="password" id="passInput" placeholder="Password" style="width:90%; padding:10px; margin-bottom:15px;">
+        <input type="password" id="passInput" placeholder="Password" style="width:90%; padding:10px; margin-bottom:15px; border-radius:5px; border:1px solid #ddd;">
         <button class="btn btn-blue" style="width:100%" onclick="checkAuth()">ግባ</button>
+        <button class="btn" style="width:100%; margin-top:10px;" onclick="closeLogin()">ዝጋ</button>
     </div>
 </div>
 
@@ -113,20 +122,20 @@
     let currentGrade = "";
     let students = [];
 
-    function initApp() { loadPhotos(); }
+    function initApp() { loadPhotos(); loadInbox(); }
     function showSection(id) {
         document.getElementById('homePage').classList.toggle('hidden', id !== 'homePage');
         document.getElementById('adminArea').classList.toggle('hidden', id !== 'adminArea');
     }
     function showLogin() { document.getElementById('loginOverlay').classList.remove('hidden'); }
+    function closeLogin() { document.getElementById('loginOverlay').classList.add('hidden'); }
     function checkAuth() {
-        if(document.getElementById('passInput').value === "Dawit@0721") {
-            document.getElementById('loginOverlay').classList.add('hidden');
-            showSection('adminArea');
-        } else alert("Wrong Password!");
+        if(document.getElementById('passInput').value === "Dawit@0721") { closeLogin(); showSection('adminArea'); }
+        else alert("ስህተት!");
     }
 
     function changeGrade(g) {
+        if(!g) return;
         currentGrade = g;
         students = JSON.parse(localStorage.getItem('data_' + g) || "[]");
         renderTables();
@@ -138,79 +147,87 @@
         for (let i = 0; i < students.length; i += 10) {
             const chunk = students.slice(i, i + 10);
             let html = `<div class="card ${i + 10 < students.length ? 'page-break' : ''}">
+                <div class="watermark">Approved by ART&MUSIC DPT</div>
                 <h3 style="text-align:center;">የውጤት መዝገብ - Grade ${currentGrade}</h3>
-                <table>
-                    <thead>
-                        <tr><th style="width:30px;">#</th><th class="col-name">ስም</th><th>ጾታ</th><th>Mid</th><th>Draw</th><th>Mus</th><th>Wrt</th><th>Fin</th><th>Total</th><th class="no-print">X</th></tr>
-                    </thead>
-                    <tbody>`;
+                <table><thead><tr><th style="width:25px;">#</th><th style="width:150px;">ስም</th><th style="width:30px;">ጾታ</th><th>Mid</th><th>Drw</th><th>Mus</th><th>Wrt</th><th>Fin</th><th>Total</th><th class="no-print" style="width:25px;">X</th></tr></thead><tbody>`;
             chunk.forEach((s, idx) => {
                 const gIdx = i + idx;
                 html += `<tr>
                     <td>${gIdx + 1}</td>
-                    <td><input type="text" value="${s.name}" oninput="updateVal(${gIdx}, 'name', this.value)"></td>
-                    <td><input type="text" value="${s.gen}" style="width:30px;" oninput="updateVal(${gIdx}, 'gen', this.value)"></td>
-                    <td><input type="number" value="${s.v1}" oninput="updateScore(${gIdx})"></td>
-                    <td><input type="number" value="${s.v2}" oninput="updateScore(${gIdx})"></td>
-                    <td><input type="number" value="${s.v3}" oninput="updateScore(${gIdx})"></td>
-                    <td><input type="number" value="${s.v4}" oninput="updateScore(${gIdx})"></td>
-                    <td><input type="number" value="${s.f}" oninput="updateScore(${gIdx})"></td>
+                    <td><input type="text" value="${s.name || ''}" oninput="updateVal(${gIdx}, 'name', this.value)"></td>
+                    <td><input type="text" value="${s.gen || 'M'}" oninput="updateVal(${gIdx}, 'gen', this.value)"></td>
+                    <td><input type="number" value="${s.v1 || 0}" oninput="updateScore(${gIdx}, 'v1', this.value)"></td>
+                    <td><input type="number" value="${s.v2 || 0}" oninput="updateScore(${gIdx}, 'v2', this.value)"></td>
+                    <td><input type="number" value="${s.v3 || 0}" oninput="updateScore(${gIdx}, 'v3', this.value)"></td>
+                    <td><input type="number" value="${s.v4 || 0}" oninput="updateScore(${gIdx}, 'v4', this.value)"></td>
+                    <td><input type="number" value="${s.f || 0}" oninput="updateScore(${gIdx}, 'f', this.value)"></td>
                     <td style="font-weight:bold;">${s.total || 0}</td>
-                    <td class="no-print"><button onclick="deleteRow(${gIdx})" style="color:red; border:none; background:none; cursor:pointer;">✖</button></td>
+                    <td class="no-print"><button onclick="delRow(${gIdx})" style="color:red; border:none; background:none; cursor:pointer;">✖</button></td>
                 </tr>`;
             });
             html += `</tbody></table></div>`;
             container.insertAdjacentHTML('beforeend', html);
         }
+        updateAnalysis();
     }
 
-    function updateVal(idx, field, val) { students[idx][field] = val; }
-    function updateScore(idx) {
-        const s = students[idx];
-        const row = document.querySelectorAll('tbody tr')[idx];
-        const inputs = row.querySelectorAll('input[type="number"]');
-        s.v1 = parseFloat(inputs[0].value) || 0;
-        s.v2 = parseFloat(inputs[1].value) || 0;
-        s.v3 = parseFloat(inputs[2].value) || 0;
-        s.v4 = parseFloat(inputs[3].value) || 0;
-        s.f = parseFloat(inputs[4].value) || 0;
-        s.total = (s.v1 + s.v2 + s.v3 + s.v4 + s.f).toFixed(1);
+    function updateVal(idx, f, v) { students[idx][f] = v; }
+    function updateScore(idx, f, v) {
+        students[idx][f] = parseFloat(v) || 0;
+        let s = students[idx];
+        s.total = ((s.v1 || 0) + (s.v2 || 0) + (s.v3 || 0) + (s.v4 || 0) + (s.f || 0)).toFixed(1);
         renderTables();
     }
 
     function addNewRow() {
-        if(!currentGrade) return alert("ክፍል ይምረጡ!");
-        students.push({name: "", gen: "M", v1: 0, v2: 0, v3: 0, v4: 0, f: 0, total: 0});
+        if(!currentGrade) return alert("መጀመሪያ ክፍል ይምረጡ!");
+        students.push({name: "", gen: "M", v1:0, v2:0, v3:0, v4:0, f:0, total:0});
         renderTables();
     }
 
-    function deleteRow(idx) {
-        if(confirm("ይህ ተማሪ ይጥፋ?")) { students.splice(idx, 1); renderTables(); }
-    }
+    function delRow(idx) { if(confirm("ይጥፋ?")) { students.splice(idx, 1); renderTables(); } }
+    function saveData() { localStorage.setItem('data_' + currentGrade, JSON.stringify(students)); alert("Saved!"); }
 
-    function saveData() {
-        localStorage.setItem('data_' + currentGrade, JSON.stringify(students));
-        alert("ዳታው ተቀምጧል!");
-    }
-
-    // Photo logic
+    // Photos
     function uploadPhoto(e) {
-        const file = e.target.files[0];
         const reader = new FileReader();
         reader.onload = () => {
-            let photos = JSON.parse(localStorage.getItem('myPhotos') || "[]");
-            photos.push(reader.result);
-            localStorage.setItem('myPhotos', JSON.stringify(photos));
+            let ph = JSON.parse(localStorage.getItem('myPhotos') || "[]");
+            ph.push(reader.result);
+            localStorage.setItem('myPhotos', JSON.stringify(ph));
             loadPhotos();
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(e.target.files[0]);
     }
     function loadPhotos() {
-        const photos = JSON.parse(localStorage.getItem('myPhotos') || "[]");
-        document.getElementById('publicGallery').innerHTML = photos.map(p => `<div class="img-box"><img src="${p}"></div>`).join('');
+        const ph = JSON.parse(localStorage.getItem('myPhotos') || "[]");
+        document.getElementById('publicGallery').innerHTML = ph.map(p => `<div class="img-box"><img src="${p}"></div>`).join('');
     }
 
-    function sendMessage() { alert("መልዕክት ተልኳል!"); }
+    // Inbox
+    function sendMsg() {
+        const n = document.getElementById('pName').value, m = document.getElementById('pMsg').value;
+        if(!n || !m) return alert("መረጃ ይሙሉ!");
+        let msgs = JSON.parse(localStorage.getItem('myInbox') || "[]");
+        msgs.push({n, m, d: new Date().toLocaleString()});
+        localStorage.setItem('myInbox', JSON.stringify(msgs));
+        alert("ተልኳል!"); loadInbox();
+    }
+    function loadInbox() {
+        const msgs = JSON.parse(localStorage.getItem('myInbox') || "[]");
+        document.getElementById('inboxList').innerHTML = msgs.reverse().map(m => `<div><b>${m.n}:</b> ${m.m} <small>(${m.d})</small><hr></div>`).join('');
+    }
+
+    function updateAnalysis() {
+        let stats = { "Below 50": {m:0, f:0}, "50-100": {m:0, f:0} };
+        let mTot = 0, fTot = 0;
+        students.forEach(s => {
+            let v = parseFloat(s.total); if(s.gen === 'M') mTot++; else fTot++;
+            if(v < 50) stats["Below 50"][s.gen.toLowerCase() === 'm' ? 'm' : 'f']++;
+            else stats["50-100"][s.gen.toLowerCase() === 'm' ? 'm' : 'f']++;
+        });
+        document.getElementById('analysisBody').innerHTML = Object.keys(stats).map(k => `<tr><td>${k}</td><td>${stats[k].m}</td><td>${mTot?((stats[k].m/mTot)*100).toFixed(1):0}%</td><td>${stats[k].f}</td><td>${fTot?((stats[k].f/fTot)*100).toFixed(1):0}%</td><td>${stats[k].m+stats[k].f}</td></tr>`).join('');
+    }
 </script>
 </body>
 </html>
