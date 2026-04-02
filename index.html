@@ -3,200 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>የታይቱ ቢቱል አካዳሚ - የውጤት መመዝገቢያ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
+    <title>ጣይቱ ብጡል አካዳሚ - መ/ር ዳዊት የማነ</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
+        :root { 
+            --primary: #1e3c72; 
+            --secondary: #2a5298; 
+            --accent: #ff9a9e;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+        
         body { 
-            font-family: 'Noto Sans Ethiopic', sans-serif; 
-            background-color: #f0f4f8; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background-attachment: fixed;
+            color: #333; 
         }
-        .grade-card { 
-            transition: all 0.3s ease; 
-            background: white;
-            border-radius: 20px;
-            cursor: pointer;
-            border: 1px solid #e2e8f0;
+
+        nav { 
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .grade-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            border-color: #2563eb;
+
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-circle { 
+            width: 45px; height: 45px; 
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 50%; 
+            display: flex; align-items: center; 
+            justify-content: center; color: white; 
+            font-weight: bold; font-size: 1.2rem;
         }
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+
+        .container { width: 95%; max-width: 1100px; margin: 20px auto; }
+        
+        .hero-section { 
+            text-align: center; 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; background-position: center; 
+            color: white; padding: 50px 20px; border-radius: 20px; margin-bottom: 25px;
+        }
+
+        .card { 
+            background: var(--glass); padding: 20px; border-radius: 15px; 
+            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.3);
+            position: relative; overflow: hidden;
+        }
+
+        /* Fixed Watermark - Smaller and Centered */
+        .watermark {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 2.8rem;
+            color: rgba(30, 60, 114, 0.08);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn { padding: 10px 20px; border: none; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; margin: 5px; text-decoration: none; display: inline-block; }
+        .btn-blue { background: #3498db; color: white; }
+        .btn-green { background: #27ae60; color: white; }
+        .btn-red { background: #e74c3c; color: white; }
+        .btn-gray { background: #555; color: white; }
+
+        table { width: 100%; border-collapse: collapse; background: white; position: relative; z-index: 1; table-layout: fixed; }
+        th, td { border: 1px solid #ccc; padding: 6px; text-align: center; font-size: 0.8rem; overflow: hidden; }
+        th { background: var(--primary); color: white; cursor: pointer; }
+        
+        input.v, input.fin { width: 35px; padding: 4px; text-align: center; border: 1px solid #ddd; }
+        input.s-name { width: 95%; padding: 4px; border: 1px solid #ddd; }
+        select.s-gen { width: 40px; }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .gallery-item img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; }
+
+        footer { text-align: center; padding: 30px; color: white; font-size: 0.9rem; }
+
+        .hidden { display: none !important; }
+        #loginOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 9999; }
+
+        @media print { 
+            .no-print { display: none !important; } 
+            body { background: white !important; padding: 0; margin: 0; } 
+            .container { width: 100%; max-width: 100%; margin: 0; }
+            .card { border: none; padding: 10mm; background: white !important; page-break-after: always; height: 280mm; box-sizing: border-box; }
+            .watermark { display: block !important; color: rgba(0, 0, 0, 0.06) !important; font-size: 3rem; }
+            table { width: 100%; }
+            input, select { border: none !important; background: transparent !important; }
         }
     </style>
 </head>
-<body class="min-h-screen pb-12">
+<body onload="initApp()">
 
-    <div class="max-w-4xl mx-auto px-4 py-8">
-        <header class="text-center mb-10">
-            <div class="inline-block p-4 bg-white rounded-3xl shadow-sm mb-4 border border-blue-50">
-                <h1 class="text-4xl font-black text-blue-900">የታይቱ ቢቱል አካዳሚ</h1>
-            </div>
-            <p class="text-blue-600 font-bold tracking-wide">የተማሪዎች ውጤት መቆጣጠሪያ ሲስተም</p>
-            <div id="syncStatus" class="mt-4 text-xs font-bold px-4 py-2 rounded-full bg-white shadow-sm inline-flex items-center">
-                <span class="mr-2">🔄</span> መረጃ ከCloud ጋር በመገናኘት ላይ...
-            </div>
-        </header>
+<nav class="no-print">
+    <div class="logo-area">
+        <div class="logo-circle">DY</div>
+        <div style="font-weight:bold; color: var(--primary);">ጣይቱ ብጡል አካዳሚ</div>
+    </div>
+    <div>
+        <button class="btn btn-blue" onclick="showSection('homePage')">🏠 መነሻ</button>
+        <button class="btn btn-blue" onclick="showLogin()">🔐 Admin</button>
+    </div>
+</nav>
 
-        <div id="gradeSelection" class="grid grid-cols-2 md:grid-cols-3 gap-6">
-            </div>
+<div id="homePage" class="container">
+    <div class="hero-section">
+        <h1>መ/ር ዳዊት የማነ</h1>
+        <h3>የስነ-ጥበብ (Art) እና ሙዚቃ (Music) ትምህርት ክፍል</h3>
+    </div>
 
-        <div id="studentSection" class="hidden animate-in fade-in duration-500">
-            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-                <div class="bg-blue-900 p-6 flex justify-between items-center">
-                    <div>
-                        <h2 id="selectedGradeTitle" class="text-2xl font-bold text-white"></h2>
-                        <p class="text-blue-200 text-sm">የተማሪዎችን ውጤት እዚህ ይሙሉ</p>
-                    </div>
-                    <button onclick="backToGrades()" class="bg-blue-800 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition font-bold border border-blue-700">ተመለስ</button>
+    <div class="card">
+        <h2 style="text-align: center; color: var(--primary);">🎨 የጥበብ ስራዎች ማሳያ</h2>
+        <div class="gallery-grid" id="publicGallery"></div>
+    </div>
+
+    <div class="card">
+        <h2 style="color: var(--primary);">📩 መልዕክት ይላኩ</h2>
+        <input type="text" id="pName" placeholder="የእርስዎ ስም" style="margin-bottom:10px; padding:12px; width:100%; border-radius:8px; border:1px solid #ddd; box-sizing:border-box;">
+        <textarea id="pMsg" placeholder="መልዕክት..." style="width:100%; padding:12px; height:80px; border-radius:8px; border:1px solid #ddd; box-sizing:border-box;"></textarea>
+        <button class="btn btn-blue" style="width: 100%;" onclick="sendToInbox()">መልዕክት ላክ</button>
+    </div>
+
+    <footer>
+        <p>Developed by Dawit Yemane &copy; 2026</p>
+        <p>Contact: dawityemane@academy.com | +251 9** *** ***</p>
+    </footer>
+</div>
+
+<div id="loginOverlay">
+    <div class="card" style="width: 300px; text-align: center;">
+        <h3>የአድሚን መግቢያ</h3>
+        <input type="password" id="passInput" placeholder="Password" style="margin-bottom:15px; padding:12px; width:90%; border-radius:8px;">
+        <button class="btn btn-blue" style="width:100%" onclick="checkAuth()">ግባ</button>
+        <button class="btn btn-gray" style="width:100%" onclick="closeLogin()">ዝጋ</button>
+    </div>
+</div>
+
+<div id="adminArea" class="container hidden">
+    <div class="card no-print" style="background: white;">
+        <h2 style="text-align:center; color: var(--primary);">የአስተዳዳሪ የመቆጣጠሪያ ሳጥን</h2>
+        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:300px; border: 1px solid #eee; padding:15px; border-radius:10px;">
+                <h3 style="margin-top:0;">📥 የተቀበሏቸው መልዕክቶች</h3>
+                <div id="inboxList" style="max-height:150px; overflow-y:auto; background:#f9f9f9; padding:10px; border-radius:5px; font-size:0.9rem;"></div>
+                <button class="btn btn-red" onclick="clearInbox()" style="font-size:0.7rem; margin-top:5px;">ሁሉንም አጽዳ</button>
+            </div>
+            <div style="flex:1; min-width:300px; border: 1px solid #eee; padding:15px; border-radius:10px;">
+                <h3 style="margin-top:0;">📸 አዲስ ፎቶ ይጫኑ</h3>
+                <input type="file" accept="image/*" onchange="uploadPhoto(event)" style="margin-bottom:10px;">
+            </div>
+        </div>
+    </div>
+
+    <div id="printableArea">
+        <div id="pagedTablesContainer"></div>
+
+        <div class="card" id="analysisCard">
+            <div class="watermark">APPROVED BY Dawit Yemane</div>
+            <h3 style="text-align:center; color: var(--primary); position:relative; z-index:1;">📈 የውጤት ትንተና (Analysis Report)</h3>
+            <table id="analysisTable">
+                <thead><tr><th>የውጤት ክልል</th><th>ወንድ</th><th>ወንድ %</th><th>ሴት</th><th>ሴት %</th><th>ድምር</th></tr></thead>
+                <tbody id="analysisBody"></tbody>
+            </table>
+            
+            <div style="margin-top:70px; display:flex; justify-content: space-between; position:relative; z-index:1; padding: 0 10px;">
+                <div style="text-align:center; width: 30%;">
+                    <span>___________________</span><br>
+                    <small>የመ/ር ስም እና ፊርማ</small>
                 </div>
-
-                <div class="p-6">
-                    <div class="overflow-x-auto rounded-2xl border border-gray-100">
-                        <table class="w-full text-left">
-                            <thead class="bg-gray-50 border-b">
-                                <tr>
-                                    <th class="p-4 text-gray-600 font-bold">የተማሪ ስም</th>
-                                    <th class="p-4 text-gray-600 font-bold text-center">ውጤት (100%)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="studentTableBody" class="divide-y divide-gray-50">
-                                </tbody>
-                        </table>
-                    </div>
-
-                    <div class="mt-8">
-                        <button id="saveBtn" onclick="saveToCloud()" class="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl shadow-lg transition-all transform active:scale-95 flex justify-center items-center gap-3">
-                            <span>💾</span> መረጃውን መዝግብ (Save)
-                        </button>
-                    </div>
+                <div style="text-align:center; width: 30%;">
+                    <span>___________________</span><br>
+                    <small>የዲፓርትመንት ኃላፊ ስም</small>
+                </div>
+                <div style="text-align:center; width: 30%;">
+                    <span>___________________</span><br>
+                    <small>የርዕሰ መምህር ስም እና ፊርማ</small>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // የአንተ Google Script URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwJ56hcG_ywKTV4k_pWI7hediy40q27Y2q6IjePHMbW2umfwkNUoZXyuiwuBSLn4hxxjw/exec';
-        
-        let currentGrade = null;
-        let allData = {};
+    <div class="card no-print" style="text-align:center; background: #f0f4f8; position: sticky; bottom: 10px; z-index:1001;">
+        <select id="gradeSelector" onchange="changeGrade(this.value)" style="padding:10px; border-radius:8px; border:1px solid var(--primary); font-weight:bold;">
+            <option value="">-- ክፍል ይምረጡ --</option>
+            <option value="1A">Grade 1A</option><option value="1B">Grade 1B</option>
+            <option value="2A">Grade 2A</option><option value="2B">Grade 2B</option>
+            <option value="3">Grade 3</option><option value="4">Grade 4</option>
+            <option value="5">Grade 5</option><option value="6">Grade 6</option>
+        </select>
+        <button class="btn btn-blue" onclick="addNewRow()">+ አዲስ ተማሪ</button>
+        <button class="btn btn-green" onclick="saveAllData(); alert('ዳታው ተቀምጧል!')">💾 Save</button>
+        <button class="btn btn-blue" onclick="downloadPDF()">📥 PDF</button>
+        <button class="btn btn-gray" onclick="window.print()">🖨️ Print</button>
+        <button class="btn btn-red" onclick="location.reload()">🔒 Logout</button>
+    </div>
+</div>
 
-        // ገጹ ሲከፈት መረጃውን አምጣ
-        window.onload = () => {
-            renderGrades();
-            fetchData();
-        };
+<script>
+    let colTitles = { v1: "Mid(20)", v2: "Draw(5)", v3: "Mus(10)", v4: "Wri(10)", v5: "Grp(15)", fin: "Fin(40)" };
+    const studentsData = { "1A": ["ABENEZER SEIFE SERBE", "ABRHAM KETEMA WOLDEMARIAM", "BARKONAL AYINEKULU ABEBE", "BETEN AMBERBIR BEKELE", "EDEN ABERA SIME", "ELDA ELIAS GIRMA", "EYUEL SITOTAW ABABU", "EZANA ANTENEH MEKONEN", "FIKR ESHETU BAYU", "FIKR ASHENAFI HAILU", "HAILEMARIAM ADAM DAGIM", "HASET ABAYNEH YIFRU", "HASET ANDINET GEBEYEHU", "HELEN ALEM TESEMA", "KALYE TADYE GETACHEW", "KIDUS YARED TADESSE", "LEUL SHAMBEL AKLILU", "MINAS TENKIR ALEMU", "NATNAEL ASRES AYITENFISU", "SAMRAWIT ASEGAHEGN BESHAH", "SAMUEL BIRUK GETANEH", "SAYZANA ANTENEH MEKONEN", "SOFONIAS BENEBERU BEREHANU", "SURAFEL CHANYALEW AYICHEW", "TIZIBT ASHENAFI WODAJO", "TSEDENIA GIRMA EMYU", "TSINAT GEDLU TENSAW", "YEABSIRA SHEWAFERA AMENU", "YEABSIRA NEGASH MINIYLU", "YEAMLAK BEREKET MULAT", "YEMICHAEL SOLOMON DEMISSEW", "YOHANNES SEBHAT KAGNEW", "YOSTINA SIBHAT KAGNEW", "ZEYEDE KEBEDE ASEFA"], "1B": ["AMANUEL AKALU BIRHANU", "AMEN ABRHAM BOGALE", "ANANIA TEFEREDEGN DEGEFU", "ASHENAFI MULATU WORKE", "BARKOT MULUGETA TADESSE", "BEKALU ABRHAM BEKELE", "BEREKET BEKELE WOSNE", "BETELHEM DEMEKE DAGNACHEW", "BETSEHA BEZA MUSE", "BIRUKTAWIT MESFIN TSEGAYE", "BITANIA ABEJE SHEWAFERA", "BIZUWORK WOLDEYOHANES DEMISSIE", "EDLAWIT GOSAYE MAMO", "ESUBALEW TADESSE BESHAHWURED", "GETABALEW DEMEKE LEMA", "GETESEMANI METADEL HAILU", "HEMEN ENDALKACHEW HAILEMARIAM", "HERMELA DIBEKULU SILESHI", "HIBIST LEMA MINDA", "KALEAB WORKU ZIKAREGE", "KIDUS CHERYE ESHETE", "LIELT ENDALKACHEW GIRMA", "MARIAMAWIT ANDUALEM AYALEW", "MIKIAS GETAWE ARKEW", "NEBIYAT DAWIT FIKRIE", "RIBKA ZERIHUN NEGESSE", "SAMRAWIT DEBAS DEMISSIE", "SAMUEL GETNET SHEWATATEK", "SEMEON ANTENEH TEKIL", "YEABSIRA AYELE TESFAYE"] };
 
-        // ክፍሎችን ፍጠር
-        function renderGrades() {
-            const container = document.getElementById('gradeSelection');
-            container.innerHTML = '';
-            for (let i = 1; i <= 6; i++) {
-                container.innerHTML += `
-                    <div onclick="showGrade(${i})" class="grade-card p-12 text-center">
-                        <div class="text-4xl font-black text-blue-900 mb-2">${i}ኛ</div>
-                        <div class="text-blue-500 font-bold text-sm tracking-widest uppercase">ክፍል</div>
-                    </div>`;
-            }
-        }
+    function initApp() { displayPhotos(); loadInbox(); }
+    function showSection(id) { document.getElementById('homePage').classList.add('hidden'); document.getElementById('adminArea').classList.add('hidden'); document.getElementById(id).classList.remove('hidden'); }
+    function showLogin() { document.getElementById('loginOverlay').style.display='flex'; }
+    function closeLogin() { document.getElementById('loginOverlay').style.display='none'; }
+    function checkAuth() { if(document.getElementById('passInput').value === "Dawit@0721") { closeLogin(); showSection('adminArea'); } else { alert("የተሳሳተ የይለፍ ቃል!"); } }
 
-        // ከCloud ዳታ ማንበብ
-        async function fetchData() {
-            const status = document.getElementById('syncStatus');
-            try {
-                const response = await fetch(scriptURL + "?action=read");
-                const data = await response.json();
-                if (data && Object.keys(data).length > 0) {
-                    allData = data;
-                    status.innerHTML = "✅ መረጃው ከCloud ጋር ተገናኝቷል (Synced)";
-                    status.className = "mt-4 text-xs font-bold px-4 py-2 rounded-full bg-green-100 text-green-700 shadow-sm inline-flex items-center border border-green-200";
-                }
-            } catch (e) {
-                status.innerHTML = "⚠️ ከመስመር ውጭ (Offline) - የድሮ መረጃ ይታያል";
-                status.className = "mt-4 text-xs font-bold px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 shadow-sm inline-flex items-center border border-yellow-200";
-                const local = localStorage.getItem('taytu_academy_data');
-                if (local) allData = JSON.parse(local);
-            }
-        }
+    function changeGrade(g) {
+        if(!g) return;
+        let data = JSON.parse(localStorage.getItem('data_' + g) || "[]");
+        if(data.length === 0) { data = (studentsData[g] || []).map(name => ({name, gen:'M', v1:'', v2:'', v3:'', v4:'', v5:'', r60:'0', f:'', r100:'0'})); }
+        renderPagedTable(data);
+        updateAnalysis();
+    }
 
-        // የክፍል ተማሪዎችን አሳይ
-        function showGrade(grade) {
-            currentGrade = grade;
-            document.getElementById('gradeSelection').classList.add('hidden');
-            document.getElementById('studentSection').classList.remove('hidden');
-            document.getElementById('selectedGradeTitle').innerText = grade + "ኛ ክፍል";
-            
-            const tbody = document.getElementById('studentTableBody');
-            tbody.innerHTML = '';
-            
-            // 40 ተማሪዎች
-            for (let i = 1; i <= 40; i++) {
-                const savedVal = (allData[grade] && allData[grade][i]) ? allData[grade][i] : '';
-                tbody.innerHTML += `
-                    <tr class="hover:bg-blue-50 transition">
-                        <td class="p-4 font-medium text-gray-700">ተማሪ ${i}</td>
-                        <td class="p-4">
-                            <input type="number" 
-                                onchange="updateVal(${i}, this.value)" 
-                                value="${savedVal}" 
-                                placeholder="0-100"
-                                class="w-24 mx-auto block p-3 border-2 border-gray-100 rounded-xl text-center font-bold text-blue-900 focus:border-blue-500 focus:ring-0 outline-none transition">
-                        </td>
+    function renderPagedTable(data) {
+        const container = document.getElementById('pagedTablesContainer');
+        container.innerHTML = "";
+        const pageSize = 10;
+        const grade = document.getElementById('gradeSelector').value;
+
+        for (let i = 0; i < data.length; i += pageSize) {
+            const chunk = data.slice(i, i + pageSize);
+            let tableHTML = `
+                <div class="card">
+                    <div class="watermark">APPROVED BY Dawit Yemane</div>
+                    <h3 style="text-align:center; position:relative; z-index:1;">ጣይቱ ብጡል አካዳሚ - የውጤት መዝገብ (${grade})</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width:30px;">ተ.ቁ</th><th style="width:180px;">ስም</th><th style="width:45px;">ጾታ</th>
+                                <th onclick="editHeader('v1')">${colTitles.v1} ✎</th>
+                                <th onclick="editHeader('v2')">${colTitles.v2} ✎</th>
+                                <th onclick="editHeader('v3')">${colTitles.v3} ✎</th>
+                                <th onclick="editHeader('v4')">${colTitles.v4} ✎</th>
+                                <th onclick="editHeader('v5')">${colTitles.v5} ✎</th>
+                                <th style="background:#27ae60;">60%</th>
+                                <th onclick="editHeader('fin')">${colTitles.fin} ✎</th>
+                                <th style="background:#1e3c72;">100%</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+            chunk.forEach((s, idx) => {
+                const gIdx = i + idx;
+                tableHTML += `
+                    <tr>
+                        <td>${gIdx + 1}</td>
+                        <td><input type="text" value="${s.name}" class="s-name" oninput="saveAllData()"></td>
+                        <td><select class="s-gen" onchange="saveAllData(); updateAnalysis()"><option value="M" ${s.gen=='M'?'selected':''}>M</option><option value="F" ${s.gen=='F'?'selected':''}>F</option></select></td>
+                        <td><input type="number" class="v v1" value="${s.v1}" oninput="calcRow(this)"></td>
+                        <td><input type="number" class="v v2" value="${s.v2}" oninput="calcRow(this)"></td>
+                        <td><input type="number" class="v v3" value="${s.v3}" oninput="calcRow(this)"></td>
+                        <td><input type="number" class="v v4" value="${s.v4}" oninput="calcRow(this)"></td>
+                        <td><input type="number" class="v v5" value="${s.v5}" oninput="calcRow(this)"></td>
+                        <td class="r60">${s.r60}</td>
+                        <td><input type="number" class="fin" value="${s.f}" oninput="calcRow(this)"></td>
+                        <td class="r100" style="font-weight:bold; color:${parseFloat(s.r100)<50?'red':'black'}">${s.r100}</td>
                     </tr>`;
-            }
-            window.scrollTo(0, 0);
+            });
+            tableHTML += `</tbody></table></div>`;
+            container.insertAdjacentHTML('beforeend', tableHTML);
         }
+    }
 
-        // መረጃውን በየጊዜው ሴቭ አድርግ (Local)
-        function updateVal(studentId, value) {
-            if (!allData[currentGrade]) allData[currentGrade] = {};
-            allData[currentGrade][studentId] = value;
-            localStorage.setItem('taytu_academy_data', JSON.stringify(allData));
+    function editHeader(key) {
+        const newVal = prompt("አዲስ ርዕስ ያስገቡ፦", colTitles[key]);
+        if(newVal) { colTitles[key] = newVal; changeGrade(document.getElementById('gradeSelector').value); }
+    }
+
+    function calcRow(el) {
+        const tr = el.closest('tr');
+        let sum = 0;
+        tr.querySelectorAll('.v').forEach(i => sum += parseFloat(i.value) || 0);
+        tr.querySelector('.r60').innerText = sum.toFixed(1);
+        let total = sum + (parseFloat(tr.querySelector('.fin').value) || 0);
+        const r100 = tr.querySelector('.r100');
+        r100.innerText = total.toFixed(1);
+        r100.style.color = total < 50 ? 'red' : 'black';
+        saveAllData(); updateAnalysis();
+    }
+
+    function saveAllData() {
+        const g = document.getElementById('gradeSelector').value;
+        if(!g) return;
+        const rows = Array.from(document.querySelectorAll('#pagedTablesContainer tr')).filter(r => r.querySelector('.s-name'));
+        const allData = rows.map(r => ({
+            name: r.querySelector('.s-name').value, gen: r.querySelector('.s-gen').value,
+            v1: r.querySelector('.v1').value, v2: r.querySelector('.v2').value, v3: r.querySelector('.v3').value,
+            v4: r.querySelector('.v4').value, v5: r.querySelector('.v5').value,
+            r60: r.querySelector('.r60').innerText, f: r.querySelector('.fin').value, r100: r.querySelector('.r100').innerText
+        }));
+        localStorage.setItem('data_' + g, JSON.stringify(allData));
+    }
+
+    function updateAnalysis() {
+        const rows = Array.from(document.querySelectorAll('#pagedTablesContainer tr')).filter(r => r.querySelector('.r100'));
+        let stats = { "< 50": {m:0, f:0}, "50-74": {m:0, f:0}, "75-84": {m:0, f:0}, "85-100": {m:0, f:0} };
+        let mT=0, fT=0;
+        rows.forEach(r => {
+            const val = parseFloat(r.querySelector('.r100').innerText) || 0;
+            const gen = r.querySelector('.s-gen').value;
+            if(gen==="M") mT++; else fT++;
+            if(val < 50) stats["< 50"][gen.toLowerCase()]++;
+            else if(val < 75) stats["50-74"][gen.toLowerCase()]++;
+            else if(val < 85) stats["75-84"][gen.toLowerCase()]++;
+            else stats["85-100"][gen.toLowerCase()]++;
+        });
+        let h = "";
+        for(let k in stats) {
+            let mp = mT > 0 ? ((stats[k].m/mT)*100).toFixed(1) : 0;
+            let fp = fT > 0 ? ((stats[k].f/fT)*100).toFixed(1) : 0;
+            h += `<tr><td>${k}</td><td>${stats[k].m}</td><td>${mp}%</td><td>${stats[k].f}</td><td>${fp}%</td><td>${stats[k].m+stats[k].f}</td></tr>`;
         }
+        document.getElementById('analysisBody').innerHTML = h;
+    }
 
-        // ወደ Cloud ላክ
-        async function saveToCloud() {
-            const btn = document.getElementById('saveBtn');
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = "<span>⏳</span> በመመዝገብ ላይ...";
-            btn.disabled = true;
-            btn.style.opacity = "0.7";
+    function sendToInbox() {
+        const n = document.getElementById('pName').value;
+        const m = document.getElementById('pMsg').value;
+        if(!n || !m) return alert("ስም እና መልዕክት ይሙሉ");
+        let msgs = JSON.parse(localStorage.getItem('myInbox') || "[]");
+        msgs.push({n, m, d: new Date().toLocaleString()});
+        localStorage.setItem('myInbox', JSON.stringify(msgs));
+        alert("መልዕክት ተልኳል!");
+        document.getElementById('pName').value = ""; document.getElementById('pMsg').value = "";
+        loadInbox();
+    }
 
-            try {
-                // መረጃውን ወደ Google Sheet መላክ
-                await fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors', // ኮርርስን ለማለፍ
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        grade: currentGrade, 
-                        students: allData[currentGrade] 
-                    })
-                });
-                
-                alert("ለ " + currentGrade + "ኛ ክፍል መረጃው በስኬት ተመዝግቧል! አሁን በማንኛውም ዲቫይስ ላይ ይታያል።");
-            } catch (e) {
-                console.error(e);
-                alert("ችግር ተከስቷል! ኢንተርኔት መኖሩን ያረጋግጡ።");
-            } finally {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                btn.style.opacity = "1";
-            }
-        }
+    function loadInbox() {
+        const msgs = JSON.parse(localStorage.getItem('myInbox') || "[]");
+        document.getElementById('inboxList').innerHTML = msgs.reverse().map(m => `<div style="border-bottom:1px solid #eee; padding:5px;"><b>${m.n}:</b> ${m.m} <br><small style="color:gray">${m.d}</small></div>`).join('') || "መልዕክት የለም";
+    }
 
-        function backToGrades() {
-            document.getElementById('gradeSelection').classList.remove('hidden');
-            document.getElementById('studentSection').classList.add('hidden');
-            window.scrollTo(0, 0);
-        }
-    </script>
+    function clearInbox() { if(confirm("ሁሉንም መልዕክት ማጥፋት ትፈልጋለህ?")) { localStorage.removeItem('myInbox'); loadInbox(); } }
+
+    function uploadPhoto(e) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            let ph = JSON.parse(localStorage.getItem('myPhotos') || "[]");
+            ph.push(reader.result);
+            localStorage.setItem('myPhotos', JSON.stringify(ph));
+            displayPhotos();
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
+    function displayPhotos() {
+        const ph = JSON.parse(localStorage.getItem('myPhotos') || "[]");
+        document.getElementById('publicGallery').innerHTML = ph.map(p => `<div class="gallery-item"><img src="${p}"></div>`).join('');
+    }
+
+    function addNewRow() { 
+        const g = document.getElementById('gradeSelector').value;
+        if(!g) return alert("ክፍል ይምረጡ");
+        let data = JSON.parse(localStorage.getItem('data_' + g) || "[]");
+        data.push({name:"", gen:'M', v1:'', v2:'', v3:'', v4:'', v5:'', r60:'0', f:'', r100:'0'});
+        localStorage.setItem('data_' + g, JSON.stringify(data));
+        renderPagedTable(data);
+    }
+
+    function downloadPDF() { 
+        const element = document.getElementById('printableArea');
+        html2pdf().from(element).set({ margin: 0, filename: 'Result_Report.pdf', html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } }).save();
+    }
+</script>
 </body>
 </html>
